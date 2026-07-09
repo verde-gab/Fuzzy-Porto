@@ -1,0 +1,1189 @@
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                1
+
+
+
+
+                Probabilistic Forecasting With Fuzzy Time Series
+                                     Petrônio C. L. Silva, Hossein J. Sadaei, Rosangela Ballini, Frederico G. Guimarães
+
+
+
+               Abstract—In recent years, the demand for developing low                                         in Bayesian Inference, or costly estimation techniques and
+           computational cost methods to deal with uncertainties in fore-                                      Monte-Carlo simulations. Probabilistic forecasting has been
+           casting has been increased. Probabilistic forecasting is a class of                                 used in areas such as weather forecasting ([4] and [5]) electric
+           forecasting in which the method provides intervals or probability
+           distributions as outcomes of its forecasting. The aim of this paper                                 load forecasting ([6], [7] and [8]), wind power generation ([9]
+           is therefore proposing a new forecasting approach based on Fuzzy                                    and [10]) and hydrology forecasting ([11]).
+           Time Series (FTS) that takes advantage of fuzzy and stochastic                                         With the recent phenomenon of the Big Data other concerns
+           patterns on data and is capable to deal with point, interval                                        were added to requirements of forecasting methods: scalability,
+           and distribution forecasts. The method proposed was empirically                                     low computational cost and self-adaptability. Some of these
+           tested with typical financial time series and the results were
+           compared with other standard FTS and statistical methods. The                                       are characteristics of the Fuzzy Time Series (FTS) methods
+           results show that the proposed method obtained accurate results                                     [12], which have been drawing more attention and relevance in
+           and outperforms standard FTS methods. The proposed method                                           recent years due to many studies reporting their good accuracy
+           also combines versatility, scalability and low computational cost                                   compared with other models [13]. FTS are also an approach
+           making it useful on a wide range of application scenarios.                                          to deal with the epistemic uncertainty, as with the time-
+             Index Terms—Fuzzy Systems, Time Series Analysis, Forecast                                         aggregation case of the financial time series. The fuzzyfication
+           uncertainty, Probabilistic Forecasting, Fuzzy Time Series.                                          of data gives a more flexible representation to the individual
+                                                                                                               measures, embracing the range of possible value fluctuations
+                                            I. I NTRODUCTION                                                   not covered by the single values.
+                                                                                                                  FTS methods have been commonly used for forecasting
+           M        ANY scientific and engineering applications demand
+                    the measurement of forecasting uncertainty inherent
+           in natural and economic processes. In these processes the
+                                                                                                               of university enrollments ([12], [14], [15]), stock markets
+                                                                                                               ([16], [17], [18], [19], [20], [21]), tourism ([22]), electric
+                                                                                                               load ([23], [24]), seasonal time series ([25], [26], [27]) among
+           uncertainty can be intrinsic or extrinsic and is classified in
+                                                                                                               many others. There are still some gaps in FTS methods ([28]
+           two categories: the epistemic uncertainty and the ontologi-
+                                                                                                               and [29]) related with methodological problems but many of
+           cal uncertainty [1]. The epistemic uncertainty represents the
+                                                                                                               them have been approached in more recent studies [30]. But
+           vagueness, lack of information and imprecision (aggregations,
+                                                                                                               the most notable lack in these methods is the absence of
+           measurement errors, sensor calibration and other unknown
+                                                                                                               probabilistic forecasting approaches.
+           factors) and can be modeled by the fuzzy theory. The ontolog-
+                                                                                                                  Taking these FTS drawbacks into consideration, this re-
+           ical uncertainty represents the randomness and the stochastic
+                                                                                                               search presents the Probabilistic Weighted FTS (PWFTS), a
+           behavior and can be modeled by the probability theory.
+                                                                                                               new method family that exploits both types of uncertainty to
+              Despite these points, the majority of forecasting methods
+                                                                                                               capture time series patterns and translate them into the rule-
+           are concerned with one step ahead point forecasting without
+                                                                                                               based knowledge system (the Probabilistic Weighted Fuzzy
+           outputting uncertainty measures. When the n-step ahead fore-
+                                                                                                               Logical Relationship Groups). PWFTS is capable of forecast-
+           casting is considered, the uncertainty increases and affects the
+                                                                                                               ing points for one step ahead, intervals for one or many steps
+           accuracy and reliability of models. This effect becomes even
+                                                                                                               ahead and probabilistic distributions for many steps ahead.
+           worse as the forecasting horizon increases.
+                                                                                                               This method does not make any parametric assumptions about
+              This fact led to the development of methods for Probabilistic
+                                                                                                               the data, it is computationally cheaper, the rules generated
+           Forecasting [2] and Interval Forecasting [3], to deal with
+                                                                                                               by the method are easy to update, human-readable and their
+           forecasting uncertainty by estimating distributions of possi-
+                                                                                                               parameters make it flexible for several use cases.
+           ble values instead of a unique point forecast. The Interval
+                                                                                                                  The main contributions of this paper are:
+           Forecasting can be viewed as a particular case of the Proba-
+                                                                                                                  • development of the Probabilistic Weighted Fuzzy Time
+           bilistic Forecasting where the probabilities are assumed to be
+           uniform inside the bounds of the interval forecast. However,                                             Series, which is a new non-parametric, data driven and
+           traditional methods of probabilistic forecasting require the                                             highly accurate forecasting method;
+                                                                                                                  • a new representation method for fuzzy temporal rules,
+           use of parametric models with distribution assumptions, as
+                                                                                                                    with weights on the precedent and the consequent of the
+              Petrônio C. L. Silva is with the Instituto Federal do Norte de Minas Gerais,                         rules, reflecting its a priori and a posteriori empirical
+           Januária, MG, Brazil.                                                                                   probabilities;
+              Petrônio C. L. Silva, Hossein J. Sadaei and Frederico G. Guimarães
+           are with the Machine Intelligence and Data Science (MINDS) Laboratory,                                 • new defuzzyfication methods capable to produce prob-
+           Universidade Federal de Minas Gerais, Belo Horizonte, MG, Brazil.                                        ability distributions, prediction intervals and point fore-
+              Rosangela Ballini is with the Department of Economic Theory, Institute of                             casts. This is the first FTS method in the literature that
+           Economics, University of Campinas, Campinas, SP, Brazil.
+              Frederico G. Guimarães is with the Department of Electrical Engineering,                             integrates point, interval and probabilistic forecasting in
+           Universidade Federal de Minas Gerais, Belo Horizonte, MG, Brazil.                                        the same model.
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                2
+
+
+
+              The method proposed was empirically tested with typical                                          find the ideal partition lengths. Li et al. [34] applied the
+           financial time series and the results were compared with other                                      Fuzzy C-Means clustering algorithm to find the best partitions
+           standard FTS and statistical methods. The results show that the                                     midpoints. Cheng [35] used the entropy of data to find the best
+           proposed method obtained accurate results and outperforms                                           partitions midpoints. Enayatifar et al. [36] used an evolutionary
+           standard FTS methods. The proposed method also combines                                             algorithm to achieve the optimal partitioning scheme.
+           versatility, scalability and low computational cost making it                                          The generation of FLRG from the fuzzyfied data in FTS
+           useful on a wide range of application scenarios.                                                    model has, at least, two drawbacks: the loss of rule’s recur-
+              To explain the details of the method, this paper is organized                                    rence and their chronological order. Thus at the forecasting
+           as follows: section II presents the related literature of FTS and                                   process a very recurrent pattern of data has the same impor-
+           Probabilistic Forecasting; section III introduces the PWFTS                                         tance of a unique occurrence pattern. Moreover, newer and
+           method for generating the rules and a method for point                                              older patterns also have the same weight in the forecast. To fix
+           forecasting one step ahead; section IV describes extensions                                         these drawbacks, Yu [37] proposed the Weighted Fuzzy Time
+           for the standard method. In section V an empirical analysis                                         Series (WFTS) model by including weights on FLRGs. These
+           is employed to validate the proposed method and compare its                                         weights are monotonically increasing and have a smoothing
+           performance with that of other methods. Finally, in section VI,                                     effect, giving more importance to the most recent data in the
+           the overall conclusions are given.                                                                  forecasting process. The work of [15] and [21] have presented
+                                                                                                               the Improved Weighted Fuzzy Time Series (IWFTS) model
+                                      II. L ITERATURE R EVIEW                                                  and changed the way in which the weights are assigned to
+                                                                                                               the RHS of the rules in Yu’s model. The main difference
+           A. Fuzzy Time Series Models                                                                         is that the weights are calculated by the recurrence of each
+              Fuzzy Time Series (FTS) are non parametric models intro-                                         rule, discarding the chronological order. The Exponentially
+           duced by Song and Chissom [12] based on Fuzzy Set theory                                            Weighted Fuzzy Time Series (EWFTS) method, proposed in
+           [31]. These methods are easy to implement and very flexible,                                        [38] and [20], replaces the linear weight growth of WFTS
+           providing ways to deal with numeric and non-numeric data.                                           model by an exponential growth. Lee, Sadaei and Suhartono
+           Some of FTS methods produce compact and human readable                                              [39] proposed a broad generalization of the weighted methods
+           models of the time series behavior using fuzzy rules, which                                         with the Polynomial Fuzzy Time Series. This method demands
+           could in principle be used by business experts and researchers.                                     the coefficient fitting by optimization techniques but is capable
+              There are several categories of FTS methods, varying                                             to approximate WFTS, IWFTS and EWFTS methods.
+           mainly by its order and time-variance. The order indicates                                             Above methods are first order models. Higher order methods
+           how many time-delays (lags) are used in modeling the time                                           include [18], [40] and [41], and approaches that deal with
+           series. Given the time series data F , the First Order models                                       the order, lag and rule optimization as in [42]. Seasonal
+           use F (t − 1) data to predict F (t) and the High Order models                                       models include [43]. There are also hybrid FTS approaches
+           use F (t − 1), F (t − 2), ..., F (t − k) data to predict F (t). Time                                such as [40], which proposes a high-order multi-variable FTS
+           varying models require updates of the current model with time                                       algorithm based on fuzzy clustering; [30] combines statistical
+           to produce new forecasts.                                                                           ARFIMA models with FTS for forecasting of long-memory
+              Song and Chissom [12] proposed the main steps of all FTS                                         time series; and [44], which uses genetic algorithms and neural
+           methods, but its computation demanded many matrix opera-                                            networks coupled with FTS. Several recent works are using
+           tions for each forecasting, making the process computationally                                      the F-Transform defined in [45], as a method to represent and
+           expensive. Later, Chen [32] simplified Song and Chissom’s                                           decompose the time series signal, as can be found in [46], [47]
+           algorithm by creating the Fuzzy Logical Rule Groups (FLRG),                                         and [43].
+           making the forecasting process cheaper by avoiding the use                                             All these models have some common drawbacks. First,
+           of matrix manipulations. The FLRG represent the knowledge                                           in the forecasting step just one FLRG from the rule base
+           base (rule base) of the model and are human readable and                                            is chosen for computing the result, based on the maximum
+           easy to interpret. Both methods are known as Conventional                                           membership between the input value and all the FLRGs. This
+           FTS models.                                                                                         does not take advantage of the “smoothing” effect of fuzzy
+              The initial step of training an FTS model is the partitioning                                    methods, which demands mixing many sets according to their
+           of the Universe of Discourse U , that is, the range of values                                       fuzzy membership values. Secondly, these models are point-
+           covered by the training data. This is certainly one of the most                                     based forecasters and give no uncertainty measures about their
+           crucial steps in FTS methods due to their influence on the                                          results.
+           forecasting accuracy and model over-fitting. The number of                                             The first works to make the relationship of probabilities
+           intervals, the length of these intervals and their midpoints                                        with fuzzy sets came from Prof. Zadeh, [48], [49], who
+           are all parameters that should be chosen carefully or indeed                                        defined the fuzzy set probability as the expectation of the
+           optimized. The partitioning scheme initially proposed in Con-                                       membership function. Also Klement, Schwyhla and Lowen
+           ventional FTS is just the division of the data range in k equal                                     [50] and [51] explore the relationships between the fuzzy
+           length intervals, the same method adopted hereafter in this                                         membership functions and the probability measures based on
+           work just for simplicity.                                                                           Measure Theory. These theoretical works form the base of
+              However, more accurate methods have been proposed in                                             the Fuzzy Stochastic Fuzzy Time Series (FSFTS) of Song,
+           the literature. Huarng [33] proposed an empirical method to                                         Leland and Chissom [52], where three models were presented
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                3
+
+
+
+           but unfortunately there is no empirical analysis of their results.                                     These ensembles based on Monte Carlo methods can be
+           In [53], the Multivariate Stochastic Fuzzy Forecasting is pro-                                      homogeneous (same method with different parameters) or
+           posed based on the exponential smoothing among the diverse                                          hybrid (different methods with different parameters). The
+           variables. Gangwar and Kumar [54] proposed the Probabilistic                                        internal methods are executed several times and the larger the
+           and Intuitionistic Fuzzy Time Series method, strongly based                                         sample is, the better approximations are made. After n runs,
+           on data normality and explicit Gaussian Process assumption.                                         the empirical distribution P (Yi ) of the outputs is available.
+              The fuzzy stochastic methods presented depend on knowing                                         Initially Ensemble Learning methods were developed to pro-
+           the data distribution beforehand, and some of them depend on                                        duce point forecasts as a combination of the individual models
+           the data normality. These assumptions make them less general,                                       forecasts by a weighted average or more complex methods
+           restricting their usability.                                                                        as Bayesian Model Averaging, see for instance [61]. Soon
+                                                                                                               after, these methods were adapted for probabilistic forecasting
+           B. Probabilistic Forecasting                                                                        as in [62], [5] and [63]. In [64], a methodology for electric
+               Gneiting and Katzfuss [2] define probabilistic forecasting as                                   load probabilistic forecasting is proposed combining point
+           “the form of a predictive probability distribution over future                                      forecasting and scenario-based probabilistic forecasting.
+           quantities or events of interest”. This definition encloses two                                        Several other non-parametric approaches are possible, for
+           main forecasting types: intervals and probability distributions.                                    instance machine learning models such as k-Nearest Neighbors
+               Interval forecasts take the form I = [a, b] where a represents                                  (kNN) and Kernel Density Estimators (KDE). Both approaches
+           the lower bound and b the upper bound of uncertainty and usu-                                       smooth the discrete values in a continuous function, the kernel
+           ally represent quantiles of an estimate Ŷ (t) or the conditional                                   function, that approximates the empirical distribution of data.
+           variance V ar[y(t) | y(t − 1), y(t − 2), ...]. A simple method                                      A review of density estimation methods can be found in [65]
+           for creating prediction intervals for generic forecasting models                                    and a specific study on estimation of the kernel’s parameters
+           was proposed by [55], namely mean-variance model. From the                                          can be found in [66].
+           point forecast µ = p  E[Yt+1 | Yt , Yt−1 , ...] with the variance of                                   Some other non-FTS based and soft-computing modelling
+           the residuals σ = V AR[] by assuming that these residuals                                         approaches exist in the literature to solve similar problems. For
+           follow  ∼ N (0, 1). The prediction interval is calculated by                                       instance, the use of nature-inspired optimization algorithms to
+           I = [µ − zα/2 σ , µ + zα/2 σ ] and zα/2 = Φ((1 − α)/2) is                                         induce fuzzy type-2 rules and generate prediction intervals is
+           the standard normal distribution function.                                                          presented in [67]. The projectional neural networks are used in
+               The main probabilistic approach for interval forecasting is                                     [68] to forecast complex nonlinear systems. Bayesian Filters
+           the Quantile Auto Regression (QAR) [56], based on the Quan-                                         are used in [69] to create probabilistic forecasts. When com-
+           tile Regression [57]. QAR approaches have been used in many                                         pared with these and other approaches, some advantages of
+           application fields, for instance energy load forecasting [6] and                                    PWFTS become clear: it is a white box and data driven method
+           wind forecasting [9]. Each QAR model is fitted for a specific                                       that does not require computationally expensive optimization
+           τ , the quantile value, hence for a certain confidence level α,                                     methods for training its models or even making parametric
+           two QAR models are needed (α and 1-α). The independence                                             assumptions on its forecasts.
+           of quantiles also allows one to create asymmetric inter-quantile                                       Previous work of the authors tackled the interval forecasting
+           intervals, if needed.                                                                               using FTS in [58] and using general fuzzy rules based systems,
+               In the FTS literature, [58] proposed the Interval Fuzzy Time                                    as in [70]. In [71], the authors proposed the Ensemble FTS.
+           Series (IFTS). In this method, the length of forecasting interval                                   In this method the point forecasting results of individual
+           is the measure of the fuzzy uncertainty, where wide intervals                                       FTS models are combined through a KDE to produce a
+           mean high uncertainty and thin intervals mean low uncertainty.                                      probability density. The main drawback of this method is the
+           The main drawback of this method is considering only the                                            computational cost involved in training and using the ensem-
+           fuzzy uncertainty, discarding the stochastic behavior of the                                        ble. The probabilistic forecasting was also tackled with an
+           time series.                                                                                        evolutionary algorithm in [10], using Monte Carlo simulation.
+               On the other hand, in the probability distribution forecast                                     However, these approaches are limited in their application
+           methods, there is a PDF – probability distribution function                                         when compared to the proposed method, whose flexibility
+           P (y(t)), where P : U → [0, 1], U is the sample space of the                                        allows it to be used in a wider range of applications.
+           time series Y (t), which associates an occurrence probability
+           for each y(t) ∈ Y (t). A common approach for probabilistic                                           III. T HE P ROBABILISTIC W EIGHTED F UZZY T IME S ERIES
+           forecasting is the use of ensembles of models and forecast                                             The PWFTS is a non-parametric and rule based method
+           combination. This is not a new concept, see for instance [59],                                      that extends previous weighted FTS approaches. More impor-
+           and start on the assumption that mixing different forecasting                                       tantly, the method revises methodological aspects to fix known
+           sources may improve overall forecasting. This is slightly                                           drawbacks in FTS methods. First it proposes to separate the
+           close to the concept of Ensemble Methods defined by [60]                                            model training procedure of the forecasting procedure, also
+           as “an ensemble prediction system consists of multiple runs                                         renaming controversial terms in the FTS literature (such as
+           of numerical weather prediction models, which differ in the                                         FLR and FLRG) to new ones. The proposed PWFTS also is a
+           initial conditions”. Also [5] states that “The ultimate goal of                                     truly fuzzy method, fixing the maximum membership trick of
+           ensemble forecasting is to predict quantitatively the probability                                   several FTS methods and taking into account all active fuzzy
+           density”.                                                                                           rules that have membership values greater than zero.
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                4
+
+
+
+              The core concept of PWFTS is the fuzzy empirical probabil-          B. Training procedure
+           ity, used to compute the weights of the model, whose intuition            The training procedure is a seven step method, illustrated
+           is discussed in the next section.                                      in Figure 1, to learn the temporal dynamics of the time series
+                                                                                  training data Y and represent it on a fuzzy-probabilistic model,
+                                                                                  namely the Probabilistic Weighted Fuzzy Temporal Pattern
+           A. Fuzzy Empirical Probabilities
+                                                                                  Group - PWFTPG. The steps of the method are listed below :
+              The initial Zadeh’s proposition of fuzzy probability, Step 1 Define the universe of discourse: Define U as the sample
+           P (A) = E[µA ], proposed in [48], demands the previous                        space of in-sample training data Y , such that U =
+           knowledge of the probability distribution over the universe                   [min(Y )−D1 , max(Y )+D2 ], where [min(Y ), max(Y )]
+           of discourse. Since this distribution is unknown, an empirical                is the range of in-sample data and D1 and D2 are
+           distribution must take place. The simplest definition of em-                  numbers used to extrapolate this range, for instance
+           pirical probability is the relative frequency of a discrete value             D1 = 0.1 · min(Y ) and D2 = 0.1 · max(Y );
+           or of a range of continuous values. Fuzzy Theory provides Step 2 Partitioning: split U in k even length intervals ui , for
+           a different look on traditional Probability Theory because it                 i = 1, . . . , k, with midpoints mpi ;
+           affects the way the events are counted. On fuzzy sets the notion Step 3 Define the linguistic variable A: Create k overlapping
+           of event is more complex because the same value can belong to                 fuzzy sets Ai , with membership functions µAi , related
+           several sets with different degrees of membership. In that case,              to an interval ui , and midpoints mpi . Each fuzzy set
+           instead of accounting the integral (i.e. unary) occurrence of the             Ai ∈ A is a linguistic term of the linguistic variable A;
+           event, their partial occurrence is accounted as the membership Step 4 Fuzzyfication: Transform the original numeric time se-
+           value. This method is known by fuzzy frequency, and was                       ries Y into the FTS F , whose each data point f (t) ∈ F
+           firstly developed in [72]. A related formulation can be found                 is a k-tuple with the membership value of y(t) with
+           in [45], with the concept of F-Transform, which decomposes                    respect to each linguistic term Ai ∈ A, such that:
+           the original domain of the time series into fuzzy frequencies
+                                                                                            f (t) = [µA1 (y(t)), µA2 (y(t)), . . . , µAk (y(t))] (4)
+           over the fuzzy sets. This decomposition can also recreate the
+           time series using the inverse transform.                             Step 5 Generate the FTP set: The Fuzzy Temporal Pattern -
+              Given the sample space U ⊂ R and the fuzzy sets A, the                     FTP1 is a fuzzy rule with format Ai → Ak that indicates
+           empirical probability of a fuzzy set Ai ∈ A is the sum of                     a temporal succession where the precedent (or the Left
+           their memberships µAi (y), ∀y ∈ U divided by the sum of the                   Hand Side - LHS) is Ai ∈ f (t) and the consequent (or
+           partition functions ZAi of all fuzzy sets Aj ∈ A, as presented                the Right Hand Side - RHS) is Ak ∈ f (t + 1), for each
+           in Equation (1). The partition function ZAi is the integral (or               possible pair of Ai × Ak of membership values greater
+           some approximation) of the membership  R        function µAi over             than zero, i.e., {Ai → Ak } ∀Ai ∈ f (t) | µAi (y(t)) > 0
+           the sample space U , or ZAi =             µA   (y)dy   or a  simple           and   ∀Ak ∈ f (t + 1) | µAk (y(t + 1)) > 0. . Therefore,
+                                               P U i
+           discrete approximation ZAi =           y∈U µ A i (y). The  intuition          A i →   Ak can be read as “IF y(t) is Ai THEN y(t +
+           behind this formula is that the empirical probability P (Ai ) is              1) is Ak ”. As each f (t) ∈ F is a sparse k-vector of
+           evenly spread over the shape of the fuzzy membership function                 membership values, there will be many possible fuzzy
+           of Ai , and the point y is a slice of this shape whose area is                sets combinations of two sequential vectors f (t) and
+           equal to the value µAi (y), and the area of µAi is ZAi .                      f (t + 1). Then for each sequential pair on F possibly
+                                          P                                              more than one FTP will be generated;
+                                             y∈U µAi (y)                        Step  6  Generate the FTPG set: A Fuzzy Temporal Pattern
+                                P (Ai ) = P                                 (1)
+                                              Aj ∈A Z A j                                Group - FTPG2 represents the set of all FTPs with the
+                                                                                         same LHS and the union of their RHS, with the format
+              P (Ai ) is measured from a sample of U , and this empir-                   Ai → Ak , Aj , ..., where the LHS is f (t) = Ai and the
+           ical value is an approximation of the real probability. This                  RHS is f (t + 1) ∈ {Ak , Aj , ...}. Each FTPG can be
+           approximation is used in (2) to approximate the conditional                   understood as the set of possibilities which may happen
+           probability of a value y ∈ U , given a fuzzy set Ai ∈ A:                      at time t + 1 (the consequent) when a certain set Ai is
+                                                                                         identified at time t (the precedent).
+                                                    µAi (y)
+                              P (y|Ai ) = P (Ai ) ·                         (2) Step 7 Calculate empirical probabilities: The Probabilistic
+                                                     ZA i                                Weighted FTPG - PWFTPG adds weights on the LHS
+              Using (1) and (2) and the Law of Total Probability the                     and the RHS that measure their fuzzy empirical proba-
+           empirical probability P (y) can be approximated as                            bilities. Each PWFTPG has the format
+                                                   X                                                                                       Pi · Ai → wi0 · A0 , ..., wik · Ak
+                                 P (y, A) =                P (y|Ai ) · P (Ai )                        (3)
+                                                  Ai ∈A                                                                 for i = 1, . . . , k. Each weight Pi is the normalized sum
+                                                                                                                        of all LHS memberships of all FTPs where the LHS
+              The advantage of this approach is the convenience to obtain
+                                                                                                                 1 This nomenclature is adopted in replacement of Fuzzy Logical Relation-
+           P (Ai ) from a time series dataset Y . The accuracy of P (Ai )
+                                                                                                               ships (FLR) used in [12], to avoid misunderstandings with the terms “logical”
+           will be determined by k, the number of partitions of the                                            and “relationship” with their classical meanings in fuzzy theory literature.
+           universe of discourse U .                                                                             2 In replacement of Fuzzy Logical Relationship Group - FLRG used in [73].
+
+
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                5
+
+
+
+
+                                                                                   Step 1                                                    Step 2
+                            Time Series Data Set                           Define the universe of
+                                     Y                                                                                                  Partitioning of U
+                                                                                discourse U
+
+
+
+                              Fuzzy Time Series                                            Step 4                                                        Step 3
+                                      F                                               Fuzzyfication of Y                                    Define the linguistic variable A
+
+
+
+                                               Step 5
+                                      Generate Fuzzy Temporal                                                            Step 6
+                                                                                       FTP Set                   Group temporal patterns                                 FTPG Set
+                                              Patterns
+
+
+
+
+                                                                                                                                               Step 7
+                                                                            PWFTPG Set                                               Calculate the empirical
+                                                                                                                                   probabilities for each FTPG
+
+
+           Fig. 1. PWFTS training procedure
+
+
+
+                    is the fuzzy set Ai , as in (1). Pi can be understood as                                      In this section a probability distribution P (·|y(t), A), for
+                    the empirical a priori probability of theP   fuzzy set Ai                                  all y(t + 1) ∈ U will be computed using a Mixture Distribu-
+                    independent of time, or P (Ai ), such that i∈A Pi = 1.                                     tion approach to transform each PWFTPG probability into a
+                    Each weight wij is associated with a fuzzy set Aj on                                       continuous distribution, as described in (7).
+                    the RHS of the FTP whose the LHS is Ai , and it is
+                                                                                                                                                                 P
+                                                                                                                  A mixture distribution is defined as P (y) =       ωj · πj (y)
+                    the normalized sum of all RHS memberships of all                                           where πj : U → [0, 1] are specific PDFs     and ω j is a weight
+                    FTPs where LHS = Ai and RHS = Aj . Therefore,
+                                                                                                                                                       P
+                                                                                                               associated to each PDF, such that          ωj = 1. Given an
+                    the weight wij can be understood as the empirical                                          input value y(t) ∈ Y and the PWFTPG set, the probability
+                    conditional probability of the fuzzy set Aj on time                                        distribution for each y(t + 1) ∈ U is given by (7), where ωj is
+                    t + 1 when the fuzzy set A    Pi is identified on time t,                                  replaced by the probability P (y(t)|Ai ), the LHS probability
+                    or P (At+1
+                            j   | Ati ), such that j∈A wij = 1 for each Ai                                     given the input value, and the distribution πj is replaced by
+                    in LHS.                                                                                    the probability P (y(t + 1)|Aj , Ai ), ∀Aj ∈ RHS.
+             The final PWFTPG set is shown in (5). Its size depends                                               Looking back to Equation (2), it is pretty obvious that
+           on the number of partitions k, and it could be represented
+           in matrix form but the weights wij form a very sparse                                                                               k
+                                                                                                                                               X
+           matrix, which justifies using optimized data structures for its                                                                            P (y(t)|Ai ) < 1
+           representation.                                                                                                                      i=1
+
+                              P1 · A1 → w11 · A1 , ..., w1k · Ak                                               once P (Ai ) is the probability of the whole fuzzy set and y(t)
+                                   ... ... ...                                                        (5)      is
+                                                                                                               P just a small slice of it, thus it does not comply with the
+                              Pk · Ak → wk1 · A1 , ..., wkk · Ak                                                  ωj = 1 restriction of the mixture distribution. To work
+                                                                                                               around this issue P (y(t)|Ai ) is re-scaled to
+              The outcome of the Training Procedure is the PWFTPG set
+           and it represents the temporal dynamics of the original data. It                                                                          P (y(t)|Ai )
+           is an empirical probability distribution of the linguistic variable                                                                  P
+                                                                                                                                                    j∈A P (y(t)|Aj )
+           A over the time series Y with sample space U , where each
+           rule contains the unconditional probability P (Ai ) = Pi and
+           conditional probabilities P (Aj |Ai ) = wij , for Ai , Aj ∈ A.                                          Therefore, considering x = y(t + 1)
+
+                                                                                                                                                                                 
+                                                                                                                                                                 Xk
+           C. Probabilistic Forecasting Procedure                                                                                                  P (y(t)|Ai )    P (x|Aj , Ai )
+                                                                                                                                            k
+              The forecasting procedure is a four step procedure listed in                                                                  X                           j=1
+                                                                                                                   P (x|y(t), A) =                              k
+                                                                                                                                                                                                          (6)
+           this section, which takes as input a sample y(t) ∈ U and uses                                                                     i=1
+                                                                                                                                                                X
+           the PWFTPG model learned in the previous section to generate                                                                                               P (y(t)|Aj )
+           the output, which depends on the type of forecasting.                                                                                                j=1
+
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                6
+
+
+                                                                         
+                                                           k
+                                             µAi (y(t)) X        µAj (x)                                      will be represented by an interval I whose bounds are the
+                                          Pi                  wij         
+                                                                                                               expectation of the bounds of its RHS fuzzy sets, such that Ai
+                                        k      ZAi        j=1
+                                                                   Z A j
+                                                                                                               and Ai represent the lower and upper bounds of the fuzzy set
+                                        X
+               P (x|y(t), A) =                             k
+                                                                                                      (7)
+                                        i=1
+                                                           X     µA (y(t))                                     Ai , and E[Ai ] is the expectation of the PWFTPG where the
+                                                               Pj j                                            LHS is Ai . The forecasting interval I(t + 1) then is the sum of
+                                                           j=1
+                                                                   ZA j
+                                                                                                               these expectations weighted by the P (y(t)|Ai ) probabilities,
+             The complete forecasting procedure is presented below:                                            as in (10):
+        Step 1 Fuzzyfication: For a given input value y(t) ∈ Y , find the                                                         Ii = [E[Ai ] , E[Ai ]]
+                fuzzyfied values f (t) = {Ai | µAi (y(t)) > 0};                                                                             P
+        Step 2 Pattern matching: Locate all the PWFTPG’s whose the
+                                                                                                                              E[Ai ] =         A ∈ARHS wij · Aj                    (9)
+                                                                                                                                            P j i
+                LHS is f (t).                                                                                                 E[Ai ] =         Aj ∈ARHS      wij · Aj
+                                                                                                                                                    i
+        Step 3 Forecast: The distribution of f (t + 1) is given by the                                                            " Pk                            Pk                       #
+                RHS sets of each PWFTPG matched;                                                                                      i=1  P (y(t)|A i )  ·  I i   i=1 P (y(t)|A i ) · I i
+                                                                                                               I(t+1|y(t), A) =       Pk                         , P k
+        Step 4 Defuzzyfication: Build the probability distribution                                                                       i=1 P (y(t)|A   i )         i=1 P (y(t)|Ai )
+                P (y(t + 1)|y(t)), ∀y(t + 1) ∈ U applying (7);                                                                                                                   (10)
+             The PWFTS overall forecasting method is summarized in                                                Equation (10) is used in line 15 of the Algorithm 1 to obtain
+          Algorithm 1, which takes as input the forecasting type, a                                            the interval forecast I(t + 1).
+          sample y(t) ∈ U and uses the PWFTPG model M learned
+          in the previous section to generate the output, which depends                                        E. Point forecasting procedure
+          on the type of forecasting (probabilistic, interval or point                                            To produce point forecasts from the existing distribution
+          forecasting).                                                                                        P (·|y(t)) it is only needed to apply the expectation operator,
+                                                                                                               such that y(t+1) = E[P (·|y(t))]. This is also computationally
+             Algorithm 1: PWFTS forecasting method                                                             expensive due to the computation of P (·|y(t)). A simple
+             input : M: the PWFTPG model                                                                       heuristic for producing point forecasts is to compute the
+                      y(t) ∈ U : the input sample                                                              expectation E[Ai ] of each PWFTPG, as presented in (11),
+                      type: the forecasting type                                                               where mpj is the midpoint of each fuzzy set Aj ∈ RHS.
+           1 begin
+                                                                                                               The expectation E[Ai ] for each PWFTPG Ai is constant and
+           2     f (t) ← {Ai | µAi (y(t)) > 0} ;     // Fuzzification
+           3     active rules ← ∅;                                                                             can be pre-computed. The final forecast y(t + 1) then is the
+           4     foreach PWFTPG ∈ M do                                                                         sum of these expectations weighted by P (y(t)|Ai ) probability,
+           5          if f (t) matches the LHS then // Rule Matching                                           as shown in (12).
+           6               active rules ← this PWFTPG                                                                                        X
+           7          end                                                                                                         E[Ai ] =        wij · mpj              (11)
+           8     end                                                                                                                                    j∈ARHS
+                                                                                                                                                           i
+           9     if type =’probabilistic’ then
+                                                                                                                                                             k
+          10          P ← ∅;                                                                                                                                X   P (y(t)|Ai ) · E[Ai ]
+          11          foreach x ∈ U do                                                                                        y(t + 1|y(t), A) =                Pk                                      (12)
+          12               Apply Eq. (7) to compute P (y(t + 1))                                                                                            i=1    i=1 P (y(t)|Ai )
+          13          end                                                                                        Equation (12) is used in line 17 of the Algorithm 1 and to
+          14     else if type =’interval’ then
+          15          Apply Eq. (10) to compute I(t + 1)                                                       defuzzify the point forecast y(t + 1).
+          16     else
+          17          Apply Eq. (12) to compute y(t + 1)                                                                          IV. PWFTS EXTENSIONS
+          18     end                                                                                           A. Multi step ahead forecasting
+          19 end
+                                                                                                                  The forecasting procedures listed in Section III are one step
+                                                                                                               ahead methods. To extend the forecasting procedures to multi-
+                                                                                                               step ahead forecasting, an iterative approach is adopted, in
+           D. Interval forecasting procedure                                                                   which the t + 1 step is computed with the previous presented
+             With P (·|y(t)) it is possible to build a CDF - cumulative                                        methods and its output is fed back as input to the next m steps.
+           density function F (·|y(t)) and use it to construct the quantile                                    From the step t + 2 on let s ∈ [t + 2, t + m] be the new time
+           function Q(τ ) : [0, 1] → U , as shown in Equation (8):                                             indexer. The simpler approach is to perform the point forecast
+                                                                                                               of y(s + 1) with the input y(s).
+                             Q(τ ) = min{x ∈ U | F (x|y(t)) = τ }                                     (8)         The interval procedure requires a few more modifications.
+           where τ ∈ [0, 1] is the desired quantile. Then, for a certain                                       Given the input I(s) the same interval forecasting procedure
+           confidence level α ∈ [0, 1], it is possible to compute an inter                                     will be executed with inputs I(s) and I(s) producing two
+           quantile interval If = [Q(α), Q(1 − α)].                                                            new intervals I(s + 1) and I(s + 1). Then the final forecasting
+              However, the above method demands the computation of                                             interval will be I(s + 1) = [min{I(s + 1)}, max{I(s + 1)}].
+           the whole PDF. A simpler and fast heuristic for generating                                             Finally, the probabilistic forecasting for P (·|y(s)) given the
+           intervals is to compute the maximum uncertainty interval, i.e.,                                     input will change to (13), instead of (7). This equation replaces
+           the interval over the bounds of each fuzzy set. Each PWFTPG                                         P (y(s)|Ai ) for the previous probability distribution P (·|y(s)).
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                7
+
+
+                                                 k
+                                                 X     P (y(s)|y(s − 1), Ai )                                  commonly used in the FTS literature (see for instance [37],
+                 P (y(s + 1)|y(s)) =                Pk                                                         [75], [76], [17], [77], [30], etc). This dataset is sampled from
+                                               i=1    j=1 P (y(s)|y(s − 1), Aj )
+                                                  k
+                                                                          !                                    1995 to 2014 time window, and has the averaged daily index
+                                             ×
+                                                 X
+                                                     P (y(s + 1)|Az , Ai )       (13)                          by business day. This is a stationary time series dataset whose
+                                                    z=1
+                                                                                                               Augmented Dickey-Fuller (ADF) statistic is −2.65 where the
+                                                                                                               critical value for α = 0.05 is −2.86.
+           B. High order models                                                                                   The National Association of Securities Dealers Automated
+              The PWFTS method described in Section III is a first order                                       Quotations - Composite Index (NASDAQ ÎXIC)4 is an eco-
+           method, i.e., it just needs y(t) to forecast y(t + 1), while high                                   nomical index already used in the FTS literature (see [75],
+           order models use m time lags. To extend the standard approach                                       [28], [78], [20]). The historical data was sampled from 2000
+           to high order a modification in the Step 5 of the Training                                          to 2016 time window, and has the averaged daily index by
+           procedure is needed to adapt the FTPs and FTPGs to store m                                          business day. This is a stationary time series dataset whose
+           fuzzy sets on their LHS.                                                                            ADF statistic is 0.04 where the critical value for α = 0.05 is
+              Once the fuzzyfied value f (t) has multiple fuzzy sets                                           −2.86.
+           (with different membership values greater than zero), a set of                                         The S&P500 - Standard & Poor’s 500 5 is a market index
+           fuzzyfied values f (t − m), ..., f (t) must be represented with                                     composed by 500 assets quoted on New York Stock Exchange
+           all possible combinations between the fuzzy sets of each lag,                                       and Nasdaq. This dataset was already used by [78] and [77]
+           such as f (t−m)×f (t−m−1)×. . .×f (t), where × represents                                           and contains the averaged daily index, by business day, from
+           the cartesian product operator.                                                                     1950 to 2017 with 16000 instances. This is a stationary dataset
+              In Step 5 the FTPs will have the format                                                          whose ADF Statistic is 0.00 where critical value for α = 0.05
+           Ami , Ai
+                   m−1
+                       , . . . , A0i → Aj , which can be read as “IF                                           is −2.86.
+                                                       m−1                                                        For all these datasets PWFTS models were obtained for
+           f (t − m) is Am   i AND f (t − m − 1) is Ai      AND . . . AND
+                     0
+           f (t) is Ai THEN f (t + 1) is Aj ”. In Step 6, the high order                                       orders n ∈ {1, 2, 3} and several different numbers of parti-
+           FTPGs gather all high order FTPs with the same LHS.                                                 tions. The TAIEX and NASDAQ datasets were tested with
+              In Step 7 the Pi weight is replaced by PLHS that aggregates                                      the original data and with differentiation transformed data,
+           the µLHS memberships of each FTPG for the samples. Given a                                          generally obtaining more accurate results. For saving space,
+           sample y(t−m), . . . , y(t) ∈ Y with m lags, their membership                                       only the best results of each method were reported at this
+           grades with a FTPG is the product T-norm between all                                                paper. Therefore, all the methods are compared by taking the
+           memberships of the LHS:                                                                             best performing model of each method, instead of fixing the
+                                                                0                                              same hyper-parameters for all the methods.
+                                                                \
+                   µLHS (y(t − m), ..., y(t)) =                       µAi (y(t − i))                (14)          In the following sections the benchmarks for point, interval
+                                                                i=m                                            and distribution forecasts will be presented, where the eval-
+              In the forecasting procedure, the Step 1 requires a sample                                       uation metrics are discussed and the presented models are
+           with m lags that will generate m fuzzyfied values. In Step 2,                                       compared with other models in the FTS literature.
+           all combinations between the fuzzy sets of each fuzzyfied lag                                          The hypothesis testing procedures adopted best practices
+           will be the LHS of the affected PWFTPGs. In Step 3, in Equa-                                        discussed in [79], [80], [81]. The Friedman Aligned Ranks test
+           tions (7), (10) and (12), the empirical conditional probability                                     [82] non parametric procedure was adopted to test the equality
+           P (y(t)|Ai ) will be replaced by P (y(t − m), ..., y(t)|LHS),                                       of the means, where the null hypothesis H0 stands for the
+           the empirical conditional probability of the sample y(t −                                           equality of all means and the inability to distinguish between
+           m), ..., y(t) given the LHS of the PWFTPG.                                                          the methods and the alternative hypothesis H1 stands for the
+                                                                                                               difference of the means and the distinguishability between
+                                                                  µLHS (y(t − m) . . . , y(t))                 the models. The paired post hoc procedure adopted was the
+           P (y(t−m) . . . y(t)|LHS) = PLHS                           P
+                                                                         Ai ∈LHS ZAi                           Finner test [83], in a one-versus-all design where the PWFTS
+                                                                                          (15)                 method is taken as control method. In Finner test the null
+                                                                                                               hypothesis H0 stands for the equality between the control and
+                       V. C OMPUTATIONAL E XPERIMENTS
+                                                                                                               the test methods and the alternative hypothesis H1 stands for
+              To measure the performance of the proposed models three                                          the significant difference between the control and test methods.
+           well known financial time series data (the TAIEX, S&P 500                                           All the tests adopted the significance level α = .05 and were
+           and NASDAQ data sets) were selected, each of them with 5000                                         performed on STAC framework [84], and all FTS methods
+           instances. A rolling window cross validation methodology                                            were tested with the pyFTS library6 [85].
+           [74] was applied, using a working set of 1000 instances, 800                                           In order to contribute to the replication of all the results
+           for training (80%) and 200 for testing (20%) and a sliding                                          in the paper, the data of the instances, full results and all
+           increment of 200 instances, totaling 23 experiments, and all                                        source codes for this paper are provided as supplementary
+           measurements were performed out of sample.
+              The Taiwan Stock Exchange Capitalization Weighted Stock                                            4 http://www.nasdaq.com/aspx/flashquotes.aspx?symbol=IXIC\&selected=
+
+           Index (TAIEX)3 is a well known economic time series data                                            IXIC. Access in 23/05/2016
+                                                                                                                 5 https://finance.yahoo.com/quote/\%5EGSPC/history?p=\%5EGSPC. Ac-
+             3 http://www.twse.com.tw/en/products/indices/Index Series.php. Access in                          cess in 19/03/2017
+           23/05/2016                                                                                            6 https://pyfts.github.io/pyFTS/. Access in 01/07/2018
+
+
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                8
+
+
+
+           material. All this will also be made available in the repository:                                                      (0.004)A0        →     (0.4)A0, (0.6)A1
+                                                                                                                                  (0.032)A1        →     (0.1)A0, (0.6)A1, (0.3)A2
+           https://github.com/petroniocandido/PWFTS
+                                                                                                                                   (0.15)A2        →     (0.1)A1, (0.7)A2, (0.2)A3
+              In the experiments with other FTS models, the universe of                                                           (0.181)A3        →     (0.2)A2, (0.6)A3, (0.2)A4
+           discourse was partitioned in a grid scheme, where all partitions                                                       (0.182)A4        →     (0.15)A3, (0.7)A4, (0.15)A5
+           have the same length. Each model was trained and tested with                                                           (0.134)A5        →     (0.2)A4, (0.6)A5, (0.2)A6
+                                                                                                                                                                                                            (16)
+           the number of partitions on the [10, 100] range for original data                                                       (0.16)A6        →     (0.15)A5, (0.7)A6, (0.15)A7
+           and on the [3, 30] range for differentiated data. The models                                                           (0.101)A7        →     (0.25)A6, (0.6)A7, (0.15)A8
+           trained with differentiated data generally perform better than                                                         (0.045)A8        →     (0.25)A7, (0.6)A8, (0.15)A9
+           the ones trained with original data and only their best results                                                         (0.01)A9        →     (0.6)A8, (0.4)A9
+           were selected.
+
+
+
+           A. Method parameterization
+
+              All FTS methods are affected mainly by the partitioning
+           of the universe of discourse and data transformations, and
+           their performances also depend on the stationarity of the data.
+           There is a trade off between the complexity and accuracy
+           directly related with the partitioning scheme. Less partitions
+           make the model simpler but also less accurate and, decreasing
+           the partition number can lead to under-fitting. Increasing the
+           number of partitions also increases the accuracy until the
+           model is lead to over-fitting. The best fit generally is data                                       Fig. 2. Example PWFTPG set
+           dependent and is achieved through grid search. However,
+           transformations that make data stationary and homoskedastic
+           can reduce or minimize this effect.
+              To assess the sensitivity of the proposed method to these
+           parameters, several experiments were performed, where the
+           number of partitions has more impact for non transformed
+           data and the overall best partition number is 35. With trans-
+           formed data less partitions produce better accuracy, though the
+           difference is not remarkable. The Occam’s Razor principle can
+           be adopted to choose the simplest partitioning scheme. It is
+           also important to note that the number of partitions affects
+           also the length of the prediction intervals and the probabilistic
+           forecasting.
+              A simple PWFTPG model, with the 10 even length partition                                         Fig. 3. Sample of multiple step forecasting for TAIEX dataset.
+           scheme, is shown in Figure 2, where the empirical probabilities
+           distribution for TAIEX dataset is represented.
+              The forecasting horizon affects the accuracy, that is, the                                       B. Probabilistic forecasting
+           error and the uncertainty both increase as the forecasting                                             To evaluate the probabilistic forecasting methods the Con-
+           horizon grows. The point forecasts tend to the unconditional                                        tinuous Ranked Probability Score (CRPS) was chosen. CRPS,
+           expected value of the model as the horizon increases, and the                                       defined by [86], is a proper measure for probabilistic forecasts.
+           prediction intervals tend to reach the bounds of the universe                                       It provides a direct way to benchmark probabilistic forecast
+           of discourse.                                                                                       since it is expressed in the same unit as the observed variable
+              The relation between all kinds of forecasting provided by                                        and is a generalization of the Mean Absolute Error (MAE).
+           the model is illustrated in Figure 4. For a given sample of                                         Thus, the perfect score for CRPS, as in MAE, is 0.
+           TAIEX dataset, the probabilistic forecast for each point was                                           The chosen methods for comparison were ARIMA mean-
+           calculated, and with the probability distribution the interval                                      variance model [55], Ensemble FTS [87], k-Nearest Neigh-
+           quantile forecasts for τ = [.05, .95] and τ = [.25, .75] and                                        bors with Kernel Density Estimation (k-NN + KDE) [88],
+           the point interval with the expected value of the distribution                                      [89] and Quantile Auto Regression (QAR) [56], [57]. For
+           were generated. Additionally, the heuristic methods for interval                                    ARIMA model the standard Box-Jenkins methodology was
+           and point forecasts were calculated. Visually the probabilistic                                     employed for identification of the model’s parameters, and the
+           forecast is well suited around the target data. The heuristic                                       probability distribution was built from the prediction intervals
+           intervals fall between the [.05, .95] and [.25, .75] quantile in-                                   with α ∈ {.05, .15, .25, .35, .45}. Ensemble FTS was trained
+           tervals and the expected value and the heuristic point forecasts                                    with the main FTS methods, for orders 1, 2 and 3. The k-
+           are similar with residual difference between them.                                                  NN+KDE method use k = 30, with the Epanechnikov kernel
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                                9
+
+
+
+
+           Fig. 4. All PWFTS forecasting methods applied on a TAIEX sample
+
+
+
+                                              TABLE I                                                          C. Interval forecasting
+                              CRPS RESULTS FOR PROBABILISTIC FORECASTS
+                                                                                                                  Usually three metrics are used to evaluate prediction inter-
+                                                                              CRPS                             vals: coverage rate, calibration and sharpness [9], [90]. The
+             Dataset             Model             Order       Part.                              Rank
+                                                                          AVG    STD
+                                 ARIMA              1,1,0         -       0.059  0.021              2
+                                                                                                               coverage refers to the statistical consistency between the fore-
+                              Ensemble FTS            3           3       0.365  0.070              4          casts and the observations, and measures which proportion of
+                 TAIEX
+
+
+
+
+                                  k-NN                1           -       0.515  0.033              5          the observations are inside the prediction interval, in which the
+                                 PWFTS                1           9       0.058  0.017              1
+                                  QAR                 1           -       0.092  0.033              3
+                                                                                                               ideal value is 100%. The properties of sharpness and resolution
+                                 ARIMA              1,1,0         -       0.094  0.050              2
+                                                                                                               refer to the concentration of the predictive distribution, or how
+                 NASDAQ
+
+
+
+
+                              Ensemble FTS            3           3       0.360  0.062              4          wide and variable are the intervals and refers uniquely to the
+                                  k-NN                1           -       0.477  0.025              5          forecasts. The sharpness is the average size of the intervals
+                                 PWFTS                1           9       0.080  0.033              1
+                                  QAR                 2           -       0.127  0.073              3
+                                                                                                               and the resolution is the variability of the intervals.
+                                 ARIMA              1,1,0         -       0.079  0.038              2             While small values of sharpness are desirable, meaning
+                 S&P 500
+
+
+
+
+                              Ensemble FTS            3           3       0.416  0.075              4          a compact interval, wide values of resolution are better,
+                                  k-NN                1           -       0.488  0.024              5          meaning the capability of the model to adapt the length of
+                                 PWFTS                1           9       0.074  0.032              1
+                                  QAR                 2           -       0.115  0.051              3          interval with the increase of uncertainty. There are no absolute
+                                                                                                               reference values for sharpness and resolution, which depend
+                                                                                                               on the statistical properties of the data. Empirically, when the
+                                                                                                               sharpness is reduced to make the intervals thinner and more
+                                           TABLE II                                                            precise, the risk of reducing the coverage increases, and that
+                     CRPS POST- HOC TESTS USING PWFTS AS CONTROL METHOD
+                                                                                                               is why the resolution is important.
+                           Comparison              Statistic
+                                                                  Adjusted
+                                                                                       Result                     However, using three separate metrics make the analysis of
+                                                                   p-value                                     interval forecasters more complex. The most common option
+                PWFTS vs kNN                       3.10376        0.00762         H0 is rejected
+             PWFTS vs Ensemble FTS                 2.28218        0.04445         H0 is rejected               in these cases is the Winkler score [91], which encompasses
+                PWFTS vs QAR                       1.46059        0.18740         H0 is accepted               the three characteristics in only one measure. Given a target
+               PWFTS vs ARIMA                      0.45644        0.64808         H0 is accepted               value y and a prediction interval I = [L, U ] with nominal
+                                                                                                               probability (1 − α), the Winkler score is defined by (17),
+                                                                                                               where δ = U − L. The score value is the interval width, but it
+                                                                                                               increases when the target value is not covered by the interval
+           and bandwidth h = .55. The QAR model was tested with                                                and the penalty is proportional to the error given the nominal
+           orders 1 and 2 and the probability distribution was built from                                      probability. Lower values therefore represent better prediction
+           the prediction intervals with α ∈ {.05, .15, .25, .35, .45}.                                        intervals. The mean score is defined by Equation (18), where
+                                                                                                               n is the sample size.
+              The experiments results of best performing models are
+           presented in Table I. The equality of means statistical analysis
+                                                                                                                                
+                                                                                                                                           δ          if L ≤ y ≤ U
+           rejected the null hypothesis with the test statistic of 11.31693
+                                                                                                                                
+                                                                                                                  S(α, y, I) =      δ + 2(L − y)/α if y < L                  (17)
+           and p-value of 0.02322. The results of post hoc tests in Table                                                       
+                                                                                                                                    δ + 2(y − U )/α if U < y
+                                                                                                                                
+           II show significant differences between PWFTS and k-NN
+           and Ensemble FTS. Although PWFTS obtained better average                                                                                     n
+           rank than ARIMA and QAR, the test did not show significant                                                                                   X
+                                                                                                                                              Sα =            S(α, yi , Ii )                            (18)
+           difference between them.                                                                                                                     i=1
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                               10
+
+
+
+                                       TABLE III
+              M EAN W INKLER S CORE RESULTS FOR 95% PREDICTION INTERVALS
+
+                                                                      Winkler Score
+              Dataset              Model    Order        Part.                                 Rank
+                                                                      AVG      STD
+                                   ARIMA     1,1,0         -         568.43   312.47              1
+                   TAIEX
+
+
+
+
+                                    IFTS       3          10         921.35   285.32              3
+                                   PWFTS       1          10         751.04   478.12              2
+                                    QAR        2           -        2624.56   917.99              4
+                                   ARIMA     1,1,0         -         203.69   139.88              1
+                  S&P 500 NASDAQ
+
+
+
+
+                                    IFTS       2          10         272.51    92.05              2
+                                   PWFTS       1          10         304.37   218.42              3
+                                    QAR        1           -         824.18   287.67              4
+                                   ARIMA     1,1,0         -          97.56    72.87              1
+                                    IFTS       1          10         103.56    29.78              2
+                                   PWFTS       1          10         135.09   100.03              3
+                                    QAR        2           -         302.80   101.40              4            Fig. 5. Point forecasting error by prediction horizon
+
+
+                                                                                                                                                TABLE IV
+              The chosen benchmarking methods were ARIMA mean-                                                                       RMSE RESULTS FOR POINT FORECASTS
+           variance model, IFTS [58], and Quantile Auto Regression
+           (QAR). For ARIMA model the standard Box-Jenkins method-                                                                                                            RMSE
+                                                                                                                    Dataset         Model        Order        Part.                               Rank
+                                                                                                                                                                          AVG     STD
+           ology was employed for identification of the model’s param-
+                                                                                                                                   ARIMA          1,1,0          -        87.32  28.15               3
+           eters, and the prediction intervals with α = 0.05. The QAR                                                               CFTS            1           31        95.08  31.11               9
+           model was tested with orders 1 and 2 and prediction intervals                                                           EWFTS            1            7        88.70  30.80               6
+           with α = 0.05.                                                                                                            FTS            1           13        90.73  26.60               7
+                                                                                                                                   HOFTS            3            5        91.06  30.55               8
+                                                                                                                        TAIEX
+              The experiments results of best performing models are pre-                                                           Hwang            3            5       105.54  42.75              10
+           sented in Table III. The equality of means statistical analysis                                                         IWFTS            1            5        87.65  29.09               5
+           accepted the null hypothesis with the test statistic of 6.94595                                                          Naı̈ve          1            -       127.24  40.68              11
+                                                                                                                                   PWFTS            3            3        83.72  27.63               1
+           and p-value of 0.07364, hence no multiple post hoc tests were                                                           TWFTS            1            7        85.35  28.44               2
+           employed. The results show equilibrium of PWFTS intervals,                                                               WFTS            1            5        87.43  29.12               4
+           laying between QAR and ARIMA prediction intervals, where                                                                ARIMA          1,1,0          -        28.53  11.07               3
+           QAR has wider and less reliable intervals and ARIMA has                                                                  CFTS            1           10        31.89  11.02               8
+                                                                                                                                   EWFTS            1           10        29.01  11.02               6
+           thinner and more precise ones.                                                                                            FTS            1           10        31.94  10.12               9
+                                                                                                                        NASDAQ
+
+
+
+
+                                                                                                                                   HOFTS            3            7        30.47  10.89               7
+                                                                                                                                   Hwang            2           10        36.11  14.79              10
+           D. Point forecasting                                                                                                    IWFTS            1           10        28.70  10.91               4
+                                                                                                                                    Naı̈ve          1            -        41.24  15.15              11
+              The standard accuracy metric used to evaluate point fore-                                                            PWFTS            1           10        28.21  10.89               2
+           casting methods is the Root Mean Squared Error (RMSE),                                                                  TWFTS            1           10        27.94  10.83               1
+                                                                                                                                    WFTS            1           10        28.71  10.89               5
+           described in (19), where y are the target values, ŷ are the
+                                                                                                                                   ARIMA          1,1,0          -        11.79   4.00               8
+           forecast values and n the sample size.                                                                                   CFTS            1            7        11.65   3.55               7
+                                      r Pn                                                                                         EWFTS            1            5        11.46   4.10               5
+                                                         2
+                                          i=1 (yi − ŷi )                                                                            FTS            1           31        10.42  3.580               2
+                           RM SE =                                 (19)
+                                                                                                                        S&P 500
+
+
+
+
+                                                                                                                                   HOFTS            3            5        12.00   3.24               9
+                                               n                                                                                   Hwang            3           29        12.11   4.26              10
+              The chosen benchmark models were the Naı̈ve method                                                                   IWFTS            1            5        11.50   3.89               6
+                                                                                                                                    Naı̈ve          1            -        16.18   5.22              11
+           (just repeat the last value), ARIMA, traditional FTS - FTS                                                              PWFTS            1            3        10.21   3.50               1
+           [12], Conventional FTS - CFTS [32], Weighted FTS - WFTS                                                                 TWFTS            1            9        10.78   3.81               3
+           [37], Improved Weighted FTS - IWFTS [15], Exponentially                                                                  WFTS            1            5        11.44   3.93               4
+           Weighted FTS - EWFTS [28], High Order FTS - HOFTS [41],
+           Hwang [92], and Trend Weighted FTS - TWFTS [93], these
+                                                                                                                                            TABLE V
+           last ones are the most cited FTS methods in the literature.                                                RMSE POST- HOC TESTS USING PWFTS AS CONTROL METHOD
+              The experiments results of best performing models are pre-
+                                                                                                                    Comparison                 Statistic      Adjusted p-value              Result
+           sented in Table IV. The equality of means statistical analysis
+                                                                                                                  PWFTS vs Naive               2.91318            0.03521                H0 is rejected
+           rejected the null hypothesis with the test statistic of 22.65328                                      PWFTS vs Hwang                2.65986            0.03848                H0 is rejected
+           and p-value of 0.01210. The results of multiple post hoc tests                                         PWFTS vs CFTS                2.19544            0.09073                H0 is rejected
+           in Table V show significant differences between PWFTS and                                             PWFTS vs HOFTS                1.22438            0.46407                H0 is accepted
+                                                                                                                   PWFTS vs FTS                1.18216            0.46407                H0 is accepted
+           Naı̈ve, Hwang and CFTS and no significant difference between                                          PWFTS vs EWFTS                0.67552            0.68433                H0 is accepted
+           the others, although PWFTS has the best average rank among                                            PWFTS vs IWFTS                0.59108            0.68493                H0 is accepted
+           all the competing methods. In Figure 5 it is possible to note                                          PWFTS vs WFTS                0.50664            0.69418                H0 is accepted
+           how the error grows as the forecasting horizon increases, using                                       PWFTS vs ARIMA                0.50664            0.69418                H0 is accepted
+                                                                                                                 PWFTS vs TWFTS                0.08444            0.93271                H0 is accepted
+           the best PWFTS model for each dataset.
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                               11
+
+
+
+                                            VI. C ONCLUSION                                                    point, interval and probabilistic forecasting for one or multiple
+              In the time series forecasting research field, dealing with                                      steps ahead, for first or higher orders. The measured accuracy
+           uncertainties is somehow mandatory, but yet many of the                                             shows its compatibility with, when it is not better than,
+           forecasting methods are only concerned with point forecasting.                                      standard approaches in the literature.
+           The point forecasting methods have as their main general                                               The PWFTPG rule model is human-readable, easy to un-
+           drawback the inability to measure the uncertainty of their                                          derstand and interchangeable, which allows its assessment by
+           results and, depending on the field of application, this is                                         experts and also non technical people. The PWFTPG rule set
+           a crucial information. Although FTS methods represent a                                             can be viewed as the conditional probability distribution of
+           growing field, there is also a gap of probabilistic forecasting                                     the fuzzy sets, and its visualization can even be used for data
+           methods based on FTS.                                                                               description and comprehension tasks. PWFTS method can be
+              The aim of this work was to propose a new univariate and                                         easily adapted for distributed environments, which can scale
+           time invariant FTS method - the Probabilistic Weighted FTS                                          its training for high data volumes. Additionally, due to its
+           (PWFTS), which is a data driven approach which splits the                                           empirical probabilities based on fuzzy frequencies, the model
+           universe of discourse of a time series in overlapping fuzzy                                         is easy to update when new data is presented.
+           sets, represents their temporal patterns as fuzzy rules and
+           associate to them an empirical probability - based on the                                           B. Method Limitations
+           proposed concept of fuzzy frequency. The PWFTS rule model
+                                                                                                                  The presented method lacks abilities on heteroskedastic time
+           - the Probabilistic Weighted Fuzzy Temporal Pattern Groups
+                                                                                                               series, demanding data pre-processing (as Box-Cox transfor-
+           (PWFTPG) - describes fuzzy and stochastic behavior of time
+                                                                                                               mation) to deal with this kind of data. The generated model
+           series and combines them to produce forecasts. This model
+                                                                                                               is time invariant and, despite being easily trained, needs to
+           is used to produce: probability densities, prediction intervals
+                                                                                                               be frequently updated to follow new data behaviors. The
+           and point forecasting. Extensions for high order models and
+                                                                                                               choice of parameters (order and partitioning scheme) demands
+           multiple step ahead forecasting were also proposed.
+                                                                                                               a heuristic search and this is highly recommended to achieve
+              Computational experiments were performed to evaluate the
+                                                                                                               the best results.
+           accuracy of the proposed model using three financial time
+           series: TAIEX, S&P 500 and NASDAQ. The model accu-
+           racy is directly related with the number of partitions of the                                       C. Future Work
+           universe of discourse, but if the data is pre-processed with a
+                                                                                                                  Future works include extensions of the proposed method
+           differentiation data transformation, this effect is almost null.
+                                                                                                               to (a) support multivariate and spatial-temporal time series,
+           PWFTS was compared with traditional statistical methods,
+                                                                                                               especially by using clustering and granular approaches; (b)
+           as ARIMA, QAR, k-NN and KDE, and other standard FTS
+                                                                                                               increase the robustness of the method to nonstationarity and
+           methods for probabilistic, interval and point forecasting one
+                                                                                                               concept-drift with incremental/online learning; (c) implement
+           step ahead. The proposed method for probabilistic forecasting
+                                                                                                               the distributed training and execution to support big data; (d)
+           tied with QAR and ARIMA regarding the CRPS metric, and
+                                                                                                               employ the proposed method in the forecasting of chaotic time
+           outperformed k-NN+KDE and Ensemble FTS. For interval
+                                                                                                               series; (e) develop a new fuzzy Markov Chain method based
+           forecasting the performance of the method tied with ARIMA,
+                                                                                                               on the proposed empirical fuzzy probabilities and defuzzyfi-
+           QAR, as on point forecasting.
+                                                                                                               cation methods.
+              The proposed PWFTS method extends FTS methods to deal
+           with interval and probabilistic forecasting applications, which
+           is a major contribution of this paper. Moreover, PWFTS im-                                                                      ACKNOWLEDGMENT
+           proves on former FTS methods in the literature by considering                                          This work has been supported by the Brazilian agency
+           the concept of fuzzy frequency and empirical probabilities                                          CAPES. Petrônio C. L. Silva would like to thank the support
+           in the generation of the rule knowledge base. The proposed                                          given by the PBQS program of the Brazilian institution
+           method improves previous FTS methods by aggregating proba-                                          IFNMG - Campus Januária. H. Javedani Sadaei and F. G.
+           bilistic and interval forecasting capabilities into a single model,                                 Guimarães would like to thank the support given by the
+           being useful for a wide range of applications and user needs.                                       Brazilian Agencies CAPES, CNPq and FAPEMIG. R. Ballini
+                                                                                                               would like to thank the support given by CNPq.
+           A. Main contributions
+              The present work uses the concept of fuzzy frequency to                                                                               R EFERENCES
+           approximate empirical probabilities of fuzzy sets given sample                                       [1] V. Georgescu, “Joint propagation of ontological and epistemic
+           crisp data. With these empirical probabilities it is possible to                                         uncertainty across risk assessment and fuzzy time series models,”
+           calculate the probability of a crisp number given a fuzzy set,                                           Computer Science and Information Systems, 2014. [Online]. Available:
+                                                                                                                    http://doi.org/10.2298/CSIS121215048G
+           and therefore a probability distribution for the original data                                       [2] T. Gneiting and M. Katzfuss, “Probabilistic Forecasting,” Annual Review
+           described by a fuzzy linguistic variable.                                                                of Statistics and Its Application, vol. 1, pp. 125–151, 2014. [Online].
+              The main contribution of PWFTS is to combine versatility,                                             Available: http://doi.org/10.1146/annurev-statistics-062713-085831
+                                                                                                                [3] C. Chatfield, “Calculating Interval Forecasts,” Journal of Business &
+           accuracy, scalability and human readability. PWFTS is a                                                  Economic Statistics, vol. 11, no. 2, p. 121, 4 1993. [Online]. Available:
+           versatile data driven, non parametric approach which integrates                                          http://doi.org/10.2307/1391361
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                               12
+
+
+
+            [4] C. Fraley, A. E. Raftery, and T. Gneiting, “Probabilistic weather                              [26] F.-M. Tseng, G.-H. Tzeng, and H.-C. Yu, “Fuzzy Seasonal Time Series
+                forecasting in R,” The R Journal, vol. 3, no. June, pp. 55–63, 2011.                                for Forecasting the Production Value of the Mechanical Industry in
+                [Online]. Available: http://doi.org/10.1198/jasa.2009.ap07184                                       Taiwan,” Technological Forecasting and Social Change, vol. 60, pp.
+            [5] M. Leutbecher and T. N. Palmer, “Ensemble forecasting,” Journal of                                  263–273, 1999.
+                Computational Physics, vol. 227, no. 7, pp. 3515–3539, 2008. [Online].                         [27] P.-T. Chang, “Fuzzy seasonality forecasting,” Fuzzy Sets and Systems,
+                Available: http://doi.org/10.1016/j.jcp.2007.02.014                                                 vol. 90, no. 1, pp. 1–10, 1997. [Online]. Available: https://doi.org/10.
+            [6] T. Hong and S. Fan, “Probabilistic electric load forecasting: A tutorial                            1016/S0165-0114(96)00138-8
+                review,” International Journal of Forecasting, vol. 32, pp. 914–938,                           [28] H. J. Sadaei, “Improved models in Fuzzy Time Series for forecasting,”
+                2016. [Online]. Available: http://doi.org/10.1016/j.ijforecast.2015.11.011                          Ph.D. dissertation, Universiti Teknologi Malaysia, 2013.
+            [7] T. Hong, P. Pinson, S. Fan, H. Zareipour, A. Troccoli, and                                     [29] V. Georgescu, “Fuzzy time series estimation and prediction: Criticism,
+                R. J. Hyndman, “Probabilistic energy forecasting: Global Energy                                     suitable new methods and experimental evidence,” Studies in Informatics
+                Forecasting Competition 2014 and beyond,” International Journal                                     and control, vol. 19, no. 3, p. 230, 2010.
+                of Forecasting, vol. 32, pp. 896–913, 2016. [Online]. Available:                               [30] H. J. Sadaei, R. Enayatifar, F. G. Guimarães, M. Mahmud, and Z. A.
+                http://doi.org/10.1016/j.ijforecast.2016.02.001                                                     Alzamil, “Combining ARFIMA models and fuzzy time series for the
+            [8] Y. Liu, B. Wang, H. Zhan, Y. Fan, Y. Zha, and Y. Hao, “Simulation                                   forecast of long memory time series,” Neurocomputing, vol. 175, pp.
+                of Nonstationary Spring Discharge Using Time Series Models,” Water                                  782–796, 2016. [Online]. Available: https://doi.org/10.1016/j.neucom.
+                Resources Management, vol. 31, no. 15, p. 48754890, 2017. [Online].                                 2015.10.079
+                Available: http://doi.org/10.1007/s11269-017-1783-6
+                                                                                                               [31] L. A. Zadeh, “Fuzzy Sets,” Infomation and Control, no. 8, pp. 338–
+            [9] P. Pinson, G. Kariniotaki, H. Aa Nielsen, T. S. Nielsen, and H. Madsen,
+                                                                                                                    353, 1965. [Online]. Available: https://doi.org/10.1016/S0019-9958(65)
+                “Properties of Quantile and Interval Forecasts of Wind Generation
+                                                                                                                    90241-X
+                and their Evaluation,” in Proceedings of the European Wind Energy
+                Conference & Exhibition, Athens, 2006.                                                         [32] S.-M. Chen, “Forecasting enrollments based on fuzzy time series,”
+           [10] G. G. Netto, A. C. Barbosa, M. N. Coelho, A. R. L. Miranda, V. N.                                   Fuzzy Sets and Systems, vol. 81, no. 3, pp. 311–319, 1996. [Online].
+                Coelho, M. J. F. Souza, F. G. Guimarães, A. J. R. Reis, F. G. Guimar,                              Available: https://doi.org/10.1016/0165-0114(95)00220-0
+                and A. J. R. Reis, “A hybrid evolutionary probabilistic forecasting model                      [33] K. Huarng, “Effective lengths of intervals to improve forecasting in
+                applied for rainfall and wind power forecast,” in 2016 IEEE Conference                              fuzzy time series,” Fuzzy Sets and Systems, vol. 123, no. 3, pp. 387–394,
+                on Evolving and Adaptive Intelligent Systems. IEEE, 2016, pp. 73–78.                                2001.
+           [11] F. Laio and S. Tamea, “Verification tools for probabilistic forecasts of                       [34] S.-T. Li, Y.-C. Cheng, and S.-Y. Lin, “A FCM-based deterministic
+                continuous hydrological variables,” Hydrol. Earth Syst. Sci, vol. 11,                               forecasting model for fuzzy time series,” Computers & Mathematics
+                pp. 1267–1277, 2007. [Online]. Available: https://doi.org/10.5194/                                  with Applications, vol. 56, no. 12, pp. 3052–3063, 12 2008. [Online].
+                hess-11-1267-2007                                                                                   Available: https://doi.org/10.1016/j.camwa.2008.07.033
+           [12] Q. Song and B. S. Chissom, “Fuzzy time series and its models,” Fuzzy                           [35] C.-H. H. Cheng, J.-R. R. Chang, and C.-A. A. Yeh, “Entropy-based
+                Sets and Systems, vol. 54, no. 3, pp. 269–277, 1993.                                                and trapezoid fuzzification-based fuzzy time series approaches for
+           [13] P. Singh, “A brief review of modeling approaches based on fuzzy time                                forecasting IT project cost,” Technological Forecasting and Social
+                series,” International Journal of Machine Learning and Cybernetics,                                 Change, vol. 73, no. 5, pp. 524–542, 2006. [Online]. Available:
+                vol. 8, no. 2, pp. 397–420, 2017.                                                                   https://doi.org/10.1016/j.techfore.2005.07.004
+           [14] Q. Song and B. S. Chissorn, “Forecasting enrollments with fuzzy time                           [36] R. Enayatifar, H. J. Sadaei, A. H. Abdullah, and A. Gani, “Imperialist
+                series-part II,” Fuzzy Sets and Systems, vol. 62, pp. 1–8, 1994.                                    competitive algorithm combined with refined high-order weighted fuzzy
+           [15] Z. Ismail and R. Efendi, “Enrollment forecasting based on modified                                  time series (RHWFTS-ICA) for short term load forecasting,” Energy
+                weight fuzzy time series,” Journal of Artificial Intelligence, vol. 4, no. 1,                       Conversion and Management, vol. 76, pp. 1104–1116, 2013.
+                pp. 110–118, 2011.                                                                             [37] H.-K. Yu, “Weighted fuzzy time series models for TAIEX forecasting,”
+           [16] H. J. Sadaei, R. Enayatifar, M. H. Lee, and M. Mahmud, “A hybrid                                    Physica A: Statistical Mechanics and its Applications, vol. 349, no. 3,
+                model based on differential fuzzy logic relationships and imperialist                               pp. 609–624, 2005.
+                competitive algorithm for stock market forecasting,” Applied Soft Com-                         [38] H. J. Sadaei, R. Enayatifar, A. H. Abdullah, and A. Gani, “Short-term
+                puting Journal, vol. 40, pp. 132–149, 2016.                                                         load forecasting using a hybrid model with a refined exponentially
+           [17] M. H. Lee, H. J. Sadaei, and Suhartono, “Improving TAIEX forecasting                                weighted fuzzy time series and an improved harmony search,” Inter-
+                using fuzzy time series with BoxCox power transformation,” Journal of                               national Journal of Electrical Power & Energy Systems, vol. 62, no.
+                Applied Statistics, vol. 40, no. 11, pp. 2407–2422, 11 2013.                                        from 2005, pp. 118–129, 2014.
+           [18] M.-Y. Chen, “A high-order fuzzy time series forecasting model for                              [39] M. H. Lee, H. J. Sadaei, and Suhartono, “Introducing polynomial fuzzy
+                internet stock trading,” Future Generation Computer Systems, vol. 37,                               time series,” Journal of Intelligent & Fuzzy Systems: Applications in
+                pp. 461–467, 2014. [Online]. Available: http://dx.doi.org/10.1016/j.                                Engineering and Technology, vol. 25, no. 1, pp. 117–128, 2013.
+                future.2013.09.025                                                                             [40] S. Askari and N. Montazerin, “A high-order multi-variable Fuzzy Time
+           [19] B. Sun, H. Guo, H. Reza Karimi, Y. Ge, S. Xiong, H. R. Karimi, Y. Ge,                               Series forecasting algorithm based on fuzzy clustering,” Expert Systems
+                and S. Xiong, “Prediction of stock index futures prices based on fuzzy                              with Applications, vol. 42, no. 4, pp. 2121–2135, 2015.
+                sets and multivariate fuzzy time series,” Neurocomputing, vol. 151, pp.                        [41] C. A. C. Severiano, P. P. C. L. Silva, H. J. H. Sadaei, and F. F. G.
+                1528–1536, 2015.                                                                                    Guimarães, “Very Short-term Solar Forecasting using Fuzzy Time Se-
+           [20] F. M. Talarposhti, H. J. Sadaei, R. Enayatifar, F. G. Guimarães, M. Mah-                           ries,” in 2017 IEEE International Conference on Fuzzy Systems, Naples,
+                mud, and T. Eslami, “Stock market forecasting by using a hybrid model                               Italy, 2017.
+                of exponential fuzzy time series,” International Journal of Approximate
+                                                                                                               [42] M. Bose and K. Mali, “A novel data partitioning and rule selection
+                Reasoning, vol. 70, pp. 79–98, 2016.
+                                                                                                                    technique for modeling high-order fuzzy time series,” Applied Soft
+           [21] R. Efendi, Z. Ismail, and M. M. Deris, “Improved weight Fuzzy Time
+                                                                                                                    Computing, vol. 63, no. 17, pp. 87–96, 2017. [Online]. Available:
+                Series as used in the exchange rates forecasting of US Dollar to Ringgit
+                                                                                                                    http://doi.org/10.1016/j.asoc.2017.11.011
+                Malaysia,” International Journal of Computational Intelligence and
+                Applications, vol. 12, no. 01, p. 1350005, 2013. [Online]. Available:                          [43] L. Nguyen and V. Novák, “Forecasting seasonal time series based on
+                http://doi.org/10.1142/S1469026813500053                                                            fuzzy techniques,” 2018.
+           [22] M. H. Lee and H. Javedani, “A Weighted Fuzzy Integrated Time                                   [44] S. S. Zhang, S. S. Zhang, D. Yu, W. Zhang, N. Huang, S. S. Zhang, S. S.
+                Series for Forecasting Tourist Arrivals,” in International Conference on                            Zhang, D. Yu, and N. Huang, “A novel method based on FTS with both
+                Informatics Engineering and Information Science. Berlin Heidelberg:                                 GA-FCM and multifactor BPNN for stock forecasting,” Soft Computing,
+                Springer, 2011, pp. 206–217.                                                                        2018. [Online]. Available: https://doi.org/10.1007/s00500-018-3335-2
+           [23] Z. Ismail, R. Efendi, and M. M. Deris, “Application of Fuzzy Time                              [45] I. Perfilieva, “Fuzzy transforms: Theory and applications,” Fuzzy Sets
+                Series Approach in Electric Load Forecasting,” New Mathematics and                                  and Systems, vol. 157, pp. 993–1023, 2006. [Online]. Available:
+                Natural Computation, vol. 11, no. 3, pp. 229–248, 2015.                                             http://doi.org/10.1016/j.fss.2005.11.012
+           [24] T. SILVA and M. STABILE, Monitoramento e pesquisa em mı́dias                                   [46] M. Štěpnička, A. Dvořák, V. Pavliska, and L. Vavřı́čková, “A linguistic
+                sociais: metodologias, aplicaçes e inovaçes, 1st ed. São Paulo: Uva                              approach to time series modeling with the help of F-transform,” Fuzzy
+                Limão, 2016.                                                                                       Sets and Systems, vol. 180, pp. 164–184, 2011.
+           [25] Q. Song, “Seasonal forecasting in fuzzy time series,” Fuzzy sets and                           [47] V. Novák, “Linguistic characterization of time series,” Fuzzy Sets and
+                systems, vol. 107, pp. 235–236, 1999.                                                               Systems, vol. 285, pp. 52–72, 2016.
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                               13
+
+
+
+           [48] L. A. Zadeh, “Probability Measures of Fuzzy Events,” Journal of                                [71] M. A. Alves, P. C. D. L. Silva, C. A. J. Severiano, G. L. Vieira, F. G.
+                Mathematical Analysis and Applications, vol. 23, no. 2, pp. 421–427,                                Guimaraes, and H. J. Sadaei, “An extension of nonstationary fuzzy
+                1968.                                                                                               sets to heteroskedastic fuzzy time series,” in 26th European Symposium
+           [49] ——, “Fuzzy Probabilities,” Information Processing & Management,                                     on Artificial Neural Networks, Computational Intelligence and Machine
+                vol. 20, no. 3, pp. 363–372, 1984.                                                                  Learning, Bruges, Belgium, 2018.
+           [50] E. P. Klement, W. Schwyhla, and R. Lowen, “Fuzzy Probability Mea-                              [72] J. Luo and S. M. Bridges, “Mining fuzzy association rules and
+                sures,” Fuzzy Sets and Systems, vol. 5, pp. 21–30, 1981.                                            fuzzy frequency episodes for intrusion detection,” International
+           [51] D. Dubois and H. Prade, “Fuzzy sets, probability and measurement,”                                  Journal of Intelligent Systems, vol. 15, no. 8, pp. 687–703, 2000.
+                European Journal of Operational Research, vol. 40, pp. 135–154, 1989.                               [Online]. Available: https://doi.org/10.1002/1098-111X(200008)15:8%
+           [52] Q. Song, R. P. Leland, and B. S. Chissom, “Fuzzy stochastic fuzzy time                              3C687::AID-INT1%3E3.0.CO;2-X
+                series and its models,” Fuzzy sets and systems, no. 88, pp. 333–341,                           [73] C.-T. Chen, C.-T. Lin, S.-F. Huang, L. Da, and K.-C. Li, “A fuzzy
+                1997.                                                                                               approach for supplier evaluation and selection in supply chain manage-
+           [53] T. A. Jilani, A. S. Burney, and C. Ardil, “A New                                                    ment,” Int. J. Production Economics, vol. 102, pp. 289–301, 2006.
+                Quantile Based Fuzzy Time Series Forecasting Model,”                                           [74] L. J. Tashman, “Out-of-sample tests of forecasting accuracy: an
+                International Journal of Computer, Electrical, Automation, Control                                  analysis and review,” International Journal of Forecasting, vol. 16,
+                and Information Engineering, vol. 2, no. 3, pp. 995–                                                no. 4, pp. 437–450, 2000. [Online]. Available: http://doi.org/10.1016/
+                1001, 2008. [Online]. Available: http://waset.org/publications/14214/                               S0169-2070(00)00065-0
+                a-new-quantile-based-fuzzy-time-series-forecasting-model                                       [75] S. M. Chen and C. D. Chen, “TAIEX forecasting based on fuzzy time
+           [54] S. S. Gangwar and S. Kumar, “Probabilistic and Intuitionistic Fuzzy                                 series and fuzzy variation groups,” IEEE Transactions on Fuzzy Systems,
+                SetsBased Method for Fuzzy Time Series Forecasting,” Cybernetics                                    vol. 19, no. 1, pp. 1–12, 2011.
+                and Systems, vol. 45, no. 4, pp. 349–361, 2014. [Online]. Available:                           [76] N. S. Bajestani and A. Zare, “Forecasting TAIEX using improved
+                https://doi.org/10.1080/01969722.2014.904135                                                        type 2 fuzzy time series,” Expert Systems with Applications,
+           [55] C. Chatfield, “Prediction Intervals for Time-Series Forecasting,” in                                vol. 38, no. 5, pp. 5816–5821, 2011. [Online]. Available: http:
+                Principles of forecasting, 1st ed., J. Armstrong, Ed. Springer US,                                  //dx.doi.org/10.1016/j.eswa.2010.10.049
+                2001, pp. 475–494.                                                                             [77] S. M. S.-W. W. S.-M. Chen and S. M. S.-W. W. S.-M. Chen, “Fuzzy
+           [56] R. Koenker and Z. Xiao, “Quantile Autoregression,” Journal of the                                   Forecasting Based on Two-Factors Second-Order Fuzzy-Trend Logical
+                American Statistical Association, vol. 101, no. 405, pp. 980–990, 2006.                             Relationship Groups and the Probabilities of Trends of Fuzzy Logical
+                [Online]. Available: https://doi.org/10.1198/016214506000000672                                     Relationships,” IEEE TRANSACTIONS ON CYBERNETICS, vol. 45,
+           [57] R. Koenker and K. F. Hallock, “Quantile Regression,” Journal of                                     no. 3, 2015.
+                Economic PerspectivesVolume, vol. 15, no. 4, pp. 143–156, 2001.                                [78] H. J. Sadaei and M. H. Lee, “Multilayer Stock Forecasting Model Using
+                                                                                                                    Fuzzy Time Series,” 2014.
+           [58] P. Silva, H. J. Sadaei, and F. Guimarães, “Interval Forecasting with Fuzzy
+                                                                                                               [79] S. Garcı́a, A. Fernández, J. Luengo, and F. Herrera, “Advanced non-
+                Time Series,” in IEEE Symposium Series on Computational Intelligence
+                                                                                                                    parametric tests for multiple comparisons in the design of experiments
+                (IEEE SSCI 2016), Athens, Greece, 2016.
+                                                                                                                    in computational intelligence and data mining: Experimental analysis of
+           [59] R. T. Clemen, “Combining forecast: A review and annotated bibliogra-
+                                                                                                                    power,” Information Sciences, vol. 180, pp. 2044–2064, 2010.
+                phy,” International Journal of Forecasting, vol. 5, no. 4, pp. 559–583,
+                                                                                                               [80] J. Derrac, S. Garcı́a, D. Molina, and F. Herrera, “A practical tutorial
+                1989.
+                                                                                                                    on the use of nonparametric statistical tests as a methodology for
+           [60] T. Gneiting, “Editorial: Probabilistic forecasting,” Journal of the Royal
+                                                                                                                    comparing evolutionary and swarm intelligence algorithms,” Swarm and
+                Statistical Society, vol. 171, no. 2, pp. 319–321, 2008. [Online].
+                                                                                                                    Evolutionary Computation, vol. 1, pp. 3–18, 2011.
+                Available: http://www.jstor.org/stable/30130759
+                                                                                                               [81] B. Trawiński, M. Smetek, Z. Telec, and T. Lasota, “Nonparametric
+           [61] A. E. Raftery, T. Gneiting, F. Balabdaoui, and M. Polakowski, “Using                                statistical analysis for multiple comparison of machine learning
+                Bayesian Model Averaging to Calibrate Forecast Ensembles,” Monthly                                  regression algorithms,” Int. J. Appl. Math. Comput. Sci, vol. 22,
+                Weather Review, vol. 133, no. 5, pp. 1155–1174, 2005.                                               no. 4, pp. 867–881, 2012. [Online]. Available: https://doi.org/10.2478/
+           [62] T. Gneiting, A. E. Raftery, A. H. Westveld, T. Goldman, A. H. West-                                 v10006-012-0064-z
+                veld Iii, T. Goldman, A. H. Westveld, T. Goldman, A. H. Westveld Iii,                          [82] J. L. Hodges and E. L. Lehmann, “Rank Methods for Combination
+                and T. Goldman, “Calibrated Probabilistic Forecasting Using Ensemble                                of Independent Experiments in Analysis of Variance,” Ann. Math.
+                Model Output Statistics and Minimum CRPS Estimation,” Monthly                                       Statist., vol. 33, no. 2, pp. 482–497, 5 1962. [Online]. Available:
+                Weather Review, vol. 133, no. 5, pp. 1098–1118, 2005.                                               https://doi.org/10.1214/aoms/1177704575
+           [63] C. Fraley, A. E. Raftery, T. Gneiting, and J. M. Sloughter, “ensem-                            [83] H. Finner, “On a Monotonicity Problem in Step-Down Multiple Test
+                bleBMA : An R Package for Probabilistic Forecasting using Ensembles                                 Procedures,” Journal of the American Statistical Association, vol. 88,
+                and Bayesian Model,” Department of Statistics, University of Washing-                               no. 423, pp. 920–923, 1993. [Online]. Available: http//doi.org/10.1080/
+                ton, Seattle, WA, Tech. Rep., 2013.                                                                 01621459.1993.10476358
+           [64] J. Xie and T. Hong, “GEFCom2014 probabilistic electric load fore-                              [84] I. Rodrı́guez-Fdez, A. Canosa, M. Mucientes, and A. Bugarı́n, “STAC:
+                casting: An integrated solution with forecast combination and residual                              a web platform for the comparison of algorithms using statistical
+                simulation,” International Journal of Forecasting, vol. 32, pp. 1012–                               tests,” in Proceedings of the 2015 IEEE International Conference on
+                1016, 2016.                                                                                         Fuzzy Systems (FUZZ-IEEE). Istanbul, Turkey: IEEE, 2015. [Online].
+           [65] B. W. Silverman, Density estimation for statistics and data analysis.                               Available: https://github.com/citiususc/stac
+                CRC press, 1986, vol. 26.                                                                      [85] P. C. d. L. Silva, P. O. Lucas, H. J. Sadaei, and F. G. Guimarães,
+           [66] S. J. Sheather and M. C. Jones, “A reliable data-based bandwidth                                    “pyFTS: Fuzzy Time Series for Python,” Belo Horizonte, 2018.
+                selection method for kernel density estimation,” Journal of the Royal                               [Online]. Available: https://doi.org/10.5281/zenodo.597359
+                Statistical Society. Series B (Methodological), pp. 683–690, 1991.                             [86] T. Gneiting and A. E. Raftery, “Strictly Proper Scoring Rules, Prediction,
+           [67] F. Olivas, F. Valdez, O. Castillo, C. I. Gonzalez, G. Martinez, and                                 and Estimation,” Journal of the American Statistical Association, vol.
+                P. Melin, “Ant colony optimization with dynamic parameter adaptation                                102, no. 477, pp. 359–378, 2007.
+                based on interval type-2 fuzzy logic systems,” Applied Soft Computing                          [87] P. C. d. L. Silva, M. A. Alves, C. A. Severiano Jr, G. L. Vieira,
+                Journal, vol. 53, pp. 74–87, 4 2017.                                                                F. G. Guimarães, and H. J. Sadaei, “Probabilistic Forecasting with
+           [68] A. Garcı́a, A. Luviano-Jú Arez, I. Chairez, A. Poznyak, and T. Poznyak,                            Seasonal Ensemble Fuzzy Time-Series,” in XIII Brazilian Congress on
+                “Projectional Dynamic Neural Network Identifier for Chaotic Systems:                                Computational Intelligence, Rio de Janeiro, 2017.
+                Application to Chuas Circuit,” International Journal of Artificial                             [88] Y. Zhang and J. Wang, “GEFCom2014 probabilistic solar power fore-
+                Intelligence, vol. 6, no. 11, 2011. [Online]. Available: www.ceserp.                                casting based on k-nearest neighbor and kernel density estimator,” in
+                com/cp-jourwww.ceser.res.in/ijai.htmlwww.ceserpublications.com                                      IEEE Power and Energy Society General Meeting, 2015.
+           [69] C. Pozna, R. E. Precup, J. K. Tar, I. Škrjanc, and S. Preitl, “New                            [89] ——, “K -nearest neighbors and a kernel density estimator for
+                results in modelling derived from Bayesian filtering,” Knowledge-Based                              GEFCom2014 probabilistic wind power forecasting,” International
+                Systems, vol. 23, no. 2, pp. 182–194, 3 2010.                                                       Journal of Forecasting, vol. 32, pp. 1074–1080, 2016. [Online].
+           [70] L. Maciel and R. Ballini, “Interval fuzzy rule-based modeling approach                              Available: https://doi.org/10.1016/j.ijforecast.2015.11.006
+                for financial time series forecasting,” in IEEE International Conference                       [90] T. Gneiting, F. Balabdaoui, and A. E. Raftery, “Probabilistic Forecasts,
+                on Fuzzy Systems. Institute of Electrical and Electronics Engineers                                 Calibration and Sharpness,” Source Journal of the Royal Statistical
+                Inc., 8 2017.                                                                                       Society. Series B (Statistical Methodology) Journal of the Royal
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+This article has been accepted for publication in a future issue of this journal, but has not been fully edited. Content may change prior to final publication. Citation information: DOI 10.1109/TFUZZ.2019.2922152, IEEE
+                                                                                                 Transactions on Fuzzy Systems
+           IEEE TRANSACTIONS ON FUZZY SYSTEMS                                                                                                                                                               14
+
+
+
+                Statistical Society. Series B (Statistical Methodology J. R. Statist.                                                   Rosangela Ballini received the B.Sc. degree in
+                Soc. B, vol. 69, no. 2, pp. 243–268, 2007. [Online]. Available:                                                         applied mathematics from the Federal University of
+                http://www.jstor.org/stable/4623266                                                                                     São Carlos, São Carlos, Brazil, the M.Sc. degree
+           [91] R. L. Winkler, “A Decision-Theoretic Approach to Interval Estimation,”                                                  in mathematics and computation science from the
+                Journal of the American Statistical Association, vol. 67, no. 337, pp.                                                  University of São Paulo, São Carlos, and the Ph.D.
+                187–191, 1972.                                                                                                          degree in electrical engineering from the School
+           [92] Jeng-Ren Hwang, Shyi-Ming Chen, Chia-Hoang Lee, J.-R. Hwang, S.-                                                        of Electrical and Computer Engineering, University
+                M. Chen, and C.-H. Lee, “Handling forecasting problems using fuzzy                                                      of Campinas, Campinas, Brazil. She has been a
+                time series,” Fuzzy Sets and Systems, vol. 100, no. 1, pp. 217–228, 1998.                                               Professor with the Department of Economic Theory,
+           [93] C.-H. Cheng, T.-L. Chen, and C.-H. Chiang, “Trend-Weighted Fuzzy                                                        Institute of Economics, University of Campinas,
+                Time-Series Model for TAIEX Forecasting,” in Neural Information                                                         since 2002. Her research interests include time-
+                Processing, I. King, J. Wang, L.-W. Chan, and D. Wang, Eds. Berlin,                            series models, neural computation, fuzzy systems, modeling and optimization,
+                Heidelberg: Springer Berlin Heidelberg, 2006, pp. 469–477. [Online].                           forecasting, decision making, and applications. Dr. Ballini serves on the
+                Available: https://doi.org/10.1007/11893295 52                                                 Editorial Boards of the IEEE Transactions on Fuzzy Systems, Applied Soft
+                                                                                                               Computing, and Evolving Systems. She serves the IEEE Task Forces on
+                                                                                                               Adaptive Fuzzy Systems, Computational Finance and Economics Technical
+                                                                                                               Committee of the IEEE Computational Intelligence Society.
+
+
+
+
+                                     Petrônio C. L. Silva was born in Janauba, Brazil, in
+                                     1982. He received the bachelor degree in Informa-
+                                     tion Systems from the Santo Agostinho Faculty of
+                                     Exact and Technological Sciences (FACET, Montes
+                                     Claros, Brazil), in 2005, and the M.Sc. degree in
+                                     Informatics from the Pontifical Catholic University
+                                     of Minas Gerais (PUC/MG, Belo Horizonte, Brazil),
+                                     in 2010. In 2013 he joined the Federal Institute of
+                                     Northern Minas Gerais (IFNMG, Januaria, Brazil)
+                                     working as lecturer in undergraduate courses in
+                                     software development, databases, data-warehousing
+           and machine intelligence. His current research interests include data science
+           methods for spatio-temporal data, computational intelligence and machine                                                       Frederico Gadelha Guimarães received B.Eng. and
+           learning, including scalable soft computing methods for probabilistic fore-                                                    M.Sc. degrees in electrical engineering from the
+           casting of dynamic and complex systems. He is currently working towards                                                        Federal University of Minas Gerais (UFMG), Belo
+           his Ph.D. in Electrical Engineering at the Machine Intelligence and Data                                                       Horizonte, Brazil, in 2003 and 2004, respectively.
+           Science (MINDS) laboratory at the Federal University of Minas Gerais (Belo                                                     He received a Ph.D. degree in Electrical Engineer-
+           Horizonte, Brazil) and is also member of the Research Group on Data Science                                                    ing from the Federal University of Minas Gerais
+           and Computational Intelligence - {ci∂ic}, at IFNMG, Brazil.                                                                    in 2008, with a one-year visiting student scholar-
+                                                                                                                                          ship at McGill University, Montreal, Canada (2006-
+                                                                                                                                          2007), and a postdoctoral fellowship (2017-2018)
+                                                                                                                                          at the Laboratoire Images, Signaux et Systèmes
+                                                                                                                                          Intelligents (LiSSi), linked to the Université Paris-
+                                                                                                               Est Créteil (UPEC), Paris, France. In 2010, he joined the Department
+                                                                                                               of Electrical Engineering, UFMG, and in 2018 he became an Associate
+                                                                                                               Professor. He is responsible for the Machine Intelligence and Data Science
+                                                                                                               Laboratory (MINDS) for computational intelligence research. Dr. Guimarães
+                                                                                                               has published more than 200 papers in journals, congresses and chapters of
+                                                                                                               national and international books. He has experience in Electrical Engineering
+                                                                                                               and Computer Engineering, with emphasis on optimization, computational
+                                                                                                               intelligence, genetic algorithms and evolutionary computation. He is a member
+                                     Hossein J. Sadaei received his B.Sc. in applied                           of the IEEE Computational Intelligence Society (CIS) and the IEEE Systems,
+                                     mathematics from the University of Sistan and                             Man, and Cybernetics Society (SMCS).
+                                     Baluchestan, Zahedan, Iran, in 2001. He received
+                                     his M.Sc degree in pure mathematics from Zanjan
+                                     University, Iran in 2004. He has also received his
+                                     Ph.D. degree from Universiti Teknologi Malaysia
+                                     in 2013, in Statistics. Starting from 2014, he has
+                                     accepted as a postdoctoral fellow in UFMG, Brazil.
+                                     His research interests include fuzzy time series, fore-
+                                     casting, learning systems, optimization algorithm,
+                                     big data, voice and text mining. Dr. Javedani has
+           more than 10 years of experience in developing advanced forecasting methods
+           and is the author of more than 10 scientific publications and few patents.
+           Most of his efforts are about combining fuzzy time series methods with novel
+           concepts and deep learning to improve the performance of forecasting. He
+           is conducting a new concept in the fuzzy time series, namely, polynomial
+           fuzzy time series. Following a Ph.D. in Statistics, he took up a position as
+           leader analytics of the big data team in the research and development center
+           of Telecom Malaysia. Dr. Javedani is currently is a machine learning practice
+           lead in Avenue Code and also an active member of MINDS lab in UFMG.
+
+
+  1063-6706 (c) 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+

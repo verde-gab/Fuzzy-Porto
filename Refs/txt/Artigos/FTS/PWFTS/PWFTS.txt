@@ -1,0 +1,996 @@
+                                                         Expert Systems with Applications 38 (2011) 10594–10605
+
+
+
+                                                              Contents lists available at ScienceDirect
+
+
+                                                 Expert Systems with Applications
+                                               journal homepage: www.elsevier.com/locate/eswa
+
+
+
+
+Multivariate fuzzy forecasting based on fuzzy time series and automatic
+clustering techniques
+Shyi-Ming Chen ⇑, Kurniawan Tanuwijaya
+Department of Computer Science and Information Engineering, National Taiwan University of Science and Technology, Taipei, Taiwan, ROC
+
+
+
+
+a r t i c l e        i n f o                           a b s t r a c t
+
+Keywords:                                              In recent years, some methods have been presented based on fuzzy time series to make predictions in
+Automatic clustering techniques                        many areas, such as forecasting stock price, university enrollments, the weather, etc. When using fuzzy
+Fuzzy forecasting                                      time series for forecasting, it is obvious that the length of intervals in the universe of discourse is impor-
+Fuzzy time series                                      tant due to the fact that it can affect the forecasting accuracy rate. However, most of the existing fuzzy
+Multivariate fuzzy forecasting model
+                                                       forecasting methods based on fuzzy time series used the static length of intervals, i.e., the same length
+                                                       of intervals. The drawback of the static length of intervals is that the historical data are roughly put into
+                                                       the intervals, even if the variance of the historical data is not high. Moreover, the forecasting accuracy
+                                                       rates of the existing fuzzy forecasting methods are not good enough. Therefore, we must develop a
+                                                       new fuzzy forecasting method to overcome the drawbacks of the existing fuzzy forecasting methods to
+                                                       increase the forecasting accuracy rates. In this paper, we propose a multivariate fuzzy forecasting method
+                                                       to forecast the Taiwan Stock Exchange Capitalization Weighted Stock Index (TAIEX) based on fuzzy time
+                                                       series and automatic clustering techniques to overcome the drawbacks of the existing methods. First, we
+                                                       propose a new automatic clustering algorithm to generate different lengths of intervals in the universe of
+                                                       discourse. Then, we propose a new multivariate fuzzy forecasting method to forecast the TAIEX based on
+                                                       fuzzy time series and the proposed automatic clustering algorithm. The proposed multivariate fuzzy fore-
+                                                       casting method gets higher average forecasting accuracy rates than the existing methods for forecasting
+                                                       the TAIEX.
+                                                                                                                            Ó 2011 Elsevier Ltd. All rights reserved.
+
+
+
+
+1. Introduction                                                                         many areas, such as forecasting stock price, university enrollments,
+                                                                                        the weather, etc. Aladag et al. (2008) used the feed forward neural
+    Song and Chissom (1993a) presented the concept of fuzzy time                        networks to deﬁne fuzzy relations in high order fuzzy time series.
+series based on the fuzzy set theory (1965). They have developed                        Chen (1996) improved Song and Chissom’s method (1993b) to
+the time-invariant fuzzy time series model (1993b) and the time-                        present a method to forecast the enrollments of the University of
+variant fuzzy time series model (1994) to forecast the enrollments                      Alabama by reducing its time complexity using simple arithmetic
+of the University of Alabama. In recent years, some methods based                       operations rather than the complicated Max–Min composition
+on fuzzy time series have been presented (Aladag, Basaran, Egrio-                       operations of fuzzy relations. Chen (2002) used high-order fuzzy
+glu, Yolcu, & Uslu, 2008; Chen, 1996, 2002; Chen & Chung, 2006;                         logical relationship groups to forecast the enrollments of the
+Cheng, Chen, Teoh, & Chiang, 2008a; Cheng, Cheng, & Wang,                               University of Alabama. Chen and Hsu (2004) presented a method
+2008b; Cheng, Wang, & Li, 2008c; Cheng, Chen, & Wu, 2009; Chen                          to forecast enrollments based on the ﬁrst order time-variant
+& Hsu, 2004; Chen & Hwang, 2000; Huarng, 2001a, 2001b; Huarng                           fuzzy time series. Chen and Chung (2006) presented a fuzzy fore-
+& Yu, 2005, 2006a, 2006b; Huarng, Yu, & Hsu, 2007; Hwang, Chen,                         casting method based on the combination of high-order fuzzy time
+& Lee, 1998; Jilani & Burney, 2008; Kuo et al., 2009; Lee, Liu, &                       series and genetic algorithms to get a better forecasting result.
+Chen, 2006a; Lee, Wang, Chen, & Leu, 2006b; Leu, Lee, & Jou,                            Chen and Hwang (2000) presented a two-factors time-variant fuz-
+2009; Sullivan & Woodall, 1994; Tanuwijaya & Chen, 2009; Wang                           zy time series method for temperature prediction. Cheng et al.
+& Chen, 2009; Yu, 2005; Yu & Huarng, 2008) to make predictions in                       (2008a) presented a fuzzy time series model which incorporates
+                                                                                        the adaptive expectation model into forecasting processes to mod-
+                                                                                        ify forecasting errors. Cheng et al. (2008b) presented a multi-attri-
+ ⇑ Corresponding author. Address: Department of Computer Science and Infor-
+                                                                                        bute fuzzy time series forecasting method based on fuzzy
+mation Engineering, National Taiwan University of Science and Technology, 43,
+Section 4, Keelung Road, Taipei 106, Taiwan, ROC. Tel.: + 886 2 27376417; fax: + 886
+                                                                                        clustering techniques. Cheng et al. (2008c) presented a fuzzy time
+2 27301081.                                                                             series forecasting method based on weighted-transitional matrices
+    E-mail address: smchen@mail.ntust.edu.tw (S.-M. Chen).                              to forecast the number of outpatient visits. Cheng et al. (2009)
+
+0957-4174/$ - see front matter Ó 2011 Elsevier Ltd. All rights reserved.
+doi:10.1016/j.eswa.2011.02.098
+                                     S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605                                           10595
+
+
+presented a method to forecast innovation diffusion of products                 Huarng, 2008), the neural-networks fuzzy time series models (Yu
+using the trend-weighted fuzzy time-series model. Huarng                        & Huarng, 2008) and the neural-networks fuzzy time series models
+(2001a) investigated the effective lengths of intervals in the uni-             with substitutes (Yu & Huarng, 2008) for forecasting the TAIEX.
+verse of discourse. He pointed out that the lengths of intervals will              The rest of this paper is organized as follows. In Section 2, we
+greatly affect forecasting results. Huarng (2001b) presented a fuzzy            brieﬂy review the concepts of fuzzy time series and the basic fuzzy
+forecasting method which integrated heuristic knowledge and                     forecasting techniques with fuzzy time series. In Section 3, we pro-
+Chen’s method (1996) to get a better forecasting result. Huarng                 pose a new automatic clustering algorithm to generate intervals
+and Yu (2005) presented a type 2 fuzzy time series model for fore-              from the historical numerical data. In Section 4, we propose a mul-
+casting the TAIEX in which they tried to utilize the highest price              tivariate fuzzy forecasting method to forecast the TAIEX based on
+and the lowest price of the TAIEX to assist the closing price of TAI-           fuzzy time series and the proposed automatic clustering algorithm.
+EX forecasting. Huarng and Yu (2006a) suggested to use ratio-                   In Section 5, we make a comparison of the experimental results of
+based lengths instead of equal lengths of intervals to improve fuzzy            the proposed method with Chen’s method (1996), Huarng et al.’s
+time series forecasting. Huarng and Yu (2006b) applied neural net-              method (2007), the conventional regression methods (Yu & Hua-
+works in the fuzzy time series to forecast the TAIEX by using both a            rng, 2008), the neural-network models (Yu & Huarng, 2008), the
+basic model and a hybrid model. Huarng et al. (2007) presented a                neural-network fuzzy time series models (Yu & Huarng, 2008)
+multivariate heuristic model for fuzzy time series forecasting.                 and the neural-network fuzzy time series models with substitutes
+Hwang et al. (1998) presented a method based on time-variant                    (Yu & Huarng, 2008). The conclusions are discussed in Section 6.
+fuzzy time series to improve the forecasting result of the Univer-
+sity of Alabama enrollment. Jilani and Burney (2008) presented                  2. Preliminaries
+two multivariate stochastic fuzzy forecasting methods and applied
+them on annual car road accident casualties data. Kuo et al. (2009)             2.1. Basic concepts of fuzzy time series
+presented a method for forecasting enrollments based on fuzzy
+time series and particle swarm optimization techniques. Lee                        The concept of fuzzy time series was proposed by Song and
+et al. (2006a) presented a method for pattern discovery of fuzzy                Chissom (1993a, 1993b, 1994). A fuzzy set A of the universe of dis-
+time series for ﬁnancial prediction. Lee et al. (2006b) presented a             course U, U = {u1, u2, . . ., un}, is deﬁned as follows (Zadeh, 1965):
+method for fealing with forecasting problems based on two-factors
+high-order fuzzy time series. Leu et al. (2009) presented a distance-           A ¼ fA ðu1 Þ=u1 þ fA ðu2 Þ=u2 þ . . . þ fA ðun Þ=un ;
+based fuzzy time series model to predict the exchange rate. Sulli-
+                                                                                where fA is the membership function of the fuzzy set A, fA:U ? [0, 1],
+van and Woodall (1994) improved their results using a time-
+                                                                                fA(ui) denotes the grade of membership of ui in the fuzzy set A, and
+invariant Markov model using linguistic labels with the probability
+                                                                                1 6 i 6 n. Let Y(t) (t = . . ., 0, 1, 2, . . .), a subset of R1, be the universe of
+distribution. Tanuwijaya and Chen (2009) presented a method to
+                                                                                discourse on which fuzzy sets fi(t)(i = 1, 2, . . .) are deﬁned and let F(t)
+forecast the TAIEX based on fuzzy time series and clustering tech-
+                                                                                be a collection of f1(t), f2 (t), . . . Then, F(t) is called a fuzzy time series
+niques. Wang and Chen (2009) presented a method for tempera-
+                                                                                deﬁned on Y(t) (t = . . ., 0, 1, 2, . . .) (Chen, 1996; Lee et al., 2006b;
+ture prediction and TAIFEX forecasting based on automatic
+                                                                                Song & Chissom, 1993a, 1993b, 1994). If F(t) is caused by F(t  1)
+clustering techniques and two-factors high-order fuzzy time series.
+                                                                                only, i.e., F(t  1) ? F(t), then it can be expressed as F(t) =
+Yu (2005) presented weighted models to resolve two issues in fuz-
+                                                                                F(t  1)R(t, t  1), where R(t, t  1) is the fuzzy relationship be-
+zy time series forecasting, i.e., recurrence and weighting, for fore-
+                                                                                tween F(t  1) and F(t), and F(t) = F(t  1)R(t, t  1) is called the
+casting the TAIEX. The experimental results show that the
+                                                                                ﬁrst-order forecasting model of F(t). F(t  1) ? F(t) is called a fuzzy
+weighted model outperforms Chen’s method (1996). Yu and Hua-
+                                                                                logical relationship, where ‘‘F(t  1)’’ and ‘‘F(t)’’ are called the cur-
+rng (2008) applied neural networks to fuzzy time series forecasting
+                                                                                rent state and the next state, respectively (Chen, 1996; Lee et al.,
+and presented the bivariate fuzzy time series models to improve
+                                                                                2006b; Song & Chissom, 1993a, 1993b, 1994). If for any time t,
+forecasting. The experimental results show that their proposed
+                                                                                R(t, t  1) is independent of t, i.e., for any time t, R(t, t  1) =
+method, called the neural network-based fuzzy time series model
+                                                                                R(t, t  2), then F(t) is called a time-invariant fuzzy time series.
+with substitutes (B_NN_FTS_S model), outperforms many other
+                                                                                Otherwise, it is called a time-variant fuzzy time series (Song &
+models.
+                                                                                Chissom, 1993a, 1993b). Let F(t) be a fuzzy time series. If F(t) is
+    However, most of the existing fuzzy forecasting methods based
+                                                                                caused by F(t  1), F(t  2), . . ., and F(t  n), then this fuzzy logical
+on fuzzy time series used the static length of intervals, i.e., the
+                                                                                relationship (FLR) is represented by
+same length of intervals. The drawback of the static length of inter-
+vals is that the historical data are roughly put into the intervals,            Fðt  nÞ; . . . ; Fðt  2Þ; Fðt  1Þ ! FðtÞ;
+even if the variance of the historical data is not high. Moreover,
+                                                                                and it is called the nth order fuzzy time series forecasting model,
+the forecasting accuracy rates of the existing fuzzy forecasting
+                                                                                where ‘‘F(t  n), . . ., F(t  2), F(t  1)’’ and ‘‘F(t)’’ are called the cur-
+methods are not good enough. Therefore, we must develop a
+                                                                                rent state and the next state, respectively (Chen, 1996; Lee et al.,
+new fuzzy forecasting method to overcome the drawbacks of the
+                                                                                2006b; Song & Chissom, 1993a).
+existing fuzzy forecasting methods to increase the forecasting
+                                                                                   Let F(t) be a fuzzy time series. If F(t) is caused by
+accuracy rates.
+                                                                                (F1(t  1), F2(t  1)), (F1(t  2), F2(t  2)), . . .,                    and
+    In this paper, we propose a new multivariate fuzzy forecasting
+                                                                                (F1(t  n), F2(t  n)), then this fuzzy logical relationship (FLR) is rep-
+method to forecast the TAIEX based on fuzzy time series and auto-
+                                                                                resented by
+matic clustering techniques. First, we propose a new automatic
+clustering algorithm to generate different lengths of intervals in              ðF 1 ðt  nÞ; F 2 ðt  nÞÞ; . . . ; ðF 1 ðt  2Þ; F 2 ðt  2ÞÞ;
+the universe of discourse. Then, we propose a new multivariate                     ðF 1 ðt  1Þ; F 2 ðt  1ÞÞ ! FðtÞ;
+fuzzy forecasting algorithm to forecast the TAIEX based on fuzzy
+time series and the proposed automatic clustering algorithm. The                and it is called the two-variables nth order fuzzy time series fore-
+experimental results show that the proposed method gets smaller                 casting model, where F1(t) and F2(t) are fuzzy time series
+root mean square errors (RMSEs) than Chen’s method (1996),                      (t = . . ., 0, 1, 2, . . .), ‘‘(F1(t  n), F2(t  n)), . . ., and (F1(t  2), F2(t  2)),
+Huarng et al.’s method (2007), the conventional regression                      (F1(t  1), F2 (t  1))’’ and ‘‘F(t)’’ are called the current state and
+methods (Yu & Huarng, 2008), the neural-network models (Yu &                    the next state, respectively (Lee et al., 2006b).
+10596                                S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605
+
+
+
+
+                                             Fig. 1. Flowchart of the proposed automatic clustering algorithm.
+
+
+
+   The fuzzy logical relationships having the same current state                                                                                                  Date
+are grouped into a fuzzy logical relationship group (Chen, 1996,
+                                                                                                                   October 31 November 1 November 2
+2002; Lee et al., 2006b).
+                                                                                       Clustered            Current forecast             Not forecasted yet
+
+
+2.2. Basic fuzzy forecasting techniques based on fuzzy time series                                         (a) Forecast November 1
+
+                                                                                                                                                                  Date
+   Most of the existing fuzzy time series forecasting methods use
+the following four steps to handle forecasting problems (Chen,
+                                                                                                                         November 1 November 2 November 3
+1996):
+                                                                                        Clustered            Current forecast              Not forecasted yet
+
+Step 1: Partition the universe of discourse into intervals.                                                (b) Forecast November 2
+Step 2: Fuzzify the historical data.
+                                                                                                                                                                  Date
+Step 3: Build fuzzy logical relationships and obtain fuzzy logical
+        relationship groups.                                                                                                   November 2 November 3 November 4
+Step 4: Calculate the forecasted outputs.                                             Clustered           Current forecast              Not forecasted yet
+
+                                                                                                             (c) Forecast November 3
+   Different applications of fuzzy time series are based on the
+above four steps. For example, in the annual TAIEX forecasting,                                   Fig. 2. Fuzzy forecasting based on fuzzy time series.
+researchers (Huarng & Yu, 2005, 2006a, 2006b; Huarng et al.,
+2007; Yu, 2005; Yu & Huarng, 2008) usually apply Step 1 to Step
+3 to the ﬁrst ten months of the TAIEX, which are treated as the                 For each testing datum, the proposed method uses the previously
+training data, and apply Step 4 for the last two months of the TAI-             built fuzzy logical relationships to forecast.
+EX, which are treated as the testing data.                                         The proposed automatic clustering algorithm is now presented
+                                                                                as follows:
+
+3. A new automatic clustering algorithm for generating                              Step 1: Sort n numerical data into an ascending sequence.
+intervals from numerical data                                                       Assume that the ascending sequence of the data is shown as
+                                                                                    follows:
+   Geva (1999a) presented a method for non-stationary time series                       d1 ; d2 ; d3 ; . . . ; di ; . . . ; dn ;
+prediction using fuzzy clustering techniques. Geva (1999b) pre-
+sented a hierarchical unsupervised fuzzy clustering algorithm for                    where d1 is the smallest datum among the n numerical data, dn
+time-series prediction. Magalhaes, Ballini, and Gomide (2008) pre-                   is the largest datum among the n numerical data, and 1 6 i 6 n.
+sented granular models for time-series forecasting. Sfetsos and Sir-                 Based on the ascending data sequence, calculate the average dif-
+iopoulos (2004) presented the development of a hybrid clustering                     ference avg_diff between any two adjacent data and calculate
+algorithm and its application in time series forecasting. In this sec-               the standard deviation dev_diff of the difference between any
+tion, we propose a new automatic clustering algorithm to generate                    two adjacent data, shown as follows:
+intervals from the historical numerical data, which will be used in                                       Pn1
+                                                                                                              i¼1 ðdiþ1  di Þ
+the proposed multivariate fuzzy forecasting method presented in                         av g diff ¼                              ;                                  ð1Þ
+                                                                                                   sP     n1
+                                                                                                    ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+Section 4. The proposed method does not only use the training
+                                                                                                         n1                              2
+data, but it also uses the already known testing data, as shown in                                       i¼1 ðdiþ1  di  dÞ
+                                                                                        dev diff ¼                                              :                   ð2Þ
+Fig. 2. It indicates that if the value of a testing datum is already                                          ðn  1Þ  1
+known, then it also will be included into the training data later.
+                                                        S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605                                  10597
+
+
+    where d denotes the mean of the data d , d , d , . . ., d , . . ., and d .                        The proposed algorithm is now presented as follows:
+                                             1 2 3            i              n
+   Step 2: Create a new cluster for the ﬁrst datum, i.e., the smallest
+   datum, and let the cluster to be the current cluster. Calculate                                     Step 1: Apply the proposed clustering algorithm to generate
+   the maximum distance max_data_distance between any two                                              intervals from the training data, respectively. Assume that the
+   adjacent data using dev_diff, shown as follows:                                                     universe of discourse of the main factor is clustered into n inter-
+                                                                                                       vals u1, u2, . . ., and un, and assume that the universe of discourse
+      max data distance ¼ 0:5  dev diff :                                                ð3Þ
+                                                                                                       of the jth secondary factor is clustered into mj intervals
+   Based on the value of max_data_distance, determine whether                                          v j;1 ; v j;2 ; . . . ; and v j;mj .
+   the following datum can be put into the current cluster or                                          Step 2: Deﬁne the linguistic terms A1, A2, . . ., and An represented
+   whether a new cluster has to be created, described as follows.                                      by fuzzy sets of the main factor, shown as follows:
+   Assume that the condition is shown as follows:
+                                                                                                            A1 ¼ 1=u1 þ 0:5=u2 þ 0=u3 þ 0=u4
+      . . . ; f. . . ; di g; diþ1 ; diþ2 ; . . . ; dn
+                                                                                                                    þ . . . þ 0=un1 þ 0=un ;
+    where 1 6 i 6 n. If di+1  di < max_data_distance, then put di+1                                        A2 ¼ 0:5=u1 þ 1=u2 þ 0:5=u3 þ 0=u4
+    into the current cluster in which di belongs. Otherwise, create                                                 þ . . . þ 0=un1 þ 0=un ;
+    a new cluster for di+1 and let the new cluster in which di+1 be-
+                                                                                                            A3 ¼ 0=u1 þ 0:5=u2 þ 1=u3 þ 0:5=u4
+    longs be the current cluster. Repeatedly perform the above pro-
+    cess, until all the data have been clustered.                                                                   þ . . . þ 0=un1 þ 0=un ;
+   Step 3: Assume that there are two adjacent clusters, i.e., clusteri                                                        ..
+                                                                                                                               .
+   and clusterj, where din is the last datum in clusteri and dj1 is the
+   ﬁrst datum in clusterj, shown as follows:                                                                An ¼ 0=u1 þ 0=u2 þ 0=u3 þ 0=u4
+                                                                                                                    þ . . . þ 0:5=un1 þ 1=un ;
+      . . . ; fdi1 ; . . . ; din g; fdj1 ; . . . ; djm g; . . .
+   Then, the border between the two adjacent clusters, i.e., clusteri                                   where A1, A2, . . ., and An are linguistic terms of the main factor.
+   and clusterj, can be determined, shown as follows:                                                   Deﬁne the linguistic terms represented by fuzzy sets of the jth
+                                                                                                        secondary factor, shown as follows:
+                         din þ dj1
+      cluster uBoundi ¼            ;                                                      ð4Þ               Bj;1 ¼ 1=v j;1 þ 0:5=v j;2 þ 0=v j;3 þ 0=v j;4
+                             2
+      cluster lBoundj ¼ cluster uBoundi ;                                                 ð5Þ                       þ . . . þ 0=v j;mj 1 þ 0=v j;mj ;
+                                                                                                            Bj;2 ¼ 0:5=v j;1 þ 1=v j;2 þ 0:5=v j;3 þ 0=v j;4
+   where cluster_uBoundi is the upper bound of clusteri and clus-
+   ter_lBoundj is the lower bound of clusterj. Because there is no                                                  þ . . . þ 0=v j;mj 1 þ 0=v j;mj ;
+   previous cluster before the ﬁrst cluster and there is no next                                            Bj;3 ¼ 0=v j;1 þ 0:5=v j;2 þ 1=v j;3 þ 0:5=v j;4
+   cluster after the last cluster, the lower bound of the ﬁrst cluster                                              þ . . . þ 0=v j;mj 1 þ 0=v j;mj ;
+   and the upper bound of the last cluster can be calculated, shown
+   as follows:                                                                                                               ...
+                                                                                                            Bj;mj ¼ 0=v j;1 þ 0=v j;2 þ 0=v j;3 þ 0=v j;4
+      cluster uBoundn ¼ dn þ max data distance;                                           ð6Þ
+                                                                                                                    þ . . . þ 0:5=v j;mj 1 þ 1=v j;mj ;
+      cluster lBound1 ¼ d1  max data distance;                                           ð7Þ
+                                                                                                        where Bj;1 ; Bj;2 ; . . . ; and Bj;mj are linguistic terms of the jth sec-
+   where d1 is the ﬁrst datum in the ﬁrst cluster and dn is the last
+                                                                                                        ondary factor and mj is the number of intervals in the universe
+   datum in the last cluster. The clusters themselves correspond to
+                                                                                                        of discourse of the jth secondary factor.
+   intervals, where the upper bound and the lower bound of an
+                                                                                                       Step 3: Fuzzify each datum into a fuzzy set. If the datum of the
+   interval are taken from the upper bound and the lower bound
+                                                                                                       main factor belongs to the interval ui, then the datum of the
+   of a cluster. From the upper bound and the lower bound of an
+                                                                                                       main factor is fuzziﬁed into Ai, where 1 6 i 6 n. If the datum
+   interval, the middle value mid_valuei of the ith interval intervali
+                                                                                                       of the jth secondary factor belongs to interval vj,k, then the
+   can be calculated, shown as follows:
+                                                                                                       datum of the jth secondary factor is fuzziﬁed into Bj,k, where
+                            ðinter v al lBoundi þ inter v al uBoundi Þ                                 1 6 k 6 mj.
+      mid v aluei ¼                                                    ;                  ð8Þ          Step 4: Construct fuzzy logical relationships based on the fuzz-
+                                                2
+                                                                                                       iﬁed main factor and the fuzziﬁed secondary factor. Then, group
+   where interval_lBoundi and interval_uBoundi denotes the lower                                       the fuzzy logical relationships into fuzzy logical relationship
+   bound and the upper bound ofintervali, respectively.                                                groups based on the current state of the fuzzy logical relation-
+                                                                                                       ships, where the fuzzy logical relationships having the same
+4. The proposed multivariate fuzzy forecasting method                                                  current state are grouped into the same fuzzy logical relation-
+                                                                                                       ship group. For example, when three secondary factors are used,
+   In this section, we propose a multivariate fuzzy forecasting                                        if F(t  1) = Ai, B1,k, B2,k, B3,k and F(t) = Aq, where Ai, B1,k, B2,k, B3,k
+algorithm to forecast the TAIEX based on the proposed auto-                                            are the fuzziﬁed value of the main factor, the fuzziﬁed value
+matic clustering algorithm, where the TAIEX is called the main                                         of the ﬁrst secondary factor, the fuzziﬁed value of the second
+factor and the NASDAQ, the Dow Jones and the M1b are called                                            secondary factor, and the fuzziﬁed value of the third secondary
+the secondary factors. The proposed method does not only use                                           factor at time t  1, respectively, Aq is the fuzziﬁed value of the
+the training data, but it also uses the already known testing                                          main factor at time t, then the fuzzy logical relationship
+data, as shown in Fig. 2. It indicates that if the value of a test-                                    between F(t  1) and F(t) can be represented by ‘‘Ai, B1,k, B2,k, B3,-
+ing datum is already known, then it also will be included into                                         k ? Aq’’, where ‘‘Ai, B1,k, B2,k, B3,k’’ is called the current state and
+the training data later. For each testing datum, the proposed                                          ‘‘Aq’’ is called the next state of the fuzzy logical relationship.
+method uses the previously built fuzzy logical relationships to                                        Step 5: Calculate the forecasted output at time t for the testing
+forecast.                                                                                              datum by the following rules:
+10598                                               S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605
+
+
+        Rule 1: If the fuzziﬁed value of the main factor, the fuzziﬁed                         ple, on 2001/1/19, the data of the NASDAQ and the Dow Jones exist,
+        value of the ﬁrst secondary factor, the fuzziﬁed value of the                          but the datum of the TAIEX on 2001/1/19 does not exist, then we
+        second secondary factor, . . ., and the fuzziﬁed value of the                          simply ignore the data of the NASDAQ and the Dow Jones of
+        pth secondary factor at time t  1 are Ai, B1,k, . . ., and Bp,k,                      2001/1/19. Table 1 shows the training data of the TAIEX, the NAS-
+        respectively, and there is only one fuzzy logical relationship                         DAQ and the Dow Jones of the year 2001 from January 2, 2001 to
+        in the fuzzy logical relationship group, shown as follows:                             October 31, 2001.
+        Ai ; B1;k ; . . . ; Bp;k ! Aq ;
+                                                                                                   Step 1: We apply the proposed automatic clustering algorithm
+         then the forecasted value at time t is equal to 0.5                                      to generate intervals from the training data for each data set
+         (mq + S(t  1)), where mq is the midpoint of the interval uq,                             (i.e., TAIEX, NASDAQ and Dow Jones), respectively. The cluster-
+         the maximum membership value of Aq occurs at interval                                     ing process of the proposed method is illustrated as follows:
+         uq, and S(t  1) is the actual value at time t  1.                                           (Sub-Step 1: After sorting the TAIEX training data shown in
+        Rule 2: If the fuzziﬁed value of the main factor, the fuzziﬁed                                 Table 1 in an ascending sequence from 2001/1/2 to 2001/
+        value of the ﬁrst secondary factor, the fuzziﬁed value of the                                  10/31, the results are shown as follows:
+        second secondary factor, . . ., and the fuzziﬁed value of the
+                                                                                                         3446:26; 3492:12; 3493:66; 3493:78; 3520:35; . . . ;
+        pth secondary factor at time t  1 are Ai, B1,k, . . ., and Bp,k,
+        respectively, and there is a fuzzy logical relationship in the                                     5971:29; 6027:49; 6045:67; 6049:26; 6104:24:
+        fuzzy logical relationship group, shown as follows:                                         Then, the average difference avg_diff between any two adjacent
+        Ai ; B1;k ; . . . ; Bp;k ! Aq1 ; Aq2 ; . . . ; Aqr ;                                        data and the standard deviation dev_diff of the difference be-
+                                                                                                    tween any two adjacent data of the training data of the TAIEX
+        then the forecasted value at time t is calculated as follows:                               can be calculated using Eqs. (1) and (2), where the values of
+                                                  
+                 mq1 þ mq2 þ . . . þ mqr                                                            avg_diff and dev_diff are 13.29 and 13.33, respectively.
+        0:5                             þ Sðt  1Þ ;                                 ð9Þ           For the training data set of the NASDAQ and the Dow Jones, be-
+                           r
+                                                                                                    cause we use the data of the TAIEX as the basis, we only choose
+         where mq1 ; mq2 ; . . . ; and mqr are the midpoints of the inter-                          the data of the NASDAQ and the Dow Jones shown in Table 1
+         val uq1 ; uq2 ; . . . ; and uqr , respectively, the maximum mem-                           that have the same date as the TAIEX. If the NASDAQ and the
+         bership values of Aq1 ; Aq2 ; . . . ; and Aqr occurs at interval                           Dow Jones have data on a certain day, but the TAIEX does not
+         uq1 ; uq2 ; . . . ; and uqr , respectively, and S(t  1) denotes the                       have data on that day, then we exclude them. We sort the NAS-
+         actual value at time t  1.                                                                DAQ training data shown in Table 1 in an ascending sequence
+        Rule 3: If the fuzziﬁed value of the main factor, the fuzziﬁed                              from 2001/1/2 to 2001/10/31. The results are shown as follows:
+        value of the ﬁrst secondary factor, the fuzziﬁed value of the
+        second secondary factor, . . ., and the fuzziﬁed value of the                                    1423:19; 1460:71; 1464:04; 1470:93; 1492:33; . . . ;
+        pth secondary factor at time t  1 are Ai, B1,k, . . ., and Bp,k,                                  2768:49; 2772:73; 2782:79; 2838:34; 2838:35:
+        respectively, and there is a fuzzy logical relationship in the
+                                                                                                    Then, the average difference avg_diff between any two adjacent
+        fuzzy logical relationship group, shown as follows:
+                                                                                                    data and the standard deviation dev_diff of the difference be-
+        Ai ; B1;k ; . . . ; Bp;k ! #;                                                               tween any two adjacent data of the training data of the NASDAQ
+                                                                                                    are 7.41 and 11.31, respectively. In the same way, we can get
+        where the symbol ‘‘#’’ denotes an unknown value, then the
+                                                                                                    the ascending sequence of the Dow Jones shown in Table 1,
+        forecasted value at time t is
+                                                                                                    shown as follows:
+        0:5  ðmi þ Sðt  1ÞÞ;                                                      ð10Þ
+                                                                                                         8235:81; 8376:21; 8567:39; 8603:86; 8659:97; . . . ;
+       where mi is the midpoint of the interval ui, the maximum                                            11215:92; 11248:58; 11257:24; 11301:74; 11337:9:
+       membership value of Ai occurs at interval ui, and S(t  1) is
+       the actual value at time t  1.
+   Step 6: If there is another testing datum of the main factor, then
+   put the actual values of the last forecasting (both the main fac-
+   tor and the secondary factors) into the existing training data set
+   and go to Step 1 to forecast another testing datum. Otherwise,                              Table 1
+   Stop.                                                                                       The TAIEX, the NASDAQ and the Dow Jones of the year 2001 (Huarng et al., 2007).
+
+                                                                                                  Date                    TAIEX              NASDAQ               Dow Jones
+5. Experimental results
+                                                                                                  2001/1/2                4935.28            2291.86              10646.15
+                                                                                                  2001/1/3                4894.79            2616.69              10945.75
+   In this section, we apply the proposed multivariate fuzzy fore-                                2001/1/4                5136.13            2566.83              10912.41
+casting method to forecast the TAIEX from the year 2000 to the                                    2001/1/5                5295.53            2407.65              10662.01
+                                                                                                  2001/1/8                5188.51            2395.92              10621.35
+year 2004, where the TAIEX is called the main factor; the NASDAQ,
+                                                                                                       ..                    ..                 ..                    ..
+the Dow Jones and the M1b are called the secondary factors. The                                         .                     .                  .                     .
+data of each year are separated into two parts, where the data of                                 2001/1/17               5769.95            2682.78              10584.34
+                                                                                                  2001/1/18               5847.91            2768.49              10678.28
+the ﬁrst ten months are used as the training data set, whereas
+                                                                                                  2001/1/19                                  2770.38              10587.59
+the data of the last two months are used as the testing data set.                                 2001/1/22                                  2757.91              10578.24
+                                                                                                  2001/1/23                                  2840.39              10649.81
+5.1. Use two secondary factors NASDAQ and Dow Jones                                                     ..
+                                                                                                         .
+                                                                                                                             ..
+                                                                                                                              .
+                                                                                                                                                 ..
+                                                                                                                                                  .
+                                                                                                                                                                       ..
+                                                                                                                                                                        .
+                                                                                                  2001/10/25              4012.20            1775.47               9462.90
+   In the following, we use the daily data of the TAIEX as the main                               2001/10/26              4043.57            1768.96               9545.17
+factor and use the daily data of the NASDAQ and the Dow Jones as                                  2001/10/29              4065.10            1699.52               9269.50
+                                                                                                  2001/10/30              3915.61            1667.41               9121.98
+the secondary factors. We use the TAIEX of the year 2001 for the
+                                                                                                  2001/10/31              3903.49            1690.20               9075.14
+experiment, where the main factor is used as the basis. For exam-
+                                              S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605                                          10599
+
+
+           Then, the average difference avg_diff between any two adja-                              The clustering process of the TAIEX, the NASDAQ and the
+           cent data and the standard deviation dev_diff of the differ-                             Dow Jones are shown in Tables 2–4, respectively. For exam-
+           ence between any two adjacent data are 16.24 and 24.59,                                  ple, because the condition ‘‘3533.51–3520.35 < 6.66’’ is false
+           respectively.                                                                            in the 5th iteration of the clustering process of the TAIEX
+          (Sub-Step 2) We can calculate the values of max_data_dis-                                 training data, we create a new cluster for the new datum
+          tance using Eq. (3) for the data of the TAIEX, NASDAQ and                                 3533.51 and let this new cluster be the current cluster in
+          Dow Jones shown in Table 1, respectively, where the results                               the next iteration. But in the 199th iteration, the condition
+          are 6.66, 5.66 and 12.30, respectively. Based on the values of                            of ‘‘6049.26–6045.67 < 6.66’’ is true, therefore, we insert
+          max_data_distance for the data of the TAIEX, NASDAQ and                                   the datum 6049.26 into the current cluster in which
+          Dow Jones shown in Table 1, the data of the TAIEX, NASDAQ                                 6045.67 belongs to. In the same way, we can cluster both
+          and Dow Jones shown in Table 1 are clustered, respectively.                               the NASDAQ and the Dow Jones training data set shown in
+                                                                                                    Table 1 using their own max_data_distance, i.e., 5.66 and
+                                                                                                    12.30, respectively.
+Table 2                                                                                             (Sub-Step 3) After all the training data sets are clustered, we
+Clustering process of the TAIEX training data set.                                                  can calculate the lower bound and the upper bound of each
+  Iteration    Current cluster               Datum       Insert into the current
+                                                                                                    cluster using Eqs. (4) and (5), respectively. For the lower
+                                                         cluster/create a new                       bound of the ﬁrst cluster and the upper bound of the last
+                                                         cluster                                    cluster of each training data set, we use Eqs. (6) and (7) to
+     1         {3446.26}                     3492.12     Create a new cluster                       calculate them, respectively. We treat clusters as intervals,
+     2         {3492.12}                     3493.66     Insert into the current                    which means these clusters correspond to intervals. There-
+                                                         cluster                                    fore, the lower bound and the upper bound of a cluster are
+     3         {3492.12,3493.66}             3493.78     Insert into the current
+                                                                                                    also the lower bound and the upper bound of an interval,
+                                                         cluster
+     4         {3492.12,3493.66,3493.78}     3520.35     Create a new cluster
+     5         {3520.35}                     3533.51     Create a new cluster
+     6         {3533.51}                     3567.63     Create a new cluster            Table 4
+     7         {3567.63}                     3585.46     Create a new cluster            Clustering process of the Dow Jones training data set.
+     8         {3585.46}                     3591.85     Insert into the current
+                                                                                            Iteration    Current cluster     Datum      Insert into the current cluster/
+                                                         cluster
+                                                                                                                                        create a new cluster
+     ..                     ..                  ..                    ..
+      .                      .                   .                     .                      1          {8235.81}           8376.21    Create a new cluster
+  193          {5932.42}                     5936.2      Insert into the current              2          {8376.21}           8567.39    Create a new cluster
+                                                         cluster                              3          {8567.39}           8603.86    Create a new cluster
+  194          {5932.42,5936.2}              5937.3      Insert into the current              4          {8603.86}           8659.97    Create a new cluster
+                                                         cluster                              5          {8659.97}           8681.42    Create a new cluster
+  195          {5932.42,5936.2,5937.3}       5949.96     Create a new cluster                 6          {8681.42}           8759.13    Create a new cluster
+  196          {5949.96}                     5971.29     Create a new cluster                 7          {8759.13}           8847.56    Create a new cluster
+  197          {5971.29}                     6027.49     Create a new cluster                 8          {8847.56}           8950.59    Create a new cluster
+  198          {6027.49}                     6045.67     Create a new cluster                  ..                ..             ..                       ..
+  199          {6045.67}                     6049.26     Insert into the current                .                 .              .                        .
+                                                         cluster                            184          {11090.7}           11105.5    Create a new cluster
+  200          {6045.67,6049.26}             6104.24     Create a new cluster               185          {11105.5}           11122.4    Create a new cluster
+  201          {6104.24}                                                                    186          {11122.4}           11175.8    Create a new cluster
+                                                                                            187          {11175.8}           11215.9    Create a new cluster
+                                                                                            188          {11215.9}           11248.6    Create a new cluster
+                                                                                            189          {11248.6}           11257.2    Insert into the current cluster
+Table 3                                                                                     190          {11248.6,11257.2}   11301.7    Create a new cluster
+Clustering process of the NASDAQ training data set.                                         191          {11301.7}           11337.9    Create a new cluster
+                                                                                            192          {11301.7,11337.9}
+  Iteration    Current cluster             Datum       Insert into the current
+                                                       cluster/create a new cluster
+     1         {1423.19}                   1460.71     Create a new cluster
+     2         {1460.71}                   1464.04     Insert into the current           Table 5
+                                                       cluster                           Intervals generation process of the TAIEX.
+     3         {1460.71,1464.04}           1470.93     Create a new cluster
+     4         {1470.93}                   1492.33     Create a new cluster                 Clusters     Data                          Lower        Upper        Middle
+     5         {1492.33}                   1498.8      Create a new cluster                                                            bound        bound        value
+     6         {1498.8}                    1499.4      Insert into the current
+                                                                                            Cluster1     {3446.26}                     3439.6       3469.19      3454.39
+                                                       cluster
+                                                                                            Cluster2     {3492.12, 3493.66, 3493.78}   3469.19      3507.07      3488.13
+     7         {1498.8,1499.4}             1501.64     Insert into the current
+                                                                                            Cluster3     {3520.35}                     3507.07      3526.93      3517
+                                                       cluster
+                                                                                            Cluster4     {3533.51}                     3526.93      3550.57      3538.75
+    8          {1498.8,1499.4,1501.64}     1527.8      Create a new cluster
+                                                                                            Cluster5     {3567.63}                     3550.57      3576.55      3563.56
+     ..                   ..                  ..                     ..
+      .                    .                   .                      .                          ..                   ..                   ..           ..           ..
+                                                                                                  .                    .                    .            .            .
+  184          {2640.57,2643.21}           2660.5      Create a new cluster
+                                                                                            Cluster16    {3900.62, 3903.49}            3887.52      3909.55      3898.53
+  185          {2660.5}                    2664.49     Insert into the current
+                                                                                            Cluster17    {3915.61}                     3909.55      3934.05      3921.8
+                                                       cluster
+                                                                                            Cluster18    {3952.49}                     3934.05      3969.58      3951.82
+  186          {2660.5,2664.49}            2682.78     Create a new cluster
+                                                                                            Cluster19    {3986.67}                     3969.58      3999.43      3984.51
+  187          {2682.78}                   2768.49     Create a new cluster
+                                                                                            Cluster20    {4012.20}                     3999.43      4026.48      4012.96
+  188          {2768.49}                   2772.73     Insert into the current
+                                                                                                  ..                   ..                   ..           ..           ..
+                                                       cluster                                     .                    .                    .            .            .
+  189          {2768.49,2772.73}           2782.79     Create a new cluster                 Cluster120   {5949.96}                     5943.63      5960.63      5952.13
+  190          {2782.79}                   2838.34     Create a new cluster                 Cluster121   {5971.29}                     5960.63      5999.39      5980.01
+  191          {2838.34}                   2838.35     Insert into the current              Cluster122   {6027.49}                     5999.39      6036.58      6017.98
+                                                       cluster                              Cluster123   {6045.67, 6049.26}            6036.58      6076.75      6056.67
+  192          {2838.34,2838.35}                                                            Cluster124   {6104.24}                     6076.75      6110.9       6093.83
+10600                                      S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605
+
+
+       respectively. The intervals generation process of the TAIEX,                   Table 6
+       the NASDAQ, and the Dow Jones from 2001/1/2 to 2001/                           Intervals generation process of the NASDAQ.
+
+       10/31 is shown in Tables 5–7, respectively. For example,                          Clusters     Data                          Lower       Upper        Middle
+       from Table 5, we can see that Cluster1 represents the ﬁrst                                                                   bound       bound        value
+       interval of the TAIEX data, which was symbolized as u1,                           Cluster1     {1423.19}                     1417.53     1441.95      1429.74
+       where its lower bound and upper bound are 3439.6 and                              Cluster2     {1460.71, 1464.04}            1441.95     1467.49      1454.72
+       3469.19, respectively; from Table 6, we can see that Cluster2                     Cluster3     {1470.93}                     1467.49     1481.63      1474.56
+                                                                                         Cluster4     {1492.33}                     1481.63     1495.57      1488.6
+       represents the second interval of the NASDAQ data, which                          Cluster5     {1498.80, 1499.40, 1501.64}   1495.57     1514.72      1505.14
+       was symbolized as v1,2, where its lower bound and upper                               ..                    ..                   ..          ..           ..
+                                                                                              .                     .                    .           .            .
+       bound are 1441.95 and 1467.49, respectively.
+                                                                                         Cluster16    {1720.36, 1722.07}            1714.22     1726.8       1720.51
+   (Step 2) Based on Table 5, we can deﬁne the linguistic terms                          Cluster17    {1731.54}                     1726.8      1738.63      1732.71
+   A1, A2, . . ., and A124 represented by fuzzy sets of the TAIEX data,                  Cluster18    {1745.71}                     1738.63     1752.36      1745.49
+   shown as follows:                                                                     Cluster19    {1759.01}                     1752.36     1763.99      1758.17
+                                                                                         Cluster20    {1768.96, 1770.78, 1775.47}   1763.99     1779.22      1771.6
+        A1 ¼ 1=u1 þ 0:5=u2 þ 0=u3 þ 0=u4                                                      ..                    ..                   ..          ..           ..
+                                                                                               .                     .                    .           .            .
+              þ . . . þ 0=u123 þ 0=u124 ;                                                Cluster70    {2660.50, 2664.49}            2651.86     2673.64      2662.74
+        A2 ¼ 0:5=u1 þ 1=u2 þ 0:5=u3 þ 0=u4                                               Cluster71    {2682.78}                     2673.64     2725.64      2699.64
+                                                                                         Cluster72    {2768.49, 2772.73}            2725.64     2777.76      2751.7
+              þ . . . þ 0=u123 þ 0=u124 ;                                                Cluster73    {2782.79}                     2777.76     2810.57      2794.16
+        A3 ¼ 0=u1 þ 0:5=u2 þ 1=u3 þ 0:5=u4                                               Cluster74    {2838.34, 2838.35}            2810.57     2844.01      2827.29
+
+              þ . . . þ 0=u123 þ 0=u124 ;
+                        ..
+                         .
+        A124 ¼ 0=u1 þ 0=u2 þ 0=u3 þ 0=u4                                              Table 7
+                                                                                      Intervals generation process of the Dow Jones.
+              þ . . . þ 0:5=u123 þ 1=u124 ;
+                                                                                         Clusters    Data                                   Lower    Upper      Middle
+  where A1, A2, . . ., and A124 are linguistic terms of the main factor.                                                                    bound    bound      value
+  Based on Table 6, we can deﬁne the linguistic terms B1,1,B1,2,. . .,
+                                                                                         Cluster1    {8235.81}                             8223.51    8306.01    8264.76
+  and B1,74 represented by fuzzy sets of the NASDAQ data, shown                          Cluster2    {8376.21}                             8306.01    8471.8     8388.9
+  as follows:                                                                            Cluster3    {8567.39}                             8471.8     8585.63    8528.71
+                                                                                         Cluster4    {8603.86}                             8585.63    8631.92    8608.77
+        B1;1 ¼ 1=v 1;1 þ 0:5=v 1;2 þ 0=v 1;3 þ 0=v 1;4
+                                                                                         Cluster5    {8659.97}                             8631.92    8670.69    8651.31
+              þ . . . þ 0=v 1;73 þ 0=v 1;74 ;                                                ..                       ..                     ..         ..         ..
+                                                                                              .                        .                      .          .          .
+        B1;2 ¼ 0:5=v 1;1 þ 1=v 1;2 þ 0:5=v 1;3 þ 0=v 1;4                                 Cluster13   {9204.11}                             9183.67    9218.54    9201.1
+              þ . . . þ 0=v 1;73 þ 0=v 1;74 ;                                            Cluster14   {9232.97}                             9218.54    9251.24    9234.89
+                                                                                         Cluster15   {9269.50}                             9251.24    9304.79    9278.01
+        B1;3 ¼ 0=v 1;1 þ 0:5=v 1;2 þ 1=v 1;3 þ 0:5=v 1;4                                 Cluster16   {9340.08, 9344.16, 9345.62, 9347.62} 9304.79     9362.33    9333.56
+              þ . . . þ 0=v 1;73 þ 0=v 1;74 ;                                            Cluster17   {9377.03, 9384.23, 9389.48}           9362.33    9399.97    9381.15
+                                                                                              ..                       ..                     ..         ..         ..
+                        ..                                                                     .                        .                      .          .          .
+                         .                                                               Cluster61   {11175.84}                           11149.13   11195.88   11172.51
+        B1;74 ¼ 0=v 1;1 þ 0=v 1;2 þ 0=v 1;3 þ 0=v 1;4                                    Cluster62   {11215.92}                           11195.88   11232.25   11214.07
+                                                                                         Cluster63   {11248.58,11257.24}                  11232.25   11279.49   11255.87
+              þ . . . þ 0:5=v 1;73 þ 1=v 1;74 ;                                          Cluster64   {11301.74}                           11279.49   11319.83   11299.66
+                                                                                         Cluster65   {11337.92}                           11319.83   11350.22   11335.02
+  Based on Table 7, we can deﬁne the linguistic terms B2,1,B2,2, . . .,
+  and B2,65 represented by fuzzy sets of the Dow Jones data, shown
+  as follows:
+                                                                                          that the fuzziﬁed TAIEX, the fuzziﬁed NASDAQ, and the fuzz-
+        B2;1 ¼ 1=v 2;1 þ 0:5=v 2;2 þ 0=v 2;3 þ 0=v 2;4                                    iﬁed Dow Jones of 2001/1/2 are A59,B1,55 and B2,46, respectively.
+              þ . . . þ 0=v 2;64 þ 0=v 2;65 ;                                             We also can see that the fuzziﬁed TAIEX on 2001/1/3 is A57.
+        B2;2 ¼ 0:5=v 2;1 þ 1=v 2;2 þ 0:5=v 2;3 þ 0=v 2;4                                  Therefore, there is a fuzzy logical relationship from 2001/1/2
+              þ . . . þ 0=v 2;64 þ 0=v 2;65 ;                                             to 2001/1/3, shown as follows:
+        B2;3 ¼ 0=v 2;1 þ 0:5=v 2;2 þ 1=v 2;3 þ 0:5=v 2;4                                      A59 ; B1;55 ; B2;46 ! A57 :
+               þ . . . þ 0=v 2;64 þ 0=v 2;65 ;                                           Table 9 shows the fuzzy logical relationships obtained from
+                         ..                                                           Table 8.
+                          .
+                                                                                         For each testing data from 2001/11/1 to 2001/12/31, we repeat-
+        B2;65 ¼ 0=v 2;1 þ 0=v 2;2 þ 0=v 2;3 þ 0=v 2;4                                 edly do Step 1 to Step 5. In the following, we illustrate how to do
+              þ . . . þ 0:5=v 2;64 þ 1=v 2;65 ;                                       Step 1 to Step 5 for forecasting the testing data of 2001/11/1 and
+                                                                                      2001/11/2, respectively:
+   (Step 3) Fuzzify each datum into a fuzzy set. If the value of the
+                                                                                         [Forecast 2001/11/1]:
+   main factor belongs to ui, where 1 6 i 6 n, then it is fuzziﬁed
+   into Ai. If the datum of the jth secondary factor belongs to vj,k,
+                                                                                                     (Step 5) To forecast the TAIEX of 2001/11/1, we must see
+   where 1 6 k 6 mj, then the datum of the jth secondary factor
+                                                                                                     the TAIEX, the NASDAQ and the Dow Jones of the previ-
+   is fuzziﬁed into Bj,k. Table 8 shows the fuzziﬁed values of the
+                                                                                                     ous day (i.e., 2001/10/31), respectively, which are
+   TAIEX, the NASDAQ and the Dow Jones.
+                                                                                                     3903.49 (A16), 1690.2 (B1,15) and 9075.14 (B2,10), respec-
+   (Step 4) Based on Table 8, we can construct the fuzzy logical
+                                                                                                     tively. Because we cannot ﬁnd a fuzzy logical relation-
+   relationships based on the fuzziﬁed main factor and the fuzz-
+                                                                                                     ship in Table 9 whose current state is ‘‘A16, B1,15, B2,10’’,
+   iﬁed secondary factors. For example, from Table 8, we can see
+                                              S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605                                       10601
+
+
+Table 8
+Fuzziﬁed values of the TAIEX, the NASDAQ and the Dow Jones.
+
+  Date                   TAIEX                  Fuzziﬁed TAIEX             NASDAQ                Fuzziﬁed NASDAQ                Dow Jones             Fuzziﬁed Dow Jones
+  2001/1/2               4935.28                A59                        2291.86               B1,55                          10646.15              B2,46
+  2001/1/3               4894.79                A57                        2616.69               B1,67                          10945.75              B2,54
+  2001/1/4               5136.13                A72                        2566.83               B1,65                          10912.41              B2,53
+  2001/1/5               5295.53                A81                        2407.65               B1,58                          10662.01              B2,46
+  2001/1/8               5188.51                A76                        2395.92               B1,57                          10621.35              B2,46
+  2001/1/9               5376.12                A86                        2441.3                B1,60                          10572.55              B2,46
+  2001/1/10              5436.78                A89                        2524.18               B1,63                          10604.27              B2,46
+  2001/1/11              5369.24                A85                        2640.57               B1,69                          10609.55              B2,46
+       ..                   ..                         ...                    ..                           ...                      ..                          ...
+        .                    .                                                 .                                                     .
+  2001/10/22             3900.62                A16                        1708.08               B1,15                           9377.03              B2,17
+  2001/10/23             3874.42                A15                        1704.44               B1,15                           9340.08              B2,16
+  2001/10/24             3986.67                A19                        1731.54               B1,17                           9345.62              B2,16
+  2001/10/25             4012.2                 A20                        1775.47               B1,20                           9462.9               B2,19
+  2001/10/26             4043.57                A21                        1768.96               B1,20                           9545.17              B2,22
+  2001/10/29             4065.1                 A22                        1699.52               B1,15                           9269.5               B2,15
+  2001/10/30             3915.61                A17                        1667.41               B1,14                           9121.98              B2,11
+  2001/10/31             3903.49                A16                        1690.2                B1,15                           9075.14              B2,10
+
+
+
+
+                 Table 9
+                 Fuzzy logical relationships.
+                                                                                         Table 10
+                    A59, B1,55, B2,46 ? A57                                              Clustering process of the TAIEX training data set including the TAIEX datum of 2001/
+                    A57, B1,67, B2,54 ? A72                                              11/1.
+                    A72, B1,65, B2,53 ? A81
+                                                                                            Iteration     Current cluster               Datum     Insert into the current
+                    A81, B1,58, B2,46 ? A76
+                                                                                                                                                  cluster/create a new
+                    A76, B1,57, B2,46 ? A86
+                                                                                                                                                  cluster
+                    A86, B1,60, B2,46 ? A89
+                    A89, B1,63, B2,46 ? A85                                                    1          {3446.26}                     3492.12   Create a new cluster
+                    A85, B1,69, B2,46 ? A83                                                    2          {3492.12}                     3493.66   Insert into the current
+                                         ..                                                                                                       cluster
+                                          .
+                                                                                               3          {3492.12, 3493.66}            3493.78   Insert into the current
+                    A14, B1,14, B2,13 ? A16
+                                                                                                                                                  cluster
+                    A16, B1,15, B2,17 ? A15
+                                                                                              4           {3492.12, 3493.66, 3493.78}   3520.35   Create a new cluster
+                    A15, B1,15, B2,16 ? A19
+                                                                                              5           {3520.35}                     3533.51   Create a new cluster
+                    A19, B1,17, B2,16 ? A20
+                                                                                               ..                      ..                  ..                  ..
+                    A20, B1,20, B2,19 ? A21                                                     .                       .                   .                   .
+                    A21, B1,20, B2,22 ? A22                                                  25           {3900.62, 3903.49}            3915.61   Create a new cluster
+                    A22, B1,15, B2,15 ? A17                                                  26           {3915.61}                     3929.69   Create a new cluster
+                    A17, B1,14, B2,11 ? A16                                                  27           {3929.69}                     3952.49   Create a new cluster
+                                                                                             28           {3952.49}                     3986.67   Create a new cluster
+                                                                                             29           {3986.67}                     4012.2    Create a new cluster
+                                                                                                ..                      ..                  ..                  ..
+                                                                                                 .                       .                   .                   .
+                                                                                            197           {5949.96}                     5971.29   Create a new cluster
+            we use Rule 3 to forecast the TAIEX of 2001/11/1, shown                         198           {5971.29}                     6027.49   Create a new cluster
+                                                                                            199           {6027.49}                     6045.67   Create a new cluster
+            as follows:
+                                                                                            200           {6045.67}                     6049.26   Insert into the current
+         0:5  ðm16 þ Sð2001=10=31ÞÞ ¼ 0:5  ð3898:53 þ 3903:49Þ                                                                                  cluster
+                                                                                            201           {6045.67, 6049.26}            6104.24   Create a new cluster
+                                              ¼ 0:5  7802:02 ¼ 3901:01;                    202           {6104.24}
+
+
+          where m16 denotes the middle value of the interval corre-
+          sponding to Cluster16 shown in Table 5 and Cluster16 corre-
+          sponding to the 16th interval.
+           (Step 6)Because we want to forecast the TAIEX of 2001/                                    (Sub-Step 1) After sorting the training data of the TAIEX, the
+           11/2, where the data of the TAIEX, the NASDAQ, and                                        NASDAQ, and the Dow Jones in an ascending sequence from
+           the Dow Jones on 2001/11/1 are 3929.69, 1746.30 and                                       2001/1/2 to 2001/11/1 and after calculating their avg_diff
+           9263.90, respectively, we can add these data into the                                     and dev_diff, respectively, we can see that avg_diff and dev_-
+           existing training data and redo Steps 1–5 to forecast                                     diff of the TAIEX are 13.22 and 13.20, respectively; avg_diff
+           the TAIEX of 2001/11/2.                                                                   and dev_diff of the NASDAQ are 7.37 and 11.29, respectively;
+                                                                                                     avg_diff and dev_diff of the Dow Jones are 16.16 and 24.52,
+   [Forecast 2001/11/2]:                                                                             respectively.
+                                                                                                     (Sub-Step 2) We can calculate the values of max_data_dis-
+   (Step 1) Because the data of the TAIEX, the NASDAQ and the                                        tance using Eq. (3) for the TAIEX, the NASDAQ, and the
+   Dow Jones of 2001/11/01 have been added into the existing                                         Dow Jones data, respectively, i.e., 6.60, 5.65 and 12.26,
+   training data set, the current training data are from 2001/01/                                    respectively. By using each value of max_data_distance, the
+   02 to 2001/11/01 now. We apply the proposed clustering algo-                                      TAIEX, the NASDAQ, and the Dow Jones data are clustered,
+   rithm to generate intervals from the training data sets TAIEX,                                    respectively. The clustering process for the training data
+   NASDAQ and Dow Jones, respectively. The clustering process                                        from 2001/1/2 to 2001/11/1 for each data set are shown in
+   of the proposed method is illustrated as follows:                                                 Tables 10–12, respectively.
+10602                                               S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605
+
+
+Table 11                                                                                       Table 13
+Clustering process of the NASDAQ training data set including the NASDAQ datum of               Intervals generation process of the TAIEX training data set including the TAIEX datum
+2001/11/1.                                                                                     of 2001/11/1.
+
+  Iteration        Current cluster        Datum      Insert into the current cluster/             Clusters      Data                          Lower           Upper       Middle
+                                                     create a new cluster                                                                     bound           bound       value
+  1                {1423.19}              1460.71    Create a new cluster                         Cluster1      {3446.26}                     3439.66         3469.19     3454.42
+  2                {1460.71}              1464.04    Insert into the current cluster              Cluster2      {3492.12, 3493.66, 3493.78}   3469.19         3507.07     3488.13
+  3                {1460.71, 1464.04}     1470.93    Create a new cluster                         Cluster3      {3520.35}                     3507.07         3526.93     3517
+  4                {1470.93}              1492.33    Create a new cluster                         Cluster4      {3533.51}                     3526.93         3550.57     3538.75
+  5                {1492.33}              1498.8     Create a new cluster                         Cluster5      {3567.63}                     3550.57         3576.55     3563.56
+        ..                  ..                ..                       ..                              ..                    ..                   ..              ..          ..
+         .                   .                 .                        .                               .                     .                    .               .           .
+  33               {1731.54}              1745.71    Create a new cluster                         Cluster17     {3900.62, 3903.49}            3887.52         3909.55     3898.53
+  34               {1745.71}              1746.3     Insert into the current cluster              Cluster18     {3915.61}                     3909.55         3922.65     3916.1
+  35               {1745.71, 1746.30}     1759.01    Create a new cluster                         Cluster19     {3929.69}                     3922.65         3941.09     3931.87
+  36               {1759.01}              1768.96    Create a new cluster                         Cluster20     {3952.49}                     3941.09         3969.58     3955.34
+  37               {1768.96}              1770.78    Insert into the current cluster              Cluster21     {3986.67}                     3969.58         3999.43     3984.51
+        ...                ..
+                            .
+                                             ..
+                                              .
+                                                                      ..
+                                                                       .
+                                                                                                        ..
+                                                                                                         .
+                                                                                                                              ..
+                                                                                                                               .
+                                                                                                                                                   ..
+                                                                                                                                                    .
+                                                                                                                                                                   ..
+                                                                                                                                                                    .
+                                                                                                                                                                               ..
+                                                                                                                                                                                .
+  188              {2682.78}              2768.49    Create a new cluster                         Cluster123    {5949.96}                     5943.63         5960.63     5952.13
+  189              {2768.49}              2772.73    Insert into the current cluster              Cluster124    {5971.29}                     5960.63         5999.39     5980.01
+  190              {2768.49, 2772.73}     2782.79    Create a new cluster                         Cluster125    {6027.49}                     5999.39         6036.58     6017.98
+  191              {2782.79}              2838.34    Create a new cluster                         Cluster126    {6045.67, 6049.26}            6036.58         6076.75     6056.67
+  192              {2838.34}              2838.35    Insert into the current cluster              Cluster127    {6104.24}                     6076.75         6110.84     6093.8
+  193              {2838.34, 2838.35}
+
+
+
+                                                                                               Table 14
+                                                                                               Intervals generation process of the NASDAQ training data set including the NASDAQ
+                                                                                               datum of 2001/11/1.
+Table 12                                                                                          Clusters     Data                           Lower       Upper           Middle
+Clustering process of the Dow Jones training data set including the NASDAQ datum of                                                           bound       bound           value
+2001/11/1.
+                                                                                                  Cluster1     {1423.19}                      1417.54     1441.95         1429.75
+  Iteration        Current cluster          Datum        Insert into the current                  Cluster2     {1460.71, 1464.04}             1441.95     1467.49         1454.72
+                                                         cluster/create a new cluster             Cluster3     {1470.93}                      1467.49     1481.63         1474.56
+                                                                                                  Cluster4     {1492.33}                      1481.63     1495.57         1488.6
+  1                {8235.81}                 8376.21     Create a new cluster
+                                                                                                  Cluster5     {1498.80, 1499.40, 1501.64}    1495.57     1514.72         1505.14
+  2                {8376.21}                 8567.39     Create a new cluster
+                                                                                                      ..                    ..                    ..          ..              ..
+  3                {8567.39}                 8603.86     Create a new cluster                          .                     .                     .           .               .
+  4                {8603.86}                 8659.97     Create a new cluster                     Cluster16    {1720.36,1722.07}              1714.22     1726.8          1720.51
+  5                {8659.97}                 8681.42     Create a new cluster                     Cluster17    {1731.54}                      1726.8      1738.63         1732.71
+        ..                   ..                ..                       ..                        Cluster18    {1745.71, 1746.30}             1738.63     1752.66         1745.64
+         .                    .                 .                        .
+                                                                                                  Cluster19    {1759.01}                      1752.66     1763.99         1758.32
+  18               {9204.11}                 9232.97     Create a new cluster
+                                                                                                  Cluster20    {1768.96, 1770.78, 1775.47}    1763.99     1779.22         1771.6
+  19               {9232.97}                 9263.9      Create a new cluster
+                                                                                                       ..                    ..                    ..          ..              ..
+  20               {9263.90}                 9269.5      Insert into the current cluster                .                     .                     .           .               .
+  21               {9263.90, 9269.50}        9340.08     Create a new cluster                     Cluster70    {2660.50, 2664.49}             2651.86     2673.64         2662.74
+  22               {9340.08}                 9344.16     Insert into the current cluster          Cluster71    {2682.78}                      2673.64     2725.64         2699.64
+        ..                    ..                ..                       ..                       Cluster72    {2768.49, 2772.73}             2725.64     2777.76         2751.7
+         .                     .                 .                        .
+                                                                                                  Cluster73    {2782.79}                      2777.76     2810.57         2794.16
+  188              {11175.84}               11215.92     Create a new cluster
+                                                                                                  Cluster74    {2838.34, 2838.35}             2810.57     2844            2827.28
+  189              {11215.92}               11248.58     Create a new cluster
+  190              {11248.58}               11257.24     Insert into the current cluster
+  191              {11248.58, 11257.24}     11301.74     Create a new cluster
+  192              {11301.74}               11337.92     Create a new cluster                  Table 15
+  193              {11301.74, 11337.92}                                                        Intervals generation process of the Dow Jones training data set including the Dow
+                                                                                               Jones datum of 2001/11/1.
+
+                                                                                                  Clusters     Data                                   Lower       Upper      Middle
+                                                                                                                                                      bound       bound      value
+                                                                                                  Cluster1     {8235.81}                             8223.55       8306.01    8264.78
+              (Sub-Step 3) After all the training data are clustered, we can                      Cluster2     {8376.21}                             8306.01       8471.8     8388.9
+              calculate the lower bound and the upper bound of each clus-                         Cluster3     {8567.39}                             8471.8        8585.63    8528.71
+              ter using Eqs. (4) and (5), respectively. For the lower bound                       Cluster4     {8603.86}                             8585.63       8631.92    8608.77
+              of the ﬁrst cluster and the upper bound of the last cluster of                      Cluster5     {8659.97}                             8631.92       8670.69    8651.31
+                                                                                                      ..                        ..                     ..            ..         ..
+              each data set, we use Eqs. (6) and (7) to calculate them,                                .                         .                      .             .          .
+              respectively. We treat clusters as intervals, which means                           Cluster13    {9204.11}                             9183.67       9218.54    9201.1
+              these clusters correspond to intervals. Therefore, the lower                        Cluster14    {9232.97}                             9218.54       9248.43    9233.49
+                                                                                                  Cluster15    {9263.90, 9269.50}                    9248.43       9304.79    9276.61
+              bound and the upper bound of a cluster are also the lower
+                                                                                                  Cluster16    {9340.08, 9344.16, 9345.62, 9347.62} 9304.79        9362.33    9333.56
+              bound and upper bound of an interval, respectively. The                             Cluster17    {9377.03, 9384.23, 9389.48}           9362.33       9399.97    9381.15
+              intervals generation process of the TAIEX, the NASDAQ and                                ..                        ..                     ..            ..         ..
+                                                                                                        .                         .                      .             .          .
+              the Dow Jones from 2001/1/2 to 2001/11/1 is shown in                                Cluster61    {11175.84}                           11149.13      11195.88   11172.51
+              Tables 13–15, respectively.                                                         Cluster62    {11215.92}                           11195.88      11232.25   11214.07
+               (Step 2) Based on Table 13, we can deﬁne the linguistic                            Cluster63    {11248.58, 11257.24}                 11232.25      11279.49   11255.87
+               terms A1, A2, . . ., and A127 represented by fuzzy sets of the                     Cluster64    {11301.74}                           11279.49      11319.83   11299.66
+                                                                                                  Cluster65    {11337.92}                           11319.83      11350.18   11335.01
+               TAIEX data, shown as follows:
+                                            S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605                                                                      10603
+
+
+Table 16
+Fuzziﬁed values of the TAIEX, the NASDAQ and the Dow Jones including the datum of 2001/11/1.
+
+  Date                   TAIEX                   Fuzziﬁed TAIEX          NASDAQ               Fuzziﬁed NASDAQ                              Dow Jones                         Fuzziﬁed Dow Jones
+  2001/1/2               4935.28                 A62                     2291.86              B1,55                                        10646.15                          B2,46
+  2001/1/3               4894.79                 A60                     2616.69              B1,67                                        10945.75                          B2,54
+  2001/1/4               5136.13                 A75                     2566.83              B1,65                                        10912.41                          B2,53
+  2001/1/5               5295.53                 A84                     2407.65              B1,58                                        10662.01                          B2,46
+  2001/1/8               5188.51                 A79                     2395.92              B1,57                                        10621.35                          B2,46
+  2001/1/9               5376.12                 A89                     2441.3               B1,60                                        10572.55                          B2,46
+  2001/1/10              5436.78                 A92                     2524.18              B1,63                                        10604.27                          B2,46
+  2001/1/11              5369.24                 A88                     2640.57              B1,69                                        10609.55                          B2,46
+       ..                   ..                         ...                  ..                            ...                                  ..                                           ...
+        .                    .                                               .                                                                  .
+  2001/10/23             3874.42                 A16                     1704.44              B1,15                                         9340.08                          B2,16
+  2001/10/24             3986.67                 A21                     1731.54              B1,17                                         9345.62                          B2,16
+  2001/10/25             4012.2                  A22                     1775.47              B1,20                                         9462.9                           B2,19
+  2001/10/26             4043.57                 A23                     1768.96              B1,20                                         9545.17                          B2,22
+  2001/10/29             4065.1                  A24                     1699.52              B1,15                                         9269.5                           B2,15
+  2001/10/30             3915.61                 A18                     1667.41              B1,14                                         9121.98                          B2,11
+  2001/10/31             3903.49                 A17                     1690.2               B1,15                                         9075.14                          B2,10
+  2001/11/1              3929.69                 A19                     1746.3               B1,18                                         9263.9                           B2,15
+
+
+         A1 ¼ 1=u1 þ 0:5=u2 þ 0=u3 þ 0=u4                                                  to interval vj,k, where 1 6 k 6 mj, then the datum of the jth sec-
+               þ . . . þ 0=u126 þ 0=u127 ;                                                 ondary factor is fuzziﬁed into Bj,k. Table 16 shows the fuzziﬁed
+         A2 ¼ 0:5=u1 þ 1=u2 þ 0:5=u3 þ 0=u4                                                values of the TAIEX, the NASDAQ and the Dow Jones.
+                                                                                           (Step 4) Based on Table 16, we can construct fuzzy logical rela-
+               þ . . . þ 0=u126 þ 0=u127 ;
+                                                                                           tionships based on the fuzziﬁed main factor and the fuzziﬁed
+         A3 ¼ 0=u1 þ 0:5=u2 þ 1=u3 þ 0:5=u4                                                secondary factors, as shown in Table 17.
+               þ . . . þ 0=u126 þ 0=u127 ;                                                 (Step 5) To forecast the TAIEX of 2001/11/2, we must see the
+                         ..                                                                TAIEX, the NASDAQ and the Dow Jones index of the previous
+                          .                                                                one day (i.e., 2001/11/1), respectively, which are 3929.69
+         A127 ¼ 0=u1 þ 0=u2 þ 0=u3 þ 0=u4                                                  (A19), 1746.3 (B1,18) and 9263.9 (B2,15), respectively. Because
+               þ . . . þ 0:5=u126 þ 1=u127 ;                                               we can not ﬁnd a fuzzy logical relationship in Table 17 whose
+                                                                                           current state is ‘‘A19, B1,18, B2,15’’, we use Rule 3 to forecast the
+where A1, A2, . . ., and A127 are linguistic terms of the main factor.                     TAIEX of 2001/11/2, shown as follows:
+Based on Table 14, we can deﬁne the linguistic terms B1,1,B1,2,. . .,
+and B1,74 represented by fuzzy sets of the NASDAQ data, shown as                               0:5  ðm19 þ Sð2001=11=1ÞÞ ¼ 0:5  ð3931:87 þ 3929:69Þ
+follows:                                                                                                                                            ¼ 0:5  7861:56 ¼ 3930:78;
+
+         B1;1 ¼ 1=v 1;1 þ 0:5=v 1;2 þ 0=v 1;3 þ 0=v 1;4                                where m19 denotes the middle value of the interval corresponding
+               þ . . . þ 0=v 1;73 þ 0=v 1;74 ;                                         to Cluster19 shown in Table 13 and Cluster19 corresponding to the
+                                                                                       19th interval. In the same way, we can do the forecast from 2001/
+         B1;2 ¼ 0:5=v 1;1 þ 1=v 1;2 þ 0:5=v 1;3 þ 0=v 1;4
+                                                                                       11/5 to 2001/12/31. In this paper, the root mean square error
+               þ . . . þ 0=v 1;73 þ 0=v 1;74 ;                                         (RMSE) is used to compare the forecasted accuracy rates for differ-
+         B1;3 ¼ 0=v 1;1 þ 0:5=v 1;2 þ 1=v 1;3 þ 0:5=v 1;4                              ent methods, where
+               þ . . . þ 0=v 1;73 þ 0=v 1;74 ;                                                        sﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+                                                                                                       Pn                                                                                    2
+                         ..                                                                                 i¼1 ðForecasted v aluei  Actual v aluei Þ
+                          .                                                                    RMSE ¼                                                                                           :
+                                                                                                                                                 n
+         B1;74 ¼ 0=v 1;1 þ 0=v 1;2 þ 0=v 1;3 þ 0=v 1;4
+               þ . . . þ 0:5=v 1;73 þ 1=v 1;74 ;
+
+Based on Table 15, we can deﬁne the linguistic terms of B2,1, B2,2, . . .,
+and B2,65 represented by fuzzy sets of the Dow Jones data, shown as                                             Table 17
+follows:                                                                                                        Fuzzy logical relationships.
+
+                                                                                                                   A62, B1,55, B2,46 ? A60
+         B2;1 ¼ 1=v 2;1 þ 0:5=v 2;2 þ 0=v 2;3 þ 0=v 2;4                                                            A60, B1,67, B2,54 ? A75
+               þ . . . þ 0=v 2;64 þ 0=v 2;65 ;                                                                     A75, B1,65, B2,53 ? A84
+                                                                                                                   A84, B1,58, B2,46 ? A79
+         B2;2 ¼ 0:5=v 2;1 þ 1=v 2;2 þ 0:5=v 2;3 þ 0=v 2;4
+                                                                                                                   A79, B1,57, B2,46 ? A89
+               þ . . . þ 0=v 2;64 þ 0=v 2;65 ;                                                                     A89, B1,60, B2,46 ? A92
+                                                                                                                   A92, B1,63, B2,46 ? A88
+         B2;3 ¼ 0=v 2;1 þ 0:5=v 2;2 þ 1=v 2;3 þ 0:5=v 2;4
+                                                                                                                   A88, B1,69, B2,46 ? A86
+               þ . . . þ 0=v 2;64 þ 0=v 2;65 ;                                                                                            ..
+                                                                                                                                           .
+                         ..                                                                                        A17, B1,15, B2,17 ? A16
+                          .
+                                                                                                                   A16, B1,15, B2,16 ? A21
+         B2;65 ¼ 0=v 2;1 þ 0=v 2;2 þ 0=v 2;3 þ 0=v 2;4                                                             A21, B1,17, B2,16 ? A22
+                                                                                                                   A22, B1,20, B2,19 ? A23
+               þ . . . þ 0:5=v 2;64 þ 1=v 2;65 :
+                                                                                                                   A23, B1,20, B2,22 ? A24
+   (Step 3) Fuzzify each datum into a fuzzy set. If the value of the                                               A24, B1,15, B2,15 ? A18
+                                                                                                                   A18, B1,14, B2,11 ? A17
+   main factor belongs to interval ui, where 1 6 i 6 n, then it is
+                                                                                                                   A17, B1,15, B2,10 ? A19
+   fuzziﬁed into Ai. If the datum of the jth secondary factor belongs
+10604                                          S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605
+
+
+Table 18
+A comparison of RMSE by year for different methods.
+
+      Methods                                                                                                       Years                                                Sum
+                                                                                                                    2000      2001       2002       2003      2004
+      Chen’s method (1996)                                                                                          176.32     147.84    101.18      74.46     84.28     584.08
+      Huarng et al.’s method (2007)                        NASDAQ                                                   158.7      136.49     95.15      65.51     73.57     529.42
+                                                           Dow Jones                                                165.8      138.25     93.73      72.95     73.49     544.22
+                                                           M1b                                                      169.19     133.26     97.1       75.23     82.01     556.79
+                                                           NASDAQ & Dow Jones                                       157.64     131.98     93.48      65.51     73.49     522.10
+                                                           NASDAQ & M1b                                             155.51     128.44     97.15      70.76     73.48     525.34
+                                                           NASDAQ & Dow Jones & M1b                                 154.42     124.02     95.73      70.76     72.35     517.28
+      Univariate conventional regression model (U_R Model) (Yu & Huarng, 2008)                                      420       1070       116        329       146       2081
+      Univariate neural network model (U_NN model) (Yu & Huarng, 2008)                                              309        259        78         57        60        763
+      Univariate neural network-based fuzzy time series model (U_NN_FTS model) (Yu & Huarng, 2008)                  255        130        84         56       116        641
+      Univariate neural network-based fuzzy time series model with substitutes (U_NN_FTS_S model) (Huarng &         152        130        84         56       116        538
+         Yu, 2006b; Yu & Huarng, 2008, 2010)
+      Bivariate conventional regression model (B_R model) (Yu & Huarng, 2008)                                       154        120         77        54        85        490
+      Bivariate neural network model (B_NN model) (Yu & Huarng, 2008)                                               274        131         69        52        61        587
+      Bivariate neural network-based fuzzy time series model (B_NN_FTS model) (Yu & Huarng, 2008)                   259        133         85        58        67        602
+      Bivariate neural network-based fuzzy time series model with substitutes (B_NN_FTS_S model) (Yu &              131        130         80        58        67        466
+         Huarng, 2008)a
+      The proposed method                                    NASDAQ                                                 137.57     114.07      67.43     53.41     55.50     427.99
+                                                             Dow Jones                                              137.57     113.99      67.43     53.41     55.50     427.90
+                                                             M1b                                                    128.34     113.56      66.74     54.76     55.11     418.51
+                                                             NASDAQ & Dow Jones                                     137.57     113.99      67.43     53.41     55.50     427.90
+                                                             NASDAQ & M1b                                           128.34     113.56      66.51     53.41     55.11     416.93
+                                                             NASDAQ & Dow Jones & M1b                               128.34     113.56      66.51     53.41     55.11     416.93
+  a
+       In (Yu & Huarng, 2008), Yu and Huarng have corrected the typing errors appearing in Table 6 of (Yu & Huarng, 2008).
+
+
+
+
+Table 18 shows a comparison of the forecasting root mean square                             Chen, S. M. (2002). Forecasting enrollments based on high-order fuzzy time series.
+                                                                                                 Cybernetics and Systems, 33(1), 1–16.
+errors (RMSEs) from year 2000 to 2004 for different methods. From
+                                                                                            Chen, S. M., & Chung, N. Y. (2006). Forecasting enrollments using high-order fuzzy
+Table 18, we can see that the proposed method outperforms Chen’s                                 time series and genetic algorithms. International Journal of Intelligent Systems,
+method (1996), Huarng et al.’s method (2007), conventional regres-                               21(5), 485–501.
+sion methods (Yu & Huarng, 2008), neural-network models (Yu &                               Cheng, C. H., Chen, T. L., Teoh, H. J., & Chiang, C. H. (2008a). Fuzzy time-series based
+                                                                                                 on adaptive model for TAIEX forecasting. Expert Systems with Applications, 34(2),
+Huarng, 2008), neural-network fuzzy time series models (Yu & Hua-                                1126–1132.
+rng, 2008) and neural-network fuzzy time series models with sub-                            Cheng, C. H., Cheng, G. W., & Wang, J. W. (2008b). Multi-attribute fuzzy time series
+stitutes (Yu & Huarng, 2008) for forecasting the TAIEX.                                          method based on fuzzy clustering. Expert Systems with Applications, 34(2),
+                                                                                                 1235–1242.
+                                                                                            Cheng, C. H., Wang, J. W., & Li, C. H. (2008c). Forecasting the number of outpatient
+6. Conclusions                                                                                   visits using a new fuzzy time series based on weighted-transitional matrix.
+                                                                                                 Expert Systems with Applications, 34(4), 2568–2575.
+                                                                                            Cheng, C. H., Chen, Y. S., & Wu, Y. L. (2009). Forecasting innovation diffusion of
+    In this paper, we have presented a multivariate fuzzy forecast-                              products using trend-weighted fuzzy time-series model. Expert Systems with
+ing method based on fuzzy time series and clustering techniques.                                 Applications, 36(2), 1826–1832.
+First, we propose a new clustering algorithm to generate different                          Chen, S. M., & Hsu, C. C. (2004). A new method to forecast enrollments using fuzzy
+                                                                                                 time series. International Journal of Applied Science and Engineering, 2(3),
+lengths of intervals in the universe of discourse. It used the pattern                           234–244.
+of the data themselves to be put into intervals rather than roughly                         Chen, S. M., & Hwang, J. R. (2000). Temperature prediction using fuzzy time series.
+putting them into intervals of static length. Then, we present a                                 IEEE Transactions on Systems, Man, and Cybernetics-Part B: Cybernetics, 30(2),
+                                                                                                 263–275.
+multivariate fuzzy forecasting method to forecast the TAIEX based                           Geva, A. (1999a). Non-stationary time series prediction using fuzzy clustering. In
+on fuzzy time series and the proposed clustering algorithm. From                                 Proceedings of the 18th international conference of the north american fuzzy
+the experimental results show in Table 13, we can see that the pro-                              information processing society (pp. 413–417).
+                                                                                            Geva, A. (1999b). Hierarchical fuzzy clustering of temporal patterns and its
+posed method outperforms Chen’s method (1996), Huarng et al.’s
+                                                                                                 applications for time-series prediction. Pattern Recognition Letters, 20(14),
+method (2007), the conventional regression methods (Yu & Hua-                                    1532–1599.
+rng, 2008), the neural-network models (Yu & Huarng, 2008), the                              Huarng, K. (2001a). Effective lengths of intervals to improve forecasting fuzzy time
+                                                                                                 series. Fuzzy Sets and Systems, 123(3), 387–394.
+neural-network fuzzy time series models (Yu & Huarng, 2008)
+                                                                                            Huarng, K. (2001b). Heuristic models of fuzzy time series for forecasting. Fuzzy Sets
+and the neural-network fuzzy time series models with substitutes                                 and Systems, 123(3), 369–386.
+(Yu & Huarng, 2008) for forecasting the TAIEX.                                              Huarng, K., & Yu, H. K. (2005). A type 2 fuzzy time series model for stock index
+                                                                                                 forecasting. Physica A: Statistical Mechanics and its Applications, 353(1-4),
+                                                                                                 445–462.
+Acknowledgement                                                                             Huarng, K., & Yu, T. H. K. (2006a). Ratio-based lengths of intervals to improve fuzzy
+                                                                                                 time series forecasting. IEEE Transactions on Systems, Man, and Cybernetics-Part
+    This work was supported in part by the National Science Coun-                                B: Cybernetics, 32(2), 328–340.
+                                                                                            Huarng, K., & Yu, T. H. (2006b). The application of neural networks to forecast
+cil, Republic of China, under Grant NSC 97-2221-E-011-117-MY3.
+                                                                                                 fuzzy time series. Physica A: Statistical Mechanics and its Applications, 363(2),
+                                                                                                 481–491.
+References                                                                                  Huarng, K. H., Yu, T. H. K., & Hsu, Y. W. (2007). A multivariate heuristic model for
+                                                                                                 fuzzy time-series forecasting. IEEE Transactions on Systems, Man, and
+Aladag, H., Basaran, M. A., Egrioglu, E., Yolcu, U., & Uslu, V. R. (2008). Forecasting in        Cybernetics-Part B: Cybernetics, 37(4), 836–846.
+    high order fuzzy time series by using neural networks to deﬁne fuzzy relations.         Hwang, J. R., Chen, S. M., & Lee, C. H. (1998). Handling forecasting problems using
+    Expert Systems with Applications, 3(1), 4228–4231.                                           fuzzy time series. Fuzzy Sets and Systems, 100(1-3), 217–228.
+Chen, S. M. (1996). Forecasting enrollments based on fuzzy time series. Fuzzy Sets          Jilani, T. A., & Burney, S. M. A. (2008). Multivariate stochastic fuzzy forecasting
+    and Systems, 81(3), 311–319.                                                                 models. Expert Systems with Applications, 35(3), 691–700.
+                                               S.-M. Chen, K. Tanuwijaya / Expert Systems with Applications 38 (2011) 10594–10605                                         10605
+
+
+Kuo, H., Horng, S. J., Kao, T. W., Lin, T. L., Lee, C. L., & Pan, Y. (2009). An improved   Song, Q., & Chissom, B. S. (1993b). Forecasting enrollments with fuzzy time series –
+    method for forecasting enrollments based on fuzzy time series and particle                 Part I. Fuzzy Sets and Systems, 54(1), 1–9.
+    swarm optimization. Expert Systems with Applications, 36(3), 6108–6117.                Song, Q., & Chissom, B. S. (1994). Forecasting enrollments with fuzzy time series –
+Lee, H. L., Liu, A., & Chen, W. S. (2006a). Pattern discovery of fuzzy time series for         Part II. Fuzzy Sets and Systems, 62(1), 1–8.
+    ﬁnancial prediction. IEEE Transactions on Knowledge and Data Engineering, 18(5),       Sullivan, J., & Woodall, W. H. (1994). A comparison of fuzzy forecasting and Markov
+    613–625.                                                                                   modeling. Fuzzy Sets and Systems, 64(3), 279–293.
+Lee, L. W., Wang, L. H., Chen, S. M., & Leu, Y. H. (2006b). Handling forecasting           Tanuwijaya, K., & Chen, S. M. (2009). TAIEX forecasting based on fuzzy time series
+    problems based on two-factors high-order fuzzy time series. IEEE Transactions              and clustering techniques. In Proceedings of the 2009 international conference on
+    on Fuzzy Systems, 14(3), 468–477.                                                          machine learning and cybernetics (pp. 2982–2986). Baoding, Hebei, China.
+Leu, Y., Lee, C. P., & Jou, Y. Z. (2009). A distance-based fuzzy time series model for     Wang, N. Y., & Chen, S. M. (2009). Temperature prediction and TAIFEX forecasting
+    exchange rates forecasting. Expert Systems with Applications, 36(4), 8107–8114.            based on automatic clustering techniques and two-factors high-order fuzzy
+Magalhaes, M. H., Ballini, R., & Gomide, F. (2008). Granular models for time-series            time series. Expert Systems with Applications, 36(2), 2143–2154.
+    forecasting. In W. Pedrycz, A. Skowron, & Kreinovich (Eds.), Handbook of               Yu, H. K. (2005). Weighted fuzzy time series models for TAIEX forecasting. Physica A:
+    Granular Computing (pp. 949–968). Wiley.                                                   Statistical Mechanics and its Applications, 349(3-4), 609–624.
+Sfetsos, A., & Siriopoulos, C. (2004). Time series forecasting with a hybrid clustering    Yu, T. H. K., & Huarng, K. H. (2008). A bivariate fuzzy time series model to forecast
+    scheme and pattern recognition. IEEE Transactions on Systems, Man, and                     the TAIEX. Expert Systems with Applications, 34(4), 2945–2952.
+    Cybernetics-Part A: Systems and Humans, 34(3), 399–405.                                Yu, T. H. K., & Huarng, K. H. (2010). Corrigendum to A bivariate fuzzy series model to
+Song, Q., & Chissom, B. S. (1993a). Fuzzy time series and its models. Fuzzy Sets and           forecast the TAIEX. Expert Systems with Applications, 37(7), 5529.
+    Systems, 54(3), 269–277.                                                               Zadeh, L. A. (1965). Fuzzy sets. Information and Control, 8, 338–353.
+

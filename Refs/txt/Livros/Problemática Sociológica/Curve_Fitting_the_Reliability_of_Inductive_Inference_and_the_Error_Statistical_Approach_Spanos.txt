@@ -1,0 +1,1137 @@
+Curve Fitting, the Reliability of Inductive Inference, and the Error‐Statistical Approach
+Author(s): Aris Spanos
+Source: Philosophy of Science, Vol. 74, No. 5, Proceedings of the 2006 Biennial Meeting of the
+Philosophy of Science Association<break></break>Part I: Contributed
+Papers<break></break>Edited by Cristina Bicchieri and Jason Alexander (December 2007), pp.
+1046-1066
+Published by: The University of Chicago Press on behalf of the Philosophy of Science Association
+Stable URL: http://www.jstor.org/stable/10.1086/525643 .
+Accessed: 02/07/2013 00:54
+
+Your use of the JSTOR archive indicates your acceptance of the Terms & Conditions of Use, available at .
+http://www.jstor.org/page/info/about/policies/terms.jsp
+
+.
+JSTOR is a not-for-profit service that helps scholars, researchers, and students discover, use, and build upon a wide range of
+content in a trusted digital archive. We use information technology and tools to increase productivity and facilitate new forms
+of scholarship. For more information about JSTOR, please contact support@jstor.org.
+
+.
+
+
+
+
+                The University of Chicago Press and Philosophy of Science Association are collaborating with JSTOR to
+                digitize, preserve and extend access to Philosophy of Science.
+
+
+
+
+http://www.jstor.org
+
+
+
+
+                              This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                                             All use subject to JSTOR Terms and Conditions
+         Curve Fitting, the Reliability of
+       Inductive Inference, and the Error-
+              Statistical Approach
+                                         Aris Spanos†‡
+
+The main aim of this paper is to revisit the curve fitting problem using the reliability
+of inductive inference as a primary criterion for the ‘fittest’ curve. Viewed from this
+perspective, it is argued that a crucial concern with the current framework for ad-
+dressing the curve fitting problem is, on the one hand, the undue influence of the
+mathematical approximation perspective, and on the other, the insufficient attention
+paid to the statistical modeling aspects of the problem. Using goodness-of-fit as the
+primary criterion for ‘best’, the mathematical approximation perspective undermines
+the reliability of inference objective by giving rise to selection rules which pay insuf-
+ficient attention to ‘accounting for the regularities in the data’. A more appropriate
+framework is offered by the error-statistical approach, where (i) statistical adequacy
+provides the criterion for assessing when a curve captures the regularities in the data
+adequately, and (ii) the relevant error probabilities can be used to assess the reliability
+of inductive inference. Broadly speaking, the fittest curve (statistically adequate) is not
+determined by the smallness if its residuals, tempered by simplicity or other pragmatic
+criteria, but by the nonsystematic (e.g. white noise) nature of its residuals. The advocated
+error-statistical arguments are illustrated by comparing the Kepler and Ptolemaic mod-
+els on empirical grounds.
+
+
+1. Introduction. The curve fitting problem has a long history in both
+statistics and philosophy of science, and it’s often viewed as a formal way
+to encapsulate the many dimensions and issues associated with inductive
+inference, including the underdetermination and the reliability of inference
+problems.
+   In its simplest form the curve fitting problem is how to choose among
+the multitude of ways to fit a curve through any scatter plot of data points
+
+†To contact the author, please write to: Department of Economics, Virginia Tech 3019
+Pamplin Hall (0316), Blacksburg, VA 24061; e-mail: aris@vt.edu.
+‡I am grateful to Deborah Mayo and Clark Glymour for many valuable suggestions
+and comments on an earlier draft of the paper; estimating the Ptolemaic model was
+the result of Glymour’s prompting and encouragement.
+Philosophy of Science, 74 (December 2007) pp. 1046–1066. 0031-8248/2007/7405-0041$10.00
+Copyright 2007 by the Philosophy of Science Association. All rights reserved.
+
+
+
+                                                  1046
+
+
+
+
+          This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                         All use subject to JSTOR Terms and Conditions
+                                 CURVE FITTING                                  1047
+
+{(xk , yk ), k p 1, . . . , n} in a way that would capture the ‘regularities’ in
+the data adequately. Since there is an infinity of possible curves (models)
+that can be thought to be ‘consistent with any data’, the crucial problem
+is what criteria to use to direct the choice from among the wealth of
+possible curves. Establishing high goodness-of-fit between the data and
+a curve is obviously far too easy to achieve. The crucial question is: Which
+among the variety of rules for winnowing down the selection should be
+followed in order to arrive at reliable inductive inferences? Philosophers
+have despaired of solving this problem via any purely a priori, logical
+means, and appeals to pragmatic criteria, such as simplicity, proved highly
+equivocal (Salmon 1967; Glymour 1981; Skyrms 2000).
+   As philosophers of science increasingly appealed to formal methods
+used in scientific practice, a new avenue for addressing this thorny problem
+was opened. Given a class of models, one can use a formal model selection
+procedure, such as the Akaike Information Criterion (AIC) and related
+procedures based on the likelihood function, to select a fittest model by
+trading goodness-of-fit against simplicity (see Forster and Sober 1994 and
+Kieseppa 1997, inter alia). The appeal of such automatic selection pro-
+cedures is enticing because it provides a formal and objective way to
+choose among the multitude of possible curves (Rao and Wu 2001). Al-
+though it is understandable that such algorithms would galvanize phi-
+losophers to see in them the long sought for solution to core problems
+of induction, what is really needed is a scrutiny of the epistemic credentials
+of these procedures by both statisticians and philosophers.
+   The main aim of this paper is to revisit the curve fitting problem using
+the reliability of inductive inference as a primary criterion for the ‘fittest’
+curve. Viewed from this perspective, it is argued that a crucial concern
+with the current framework for addressing the curve fitting problem is,
+on the one hand, the undue influence of the mathematical approximation
+perspective, and on the other, the insufficient attention paid to the sta-
+tistical modeling aspects of the problem. Using goodness-of-fit as the
+primary guiding criterion, the mathematical approximation perspective
+undermines the reliability of inference objective by giving rise to selection
+rules which pay insufficient attention to ‘accounting for the regularities
+in the data’. It is argued that high goodness-of-fit, however tempered, is
+neither necessary nor sufficient for reliable inference. A more appropriate
+framework is offered by the error-statistical approach (Mayo 1996), where
+(i) statistical adequacy provides the criterion for assessing when a curve
+accounts for the regularities in the data adequately, and (ii) the relevant
+error probabilities can be used to assess the reliability of inductive
+inference.
+   Broadly speaking, the fittest curve (statistically adequate) is not deter-
+mined by the smallness if its residuals, tempered by simplicity or other
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+1048                               ARIS SPANOS
+
+
+pragmatic criteria, but by the nonsystematic (e.g. white noise) nature of
+its residuals. The advocated error-statistical arguments are illustrated by
+comparing the Kepler and Ptolemaic models on empirical grounds, show-
+ing that the former is statistically adequate but the latter is not. Indeed,
+the Ptolemaic model constitutes the quintessential example of ‘best’ in a
+mathematical approximation sense, that gives rise to systematic (nonwhite
+noise) residuals, and thus, it does not ‘save the phenomena’.
+   Section 2 brings out the undue influence of the mathematical approx-
+imation perspective on the current discussions of the curve fitting problem.
+It is argued that this perspective can be both inadequate and misleading
+if reliable inductive inference is a primary objective. This is elaborated
+upon by comparing Legendre’s (1805) mathematical approximation with
+Gauss’s (1809) statistical modeling perspective, bringing out the potential
+conflict between ‘best’ in the former (goodness-of-fit), and in the latter
+(statistically adequate) perspective. Section 3 summarizes the basic tenets
+of the error-statistical approach, viewed as a modern refinement of Gauss’s
+pioneering empirical modeling perspective, emphasizing the role of sta-
+tistical adequacy as the cornerstone of reliable inductive inference. In
+Section 4 this perspective is used to shed light on a number of issues
+associated with the curve fitting problem including goodness-of-fit, pre-
+dictive accuracy, projectible regularities, simplicity, overfitting and un-
+derdetermination. These arguments are illustrated by comparing the Kep-
+ler and Ptolemaic models on empirical grounds.
+
+2. Mathematical Approximation vs. Statistical Modeling.
+
+  2.1. A Summary of the Curve Fitting Problem. Curve fitting, in its sim-
+plest form, assumes that there exists a true relationship between two var-
+iables, say
+                             y p h(x),           x 苸 ⺢X,                            (1)
+and the problem is to find an approximating curve, say gm(x), that fits
+the data {(xk , yk ), k p 1, . . . , n} ‘best’ and ensures predictive accuracy.
+The problem, as currently understood, is thought to comprise two stages.
+  Stage 1. The choice of a family of curves, say
+
+                             gm(x; a) p    冘m
+
+
+                                           ip0
+                                                 a i fi (x),                        (2)
+
+where a :p (a 0 , a1, . . . , a m ), are unknown parameters and {fi (x), i p
+0, 1, . . . , m} are known functions, for example, ordinary polynomials
+f 0 (x) p 1, f1 (x) p x, . . . , fm(x) p x m, or even better, orthogonal poly-
+nomials (Isaacson and Keller 1994).
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+                                         CURVE FITTING                                      1049
+
+  Stage 2. The selection of the ‘best’ fitting curve within (2) using a certain
+goodness-of-fit criterion. Least squares (LS), which chooses gm(xk ; aˆ LS )
+by minimizing the sum of squares of the errors
+
+                               ᐉ(a) p        冘
+                                             kp1
+                                                 n
+
+                                                      (yk ⫺ gm(xk ; a)) 2,                   (3)
+
+is the preferred method, yielding the LS estimator âLS of a and minimum
+ᐉ(aˆ LS ).
+   A crucial problem with the above approximation argument is that good-
+ness-of-fit cannot be the sole criterion for ‘best’, because ᐉ(a) can be made
+arbitrarily small by choosing m large enough, giving rise to overfitting.
+Indeed, as the argument goes, one can render the approximation error
+zero (ᐉ(aˆ LS ) p 0) by choosing m p n ⫺ 1 (Isaacson and Keller 1994).
+   Viewing the curve fitting problem in terms of the two stages described
+above is largely the result of (inadvertently) imposing a mathematical
+approximation perspective on the problem. The choice of a ‘best’ curve
+gm(xk ; a) ˆ by minimizing ᐉ(a) in (3) would often give rise to a statistically
+misspecified model, and thus inappropriate as a basis for inductive in-
+ference. To shed further light on this issue one needs to compare and
+contrast the mathematical approximation and statistical modeling
+perspectives.
+
+   2.2. Legendre’s Mathematical Approximation Perspective. The problem
+of curve fitting as specified by (1)–(3) fits perfectly into Legendre’s (1805)
+least square approximation perspective. Developments in mathematical
+approximation theory since then ensure that under certain smoothness
+conditions on the true function h(7), the approximating function
+
+        gm(x; a) p    冘m
+
+
+                      ip0
+                               a i fi (x),           on ⺗n(x) :p {xk , k p 1, . . . , n},    (4)
+
+provides a mathematical solution to the problem in the sense that the error
+of approximation, ␧(xk , m) p h(xk ) ⫺ gm(xk ; a), converges to zero on
+⺗n(x) as m r ⬁:
+
+                                   lim   冘
+                                   mr⬁ kp1
+                                             n
+
+                                                     F␧(xk , m)F2 p 0.                       (5)
+
+The convergence in (5), known as convergence in the mean, implies that
+for every e 1 0 there exists a large enough integer M(e) such that:
+
+                       冘
+                       kp1
+                           n
+
+                                F␧(xk , m)F2 ! e,            for m 1 M(e).                   (6)
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+1050                                  ARIS SPANOS
+
+
+  One can achieve a stronger form of convergence, known as uniform
+convergence, by imposing additional smoothness restrictions on h(x), say,
+continuous second derivatives (Isaacson and Keller 1994). This ensures
+that for (e, M(e)) as given above
+
+
+         冘n
+
+
+         kp1
+               F␧(xk , m)F ! e,    for m 1 M(e)              and all xk 苸 ⺗n(x).   (7)
+
+  The driving force behind the results (4)–(7) is the maximization of a
+goodness-of-fit criterion, or equivalently, the minimization of a norm
+whose general form is
+
+
+                            [冘
+                                                   1/p
+
+
+                                                ]
+                             n
+
+                 Lp (e) p         F␧(xk , m)F dx
+                                            p
+                                                         ,   for any e 1 0;        (8)
+                            kp1
+
+
+
+p p 2 for (6), and p p ⬁ for (7). These are well-known results in
+mathematics.
+   What is less well known, or appreciated enough, is that there is nothing
+in the above approximation results which prevents the residuals ␧ˆ (xk , m)
+p (yk ⫺ gm(xk ; a)),
+                ˆ k p 1, . . . , n, from varying systematically with xk and
+m. Indeed, a closer scrutiny of these theorems reveals that the residuals
+usually do vary systematically with k, xk, and m. Let us take a closer look
+at a typical theorem in this literature.
+
+    Theorem 1. Let h(x) be a continuous function on [a, b] O ⺢; then a
+    polynomial, gm(x; a) p 冘 ip0 a i fi (x), will provide a best (and unique)
+                              m
+
+
+    approximation to h(x) on [a, b] if and only if the error of approxi-
+    mation ␧(x, m) p h(x) ⫺ gm(x; a), takes values max x苸[a, b] F␧(x, m)F
+    with alternating changes in sign at least m ⫹ 2 times over the interval
+    [a, b]. (See Isaacson and Keller 1994.)
+
+   Two things stand out from this theorem. First, the a priori nature of
+the smoothness conditions on h(x) renders them unverifiable. Second, the
+if and only if condition almost guarantees that the residuals would usually
+contain systematic information; the presence of cycles (m ⫹ 2 changes in
+sign, m being the degree of the fitted polynomial) in the residuals
+  ˆ k , m), k p 1, . . . , n}, indicates dependence over k (Spanos 1999, 215).
+{␧(x
+A typical plot of such systematic residuals is given in Figure 3 (in Section
+4) exhibiting such cycles. The systematic nature of these residuals is clearly
+brought out by comparing Figure 3 to Figure 4, which represents a typical
+realization of nonsystematic (normal, white noise) residuals; these intuitive
+notions are made precise in Section 3.
+   To get some idea as to how the mathematical approximation error term
+
+
+
+
+       This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                      All use subject to JSTOR Terms and Conditions
+                                   CURVE FITTING                                  1051
+
+varies systematically with (x, m), consider the case of the Lagrange inter-
+polation polynomial:
+
+                            冘 写(                  x ⫺ x*j
+                                          m
+
+
+                                                            )
+                             m
+
+               gm(x; a) p         yi                        ,   x 苸 [a, b],          (9)
+                            ip0        jp0, j(i    i ⫺ x*
+                                                  x*    j
+
+defined on a net of points ⺗n(x) :p {xk , k p 1, . . . , n}, n ≥ m, and the
+interpolation points (x*,         m x) 苸 [a, b] are chosen to be distinct. For
+                       0 . . . , x*,
+a smooth enough function h(x)—derivatives up to order m ⫹ 1 exist—the
+error takes the form
+
+                                                   写
+                                                   m
+                       d m⫹1h(y) 1
+           ␧(x, m) p                     (x ⫺ x*),                  y 苸 [a, b];     (10)
+                        d x (m ⫹ 1)! jp0
+                          m⫹1                  j
+
+
+
+that is, ␧(x, m) is an (m ⫹ 1) degree polynomial in x over [a, b] with roots
+(x*,
+  0 . . . , x*)
+             m :
+
+
+                  ␧(x, m) p a(x ⫺ x*)(x
+                                   0    ⫺ x*)
+                                           1
+                                              . . . (x ⫺ x*)
+                                                          m
+
+
+                         p ax m⫹1 ⫹ bm x m ⫹ . . . ⫹ b1 x ⫹ b 0 .                   (11)
+Such an oscillating curve is also typical for errors arising from least squares
+approximations (Dahliquist and Bjorck 1974, 100).
+   In summary, a mathematical approximation method will yield a ‘best’
+curve gm(xk ; aˆ LS ), but the results in (5)–(7), provide insufficient infor-
+mation for assessing either (i) its statistical appropriateness or (ii) the
+reliability of any inference based on it; as argued below, the two are
+interrelated. Typically, the approximation residuals {␧(x           ˆ k , m) p yk ⫺
+gm(xk ; aˆ LS ), k p 1, . . . , n} will vary systematically with x and m as in (11),
+rendering any inductive inference based on gm(xk ; aˆ LS ) unreliable.
+
+    2.3. Mathematical vs. Probabilistic Convergence. A problem with the
+current understanding of the curve fitting problem arises when the con-
+vergence results in (5)–(7) are (unwittingly) conflated with probabilistic
+convergence needed to establish asymptotic properties for âLS, such as
+consistency. The former are based on m r ⬁, m being the degree of the
+approximating polynomial gm(x; a), but the latter are associated with the
+sample size n r ⬁.
+    Conflating these two convergence results is best exemplified by the ar-
+gument that in curve fitting one can always choose the degree m of
+gm(x; a) to be one less than the number of observations (m p n ⫺ 1),
+rendering the approximation error zero. Although such a choice is per-
+fectly legitimate from the mathematical approximation perspective, it is
+statistically meaningless, because it will yield m ⫹ 1 estimated coefficients
+aˆ LS :p (aˆ 0 , aˆ 1, . . . , aˆ m ) which are inconsistent estimators of a :p
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+1052                                         ARIS SPANOS
+
+
+(a 0 , a1, . . . , a m ); there is one observation for each parameter! This brings
+out the highly misleading nature of the argument that one can just fit an
+infinite number of curves through the n data points {(xk , yk ), k p
+1, . . . , n} that can be ‘equally consistent with the data’. Nothing can be
+further from the truth; any curve that passes through all, or even most,
+of these points will be estimating nothing statistically meaningful—some
+feature of a statistical model, such as a parameter or a moment. It is no
+wonder that the curve fitting problem cannot be addressed in such a
+mathematical approximation frame-up. In practice, for inductive inference
+purposes one needs at least consistent estimators of a , and that requires
+m fixed and n to be much larger than m.
+   Having said that, a consistent estimator for a is necessary but not
+sufficient for reliable inductive inference (Cox and Hinkley 1974). In fre-
+quentist statistics, one needs error probabilities to assesses the reliability
+of inference, and neither (5)–(7), nor just a consistent estimator, would
+provide that. What is missing is a certain probabilistic structure stating
+the circumstances under which ␧(xk , m) would not vary systematically with
+k, x and m, and giving rise to a sampling distribution for aˆ LS; even securing
+consistency necessitates that E[xk 7 ␧(xk , m)] r 0 as n r ⬁.
+
+  2.4. Gauss’s Statistical Modeling Perspective. Gauss’s (1809) path
+breaking contribution was to provide such a probabilistic structure by
+embedding the mathematical approximation formulation into a statistical
+model. He achieved that by transforming the approximation error term
+
+          ␧k (xk , m) p yk ⫺         冘
+                                     m
+
+
+                                     ip0
+                                           a i fi (xk ),   xk 苸 ⺗n(x),         m ≥ 1,         (12)
+
+into a generic (free of xk and m) statistical error:
+           ␧k (xk , m) p ␧k ⵒ NIID(0, j 2 ),                k p 1, 2, . . . , n, . . . ,      (13)
+where NIID(0, j 2 ) stands for ‘Normal, Independent and Identically Dis-
+tributed with mean 0 and variance j 2’. The error in (13) is nonsystematic
+in a probabilistic sense, and free from its dependence on (xk , m).
+   Gauss recast the original mathematical approximation into a statistical
+modeling problem based on what is nowadays called the Gauss Linear
+model:
+
+  yk p   冘m
+
+
+         ip0
+               a i fi (xk ) ⫹ ␧k ,         ␧k ⵒ NIID(0, j 2 ),       k p 1, 2, . . . , n, . . . .
+
+                                                                                              (14)
+  What makes his contribution all important from today’s vantage point
+
+
+
+
+         This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                        All use subject to JSTOR Terms and Conditions
+                                 CURVE FITTING                                  1053
+
+is that the statistical model in (14) provides the probabilistic framework
+which enables one (i) to assess the validity (statistical adequacy) of the
+premises for inductive inference, and (ii) to provide relevant error prob-
+abilities for assessing the reliability of inference. Indeed, (i) enables one
+to operationalize when a curve gm(x; a)    ˆ ‘captures the regularities in the
+data’ adequately.
+   Broadly speaking, gm(x; a)  ˆ is ‘fittest’ when the residuals {␧ˆ k (xk , m) p
+[yk ⫺ gm(xk ; a)],
+               ˆ k p 1, . . . , n} are nonsystematic. This way of character-
+izing statistical adequacy, however, is ambiguous because (a) there are
+numerous ways one can define ‘nonsystematic’ probabilistically, and (b)
+securing statistical adequacy by focusing on the error assumptions (e.g.,
+␧k ⵒ NIID(0, j 2 )), usually provides an incomplete picture of the task (see
+Spanos 2000 on ‘veiled’ assumptions). This facet of empirical modeling
+has, unfortunately, received inadequate attention in the traditional sta-
+tistics literature, but it constitutes one of the basic tenets of the error-
+statistical approach in the context of which the ambiguities (a)–(b) are
+clarified.
+
+
+3. The Error-Statistical Approach: A Summary. The term ‘Error-Statis-
+tical’ was coined by Mayo (1996) to denote a modification and extension
+of the framework for frequentist inductive inference, usually associated
+with Fisher, Neyman and Pearson. The rationale for coining this new
+term was to identify a collection of fundamental ideas and concepts as-
+sociated with these frequentist approaches, quite apart from their philo-
+sophical differences, revolving around the central axis of being able to
+calculate and use error probabilities to assess the reliability of inference.
+Since it is precisely this key recognition that will allow me to identify the
+criteria that I argue need to be satisfied, I will employ this notion through-
+out, understanding that it is the rationale and the difference in emphasis,
+and not the methods and procedures themselves, that may differ from the
+traditional discussions.
+   Modifications and extensions identifying the error-statistical approach
+are:
+
+ i.    Emphasizing the learning from data (about the phenomenon of in-
+       terest) objective of empirical modeling.
+ii.    Paying due attention to the validity of the premises of induction by
+       securing statistical adequacy, using thorough misspecification testing
+       and respecification.
+iii.   Emphasizing the central role of error probabilities in assessing the
+       reliability of inference, both pre-data as well as post-data.
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+1054                               ARIS SPANOS
+
+
+iv.    Supplementing the original Neyman-Pearson framework with a
+       post-data assessment of inference in the form of severity evaluations
+       (Mayo 1991).
+v.     Bridging the gap between theory and data using a sequence of in-
+       terconnected models, theory (primary), structural (experimental),
+       statistical (data) built on two different, but related, sources of in-
+       formation: substantive subject matter and statistical information
+       (chance regularity patterns; see Spanos 1999).
+vi.    Encouraging thorough probing of the different ways an inductive
+       inference might be in error, by localizing the error probe in the
+       context of the different models in (v); see Mayo 1996.
+
+
+   3.1. Embedding a Structural Model into a Statistical Model. In the
+curve fitting problem, the approximating function gm(x; a) provides an
+example of a structural model, yk p gm(xk ; a) ⫹ ␧(xk , m), k p 1, 2, . . .,
+whose form is suggested by some substantive subject matter information,
+including mathematical approximation theory. In this section, the problem
+of embedding a structural model into a statistical model is discussed in
+broader generality, in an attempt to shed further light on the problems
+and issues raised by the dependence of the error ␧(xk , m) on xk and m.
+   In postulating a theory model to explain the behavior of an observable
+variable, say yk, one demarcates the segment of reality to be modeled by
+selecting the primary influencing factors x k, well aware that there might
+be numerous other potentially relevant factors yk (observable and unob-
+servable) influencing the behavior of yk . This reasoning is captured by a
+generic theory model of the form
+                          yk p h*(x k , yk ),          k 苸 ⺞.                       (15)
+Indeed, the potential presence of yk explains the invocation of ceteris
+paribus clauses. The guiding principle in selecting the variables in x k is to
+ensure that they collectively account for the systematic behavior of yk and
+the omitted factors yk represent nonessential disturbing influences, which
+have only a nonsystematic effect on yk. This line of reasoning transforms
+the theory model (15) into a structural (estimable) model of the form
+                     yk p h(x k ; f) ⫹ e(x k , yk ),      k 苸 ⺞,                    (16)
+where h(7) denotes the postulated functional form, f stands for the struc-
+tural parameters of interest. The structural error term, defined to represent
+all unmodeled influences,
+                    {e(x k , yk ) p yk ⫺ h(x k ; f),       k 苸 ⺞}                   (17)
+is viewed as a function of both x k and yk. For (17) to provide a meaningful
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+                                    CURVE FITTING                                        1055
+
+model for yk the error term needs to be nonsystematic, say a white noise
+stochastic process {e(x k , yk ), k 苸 ⺞} satisfying the probabilistic assump-
+tions:
+
+
+    [i] E(e(x k , yk )) p 0
+   [ii] E(e2 (x k , yk )) p j 2
+  [iii] E(e(xk , yk ) 7 e(xᐉ , yᐉ )) p 0, k ( ᐉ, k, ᐉ 苸 ⺞
+  [iv] E(e(xk , yk ) 7 h(x k ; f)) p 0
+                                                         }   G (x k , yk ) 苸 ⺢ x # ⺢y.   (18)
+
+
+[iv] ensures that the generating mechanism (16) is ‘nearly isolated’ (see
+Spanos 1995).
+   The problem with assumptions [i]–[iv] is that they are empirically non-
+testable, since their verification would require one to show that they hold
+for all possible values of x k and yk. To render them testable, one needs to
+embed the structural model (or material experiment) into a statistical
+model, a crucial move that usually goes unnoticed. The form and justi-
+fication of the embedding itself depends crucially on whether the data
+{(y, x k ), k p 1, . . . , n} are experimental or observational in nature.
+
+  3.2. Experimental Data. In the case where one can perform experi-
+ments, controls and ‘experimental design’ techniques such as randomi-
+zation and blocking can often be used to ‘isolate’ the phenomenon from
+the potential effects of yk by ‘neutralizing’ the uncontrolled factors (see
+Fisher 1935). The objective is to transform the structural error into a
+generic (zero mean) IID error process by applying controls and experi-
+mental design techniques:
+
+                                   design ) p ␧k ⵒ IID(0, j ),
+                         controls,                         2
+       (e(x k , yk )kexperimental                                   k p 1, . . . , n.    (19)
+
+This embeds the structural model (16) into a statistical model of the form
+
+        yk p h(x k ; v) ⫹ ␧k ,        ␧k ⵒ IID(0, j 2 ),         k p 1, 2, . . . , n,    (20)
+
+where the statistical error term ␧k in (20) is qualitatively very different
+from the structural error term e(x k , yk ) in (16); ␧k is free of (x k , yk ), and
+its assumptions are rendered empirically testable. A widely used special
+case of (20), where h(x k ; v) p 冘 ip0 bi fi (x k ), specifies the Gauss Linear
+                                   m
+
+
+model (see Spanos 1986, Chapter 18).
+
+   3.3. Observational Data. When the observed data {zt :p (yk , x k ), k p
+1, . . . , n} are the result of an ongoing actual data generating process, the
+experimental control and intervention are replaced by judicious condi-
+tioning on an appropriate conditioning information set, ᑞt, to transform
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+1056                                 ARIS SPANOS
+
+
+                TABLE 1. THE NORMAL/LINEAR REGRESSION MODEL.
+       Statistical GM:            yt p b0 ⫹ bl 1 xt ⫹ ut, t 苸 ⺤
+       [1] Normality:             (yt d Xt p xt) ⵒ N(7,7)
+       [2] Linearity:             E(yt d Xt p xt) p b0 ⫹ bl  1 xt, linear in xt
+       [3] Homoskedasticity:      Var (yt d Xt p xt) p j2, free of xt
+       [4] Independence:          {(yt d Xt p xt), t 苸 ⺤} is an independent process
+       [5] t-invariance:          v :p (b0, b1, j2) do not change with t
+
+
+
+the structural error into a generic martingale difference error:
+
+                   (ut d ᑞt ) ⵒ IID(0, j 2 ),     k p 1, 2, . . . , n.                (21)
+
+Spanos (1999) demonstrates how sequential conditioning provides a gen-
+eral way to decompose a stochastic process {Zt , t 苸 ⺤} into a systematic
+component mt and a martingale difference process ut relative to a condi-
+tioning information set ᑞt. An error martingale difference process {(ut d
+ᑞt ), t 苸 ⺤} constitutes a more modern form of a white noise process (see
+Spanos 2006a, 2006b for further details). A widely used special case of
+(21) is the Normal/Linear Regression model, given in Table 1, where the
+model assumptions [1]–[5] are specified in terms of the observable process
+{(yt d X t p x t ), t 苸 ⺤}, {(ut d X t p x t ), t 苸 ⺤} being the corresponding er-
+ror process.
+
+   3.4. Statistical Induction and the Validity of Its Premises. A statistical
+model, denoted by Mv (y) (see Table 1), plays a central role in statistical
+induction by providing the premises of statistical induction when viewed
+in conjunction with the observed data y0 :p (y1, y2 , . . . , yn ). Statistical
+adequacy is tantamount to the claim that data y0 constitute a ‘truly typical
+realization’ of the stochastic mechanism described by Mv (y). In practice,
+statistical adequacy is assessed using thorough Misspecification (M-S)
+testing: probing for departures from the probabilistic assumptions com-
+prising Mv (y) vis-à-vis data y0 (Spanos 1999).
+   An important provision of the error-statistical approach for securing
+statistical adequacy is the specification of a statistical model in terms of
+a complete set of probabilistic assumptions [1]–[5] (see Table 1) pertaining
+to the observable stochastic process {(yt d X t p x t ), t 苸 ⺤} (Spanos 2000).
+This proviso is designed to deal with the ambiguity of defining statistical
+adequacy in terms of nonsystematic residuals. For instance, the assump-
+tions [1]–[5] define precisely what is meant by ‘nonsystematic’, and also
+provide a unequivocal way to secure statistical adequacy by rendering all
+model assumptions directly empirically testable. Statistical model speci-
+fications in terms of error assumptions are often incomplete, and the
+assumptions are not directly verifiable because the error process
+{␧k , k 苸 ⺤} is unobservable. For instance, the error assumptions
+
+
+
+
+         This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                        All use subject to JSTOR Terms and Conditions
+                                 CURVE FITTING                                  1057
+
+␧k ⵒ NIID(0, j 2 ) for the Gauss linear model, when recast in terms of the
+observable process {yk , k 苸 ⺤}, take a form similar to assumptions [1]–
+[5]; but in terms of D(yk ; v) with E(yk ) p 冘 ip0 bi fi (xk ) (Spanos 2006b).
+                                                  m
+
+
+In addition, this way of specifying statistical models obviates the need to
+invoke a priori presuppositions like the ‘uniformity of nature’ (Salmon
+1967). Indeed, the invariant features of the phenomenon of interest are
+reflected in the t-invariant parameters (see assumption [5]), rendering it
+empirically verifiable vis-à-vis data y0.
+   It is well known in statistics that the reliability of any inference pro-
+cedure (estimation, testing and prediction) depends crucially on the va-
+lidity of the premises. Taking the latter as given, the optimality of inference
+procedures in frequentist statistics is defined in terms of their capacity to
+give rise to valid inferences, which is assessed in terms of the associated
+error probabilities, that is, how often these procedures lead to erroneous
+inferences (Mayo 1996). In frequentist statistics, the unreliability of in-
+ference is reflected in the difference between the nominal error probabilities,
+derived under the assumption of valid premises, and the actual error
+probabilities, derived by taking into consideration the departure(s) from
+the model assumptions.
+
+4. The Error-Statistical Approach and Curve Fitting. In the context of the
+error-statistical approach the fittest curve gm(xk ; a)ˆ is the one that, when
+embedded in a statistical model, turns out to be statistical adequate: its
+probabilistic assumptions (Table 1) are valid for the data in question. The
+validity of these assumptions operationalizes when a curve captures the
+‘regularities’ in the data and formalizes the intuitive notion of the residuals
+containing systematic information.
+   The reliability of inference in the context of the error-statistical approach
+is achievable because (i) the premises of inductive inference are rendered
+empirically testable, and (ii) statistically adequate premises ensure that the
+nominal error probabilities approximate closely the actual error proba-
+bilities (Spanos and McGuirk 2001).
+   Adopting the statistical adequacy criterion for the choice of the fittest
+curve addresses the reliability of inference problem, but also elucidates
+several issues associated with the curve fitting problem, including good-
+ness-of-fit, predictive accuracy, simplicity, overfitting and underdetermi-
+nation. In principle, statistical adequacy provides a much more stringent
+criterion for choosing the fittest curve than the traditional tradeoff be-
+tween goodness-of-fit and simplicity because it requires one to test thor-
+oughly all model assumptions and detect no departures. Securing statis-
+tical adequacy is often a daunting task, because probabilistic assumptions
+such as the t-invariance of the statistical parameters (see [5] in Table 1)
+are particularly difficult to satisfy in practice (Spanos 1999).
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+1058                               ARIS SPANOS
+
+
+   High degree of goodness-of-fit is neither necessary nor sufficient for
+statistical adequacy, although some degree of fit is desirable for the pre-
+cision (not the reliability) of inference. On the other hand, statistical ad-
+equacy is necessary for goodness-of-fit measures, such as the R 2 and the
+estimated log-likelihood function ln L(v;ˆ y ) , to be statistically meaningful
+                                            0
+(Spanos 2000). Viewing predictive accuracy in terms of ‘small’ prediction
+error is nothing more than goodness-of-fit projected beyond the obser-
+vation period. As such, it suffers from the same weaknesses: prediction
+errors, like the residuals, can vary systematically over the prediction
+period.
+   A statistically adequate curve gm(x; a)ˆ captures all the systematic (re-
+curring) information in the data, and it gives rise to nonsystematic pre-
+diction errors. Indeed, such a curve determines what regularities in the
+data are projectible (Skyrms 2000), because the model assumptions capture
+precisely such recurring regularities from three broad categories: distri-
+butional, dependence, and heterogeneity (Spanos 1999). A statistically
+adequate model will give rise to systematic prediction errors only when
+the invariant structure of the underlying data generating process change
+between the observation and prediction periods. In such a case, one can
+use this very discrepancy to diagnose changes in the invariance structure.
+                                                     ˆ is likely to overpredict
+In contrast, a statistically inadequate curve gm(x; a)
+or underpredict, rendering it weak on predictive grounds. This is contrary
+to the traditional view, which usually invokes simplicity as the way to
+ensure predictive accuracy by counterbalancing the danger of overfitting.
+   What is the role of simplicity in the context of the error-statistical
+approach? The approximating function gm(x; a) is chosen to be as elab-
+orate as necessary to ensure statistical adequacy, but no more elaborate.
+This is in the spirit of Einstein’s 1933 often paraphrased comment that
+“it is the grand object of all theory to make these irreducible elements as
+simple and as few in number as possible, without having to renounce the
+adequate representation of any empirical content whatever” (see Einstein
+1954, 272).
+   A simple but statistically misspecified model is of little value for infer-
+ence purposes, because its inadequacy will give rise to unreliable infer-
+ences; the nominal and actual error probabilities will differ. A simple
+model, however, might be of some value in probing for possible misspe-
+cifications and using the results to respecify.
+   Statistical adequacy provides an effective safeguard against overfitting.
+Overfitting, such as the unnecessary inclusion of higher degree polyno-
+mials, or additional lags, is likely to give rise to systematic residuals
+(Spanos 1986, 479). One can guard against such overfitting by thorough
+M-S testing (Mayo and Spanos 2004).
+   In a related paper, Spanos (2006c) argues that the AIC-type model
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+                                CURVE FITTING                                  1059
+
+selection procedures constitute a modest variation on the mathematical
+approximation frame-up with the norm (goodness-of-fit measure) defined
+by
+                 ˆ y ) ⫹ 2(the number of unknown parameters in v).
+   AIC p ⫺2 ln L(v; 0
+
+
+                                                                                   (22)
+Despite the fact that the likelihood function presupposes a certain prob-
+abilistic structure, the capacity of AIC-type procedures to ensure the re-
+liability of inference is severely impaired, because these probabilistic as-
+sumptions are taken at face value; their validity is not assessed. Indeed,
+assessing the validity of these assumptions to secure statistical adequacy,
+would render these model selection procedures redundant; finding a sta-
+tistically adequate model determines the fittest curve. Be that as it may,
+when these procedures are viewed in the context of the above discusssion,
+they raise two distinct concerns: (a) they require starting with a family of
+models assumed to contain the correct model, without supplying any
+criteria for model validation; and (b) even within an assumed family of
+models, satisfying AIC-type criteria does not ensure fulfilling requirements
+of low error probabilities for any inferences reached.
+   When the fittest curve is selected on statistical adequacy grounds it
+becomes clear that the problem of underdetermination is unlikely to be
+as pervasive as often claimed. Indeed, finding a single statistically adequate
+model for a particular data is often a daunting task, because probabilistic
+assumptions such as the t-invariance of the statistical parameters ([5] in
+Table 1), are particularly difficult to satisfy in practice (Spanos 1999).
+Empirical equivalence on statistical adequacy grounds is rare but possible,
+raising the prospect of comparing such models using additional criteria
+including substantive adequacy: the validity of the structural model (con-
+founding factors, causal claims, external validity, etc.) vis-à-vis the phe-
+nomenon of interest. As argued in Spanos 2006b, statistical adequacy is
+necessary, but not sufficient, for ensuring substantive adequacy. To ex-
+emplify the above error-statistical assertions, two widely discussed models
+of planetary motion, Kepler’s and Ptolemy’s, are compared on empirical
+grounds.
+
+   4.1. Kepler’s Model of Planetary Motion. Kepler’s model for the ellip-
+tical motion of Mars turned out to be a real empirical regularity because
+the statistical model, in the context of which the structural model was
+embedded, can be shown to be statistically adequate.
+   Consider Kepler’s first law of motion in the form of the structural model
+                    yt p a 0 ⫹ a1 xt ⫹ e(xk , yk ),     t 苸 ⺤,                     (23)
+
+
+
+
+       This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                      All use subject to JSTOR Terms and Conditions
+1060                               ARIS SPANOS
+
+
+
+
+Figure 1. Elliptical motion of planets.
+
+
+where y :p (1/r), x :p cos c, r p the distance of the planet from the sun,
+and c p the angle between the line joining the sun and the planet and
+the principal axis of the ellipse (see Figure 1).
+   It is important to emphasize that historically this law was originally
+proposed by Kepler as just an empirical regularity that he ‘deduced’ from
+Brahe’s data. Newton provided a structural interpretation to Kepler’s first
+law using his law of universal gravitation F p [G(m 7 M )/r 2 ], where F is
+the force of attraction between two bodies of mass m (planet) and M
+(sun); G is a constant of gravitational attraction (Linton 2004). This law
+gave a clear structural interpretation to the parameters: a 0 p MG/4k 2,
+where k denotes Kepler’s constant, and a1 p [(1/d ) ⫺ a 0 ], where d is the
+shortest distance between the planet and the sun.
+   Moreover, the error term e(xk , yk ) also enjoys a structural interpretation
+in the form of ‘deviations’ from the elliptic motion due to potential mea-
+surement errors as well as other unmodeled effects. Hence, the white noise
+error assumptions [i]–[iv] in (18) will be inappropriate in cases where (i)
+the data suffer from ‘systematic’ observation errors; (ii) the third body
+problem effect is significant; and (iii) the general relativity terms turn out
+to be important.
+   Embedding (23) into the Normal/Linear Regression model (Table 1),
+and estimating it using Kepler’s original data (n p 28) yields
+
+ yt p 0.662062 ⫹ 0.061333xt ⫹ uˆ t , R 2 p 0.999, s p 0.0000111479.
+     (0.000002) (0.000003)                                                          (24)
+The misspecification tests (Spanos and McGuirk 2001) reported in Table
+2 indicate that the estimated model is statistically adequate; the p-values in
+square brackets indicate no significant departure from assumptions [1]–[5].
+   A less formal but more intuitive verification of the statistical adequacy
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+                                  CURVE FITTING                                 1061
+
+                 TABLE 2. MISSPECIFICATION TESTS FOR KEPLER.
+              [1] Non-normality:              DAP p 5.816[0.106]
+              [2] Nonlinearity:               F(1, 25) p 0.077[0.783]
+              [3] Heteroskedasticity:         F(2, 23) p 2.012[0.156]
+              [4] Autocorrelation:            F(2, 22) p 2.034[0.155]
+              [5] Mean heterogeneity:         F(1, 25) p 1.588[0.219]
+
+
+of (24) is given by the residual plot in Figure 2, which exhibits no obvious
+departures from a typical realization of a normal, white noise process.
+
+   4.2. Ptolemy’s Model of Planetary Motion. The prevailing view in phi-
+losophy of science is that Ptolemy’s geocentric model, despite being false,
+can ‘save the phenomena’ and yield highly accurate predictions. Indeed,
+the argument goes, one would be hard pressed to make a case in favor
+of Kepler’s model and against the Ptolemaic model solely on empirical
+grounds. Hence, one needs to use other internal and external virtues (Lau-
+dan 1977). This view is questioned by showing that the Ptolemaic model
+does not account for the regularities in the data; it is shown to be statis-
+tically inadequate—in contrast to Kepler’s model.
+   The Ptolemaic model of the motion of an outer planet based on a single
+epicycle, with radius a rolling on the circumference of a deferent of radius
+A and an equant of distance c, can be parameterized in polar coordinates
+by the following model:
+          dt2 p a 0 ⫹ a1 cos (Jt ) ⫹ a 2 cos (dJt ) ⫹ a 3 cos ((d ⫺ 1)Jt )
+                 ⫹ a 4 sin (Jt ) ⫹ a 5 sin (3Jt ) ⫹ ut ,                            (25)
+where dt denotes the distance of the planet from the earth, Jt the angular
+distance measured eastward along the celestial equator from the equinox,
+and d p A/a. Ptolemy’s model does not enjoy a structural interpretation,
+but one can interpret the coefficients (a 0 , . . . , a 5 ) in terms of the under-
+lying geometry of the motion (Linton 2004).
+   The data used are daily geocentric observations for Mars (from the U.S.
+Naval Observatory) of sample size T p 687, chosen to ensure a full cycle
+for Mars. Estimating (25) by embedding it into the Normal/Linear Re-
+gression model (Table 1) yields
+dt2 p 2.77 ⫺ 1.524 ⫺ cos (Jt ) ⫺ 1.984 cos (1.3Jt ) ⫹ 2.284 cos (0.3Jt )
+     (0.047) (0.053)            (0.069)              (0.106)
+      ⫺ 2.929 sin (Jt ) ⫺ 0.260 sin (3Jt ) ⫹ uˆ t ,                                 (26)
+       (0.087)           (0.014)
+with R 2 p 0.992, s p 0.21998, and T p 687. d p 1.3 was chosen on
+goodness-of-fit grounds; Ptolemy assumed A/a p 1.5.
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+1062                                ARIS SPANOS
+
+
+
+
+Figure 2. Residuals from the Kepler regression.
+
+
+   A cursory look at the standardized residuals (Figure 3) confirms the
+excellent goodness-of-fit (R 2 p 0.992 )—none of the residuals lies outside
+an interval of 2.5 standard deviations. Despite being relatively small, a
+closer look reveals that the residuals exhibit systematic statistical infor-
+mation. The cycles exhibited by the residuals plot reflect a departure from
+the independence assumption (Spanos 1999, Chapter 5). These patterns
+are discernible using analogical reasoning based on comparing Figure 3
+with a t-plot of a typical (zero mean) NIID realization given in Figure 4.
+
+
+
+
+Figure 3. t-plot of the residuals from (26).
+
+
+
+
+         This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                        All use subject to JSTOR Terms and Conditions
+                                  CURVE FITTING                                 1063
+
+
+
+
+Figure 4. t-plot of a Normal white noise realization.
+
+
+
+It is interesting to note that Babb’s (1977) plot of the residuals from the
+Ptolemy model for Mars, ordered according to the angle of observation
+(0⬚ ⫺ 360⬚), looks very similar to Figure 3.
+   The various departures from assumptions [1]–[5] are formally exposed
+using the misspecification tests shown in Table 3. The tiny p-values in
+square brackets indicate strong departures from all the statistical as-
+sumptions—the estimated Ptolemy model is seriously statistically
+misspecified.
+   The Ptolemaic model has been widely praised as yielding highly accurate
+predictions. To assess that claim, the estimated model in (26) was used
+to predict the next 13 observations (688–700). On the basis of Theil’s
+coefficient,
+
+
+               Up     冑 冘 (y ⫺ yˆ ) ( 冘 y ⫹ 冘 yˆ ) p 0.030,
+                         13
+
+                        tp1
+                              t    t
+                                       2
+                                           13
+
+                                           tp1
+                                                 t
+                                                     2
+                                                         13
+
+                                                         tp1
+                                                               2
+                                                               t
+                                                                   ⫺1
+                                                                                    (27)
+
+where yt is the actual value and yˆ t is the predicted value. Its predictive
+accuracy seems excellent: 0 ≤ U ≤ 1, the closer to zero the better—see
+Spanos 1986, 405. However, the plot of the actual and fitted values in
+Figure 5 reveals a different picture: the predictive accuracy of the Ptol-
+
+                 TABLE 3. MISSPECIFICATION TESTS FOR PTOLEMY.
+        [1] Non-normality:             DAP p 39.899[0.00000]
+        [2] Nonlinearity:              F(2, 679) p 21.558[0.00000]
+        [3] Heteroskedasticity:        F(3, 677) p 77.853[0.00000]
+        [4] Autocorrelation:           F(2, 677) p 60993.323[0.00000]
+        [5] Mean heterogeneity:        F(1, 678) p 18.923[0.00000]
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+1064                               ARIS SPANOS
+
+
+
+
+Figure 5. Actual vs. predicted data for Ptolemy.
+
+
+emaic model is problematic since it underpredicts systematically, a symp-
+tom of statistical inadequacy.
+   The discussion in Section 2 explains the above empirical results asso-
+ciated with the Ptolemaic model as a classic example of how curve fitting,
+as a mathematical approximation method, would usually give rise to sys-
+tematic residuals (and prediction errors), irrespective of the goodness-of-
+fit. In this case, the use of epicycles is tantamount to approximating a
+periodic function h(x) using orthogonal trigonometric polynomials; that
+is, gm(x; v) takes the general form (Isaacson and Keller 1994)
+
+                                      冘
+                                       m
+                           1
+                 gm(x; v) p a 0 ⫹     (ak cos kx ⫹ bk sin kx),
+                           2      kp1
+
+
+                             for x 苸 [⫺p, p],           m ≥ 1.                      (28)
+As first noted by Bohr (1949), every additional epicycle increases m to
+m ⫹ 1.
+
+5. Summary and Conclusions. The current perspective dominating dis-
+cussions on curve fitting is that of mathematical approximation theory,
+which provides an inadequate framework for reliable inductive inference.
+In particular, it provides no adequate basis for (i) testable assumptions to
+ensure the validity of the premises for inductive inference and (ii) dependably
+ascertainable error probabilities to assess the reliability of inference. Both
+(i) and (ii) are attainable in the context of the error-statistical approach,
+by embedding the approximation problem into a statistical model,
+Mv (y), whose premises are empirically testable, and selecting the ‘fittest’
+curve gm(x; v)ˆ to be one that gives rise to a statistically adequate model—
+
+
+
+
+        This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                       All use subject to JSTOR Terms and Conditions
+                                    CURVE FITTING                                     1065
+
+its probabilistic assumptions are valid for the data in question—formal-
+izing the conditions under which the fitted curve captures the ‘regularities’
+in data, y0, adequately. These error-statistical assertions are affirmed by
+demonstrating that Kepler’s law of planetary motion gives rise to a sta-
+tistically adequate model, but Ptolemy’s epicycles model does not. Indeed,
+the latter constitutes an example of a ‘best’ curve, in a mathematical
+approximation sense, that does not account for the regularities in the
+data; it yields systematic residuals.
+
+                                      REFERENCES
+Babb, S. E. (1977), “Accuracy of Planetary Theories, Particularly for Mars”, Isis 68: 426–
+     434.
+Bohr, H. (1949), “On Almost Periodic Functions and the Theory of Groups”, American
+     Mathematical Monthly 56: 595–609.
+Cox, D. R., and D. V. Hinkley (1974), Theoretical Statistics. London: Chapman & Hall.
+Dahliquist, G., and A. Bjorck (1974), Numerical Methods. Translated by N. Anderson.
+     Englewood Cliffs, NJ: Prentice-Hall.
+Einstein, A. (1954), Ideas and Opinions. New York: Three Rivers Press.
+Fisher, R. A. (1935), The Design of Experiments. Edinburgh: Oliver & Boyd.
+Forster, M. and E. Sober (1994), “How to Tell When Simpler, More Unified, or Less Ad
+     Hoc Theories Will Provide More Accurate Predictions”, British Journal for the Phi-
+     losophy of Science 45: 1–35.
+Gauss, C. F. (1809), Theoria Motus Corporum Coelestium in Sectionibus Conicis Solem
+     Ambientium. Hamburg: Perthes & Besser.
+Glymour, C. (1981), Theory and Evidence. Princeton, NJ: Princeton University Press.
+Isaacson, E., and H. B. Keller (1994), Analysis of Numerical Methods. New York: Dover.
+Kieseppa, I. A. (1997), “Akaike Information Criterion, Curve Fitting, and the Philosophical
+     Problem of Simplicity”, British Journal for the Philosophy of Science 48: 21–48.
+Laudan, L. (1977), Progress and Its Problems: Towards a Theory of Scientific Growth. Berke-
+     ley: University of California Press.
+Legendre, A. M. (1805), Nouvelles méthodes pour la détermination des orbites des comètes.
+     Paris: Courcier.
+Linton, C. M. (2004), From Eudoxus to Einstein: A History of Mathematical Astronomy.
+     Cambridge: Cambridge University Press.
+Mayo, D. G. (1991), “Novel Evidence and Severe Tests”, Philosophy of Science 58: 523–
+     552.
+——— (1996), Error and the Growth of Experimental Knowledge. Chicago: University of
+     Chicago Press.
+Mayo, D. G., and A. Spanos (2004), “Methodology in Practice: Statistical Misspecification
+     Testing”, Philosophy of Science 71: 1007–1025.
+Rao, C. R., and Y. Wu (2001), “On Model Selection”, in P. Lahiri (ed.), Model Selection.
+     Lecture Notes—Monograph Series, vol. 38. Beachwood, OH: Institute of Mathematical
+     Statistics, 1–64.
+Salmon, W. (1967), The Foundations of Scientific Inference. Pittsburgh: University of Pitts-
+     burgh Press.
+Skyrms, B. (2000), Choice and Chance: An Introduction to Inductive Logic. Belmont, CA:
+     Wadsworth/Thomson Learning.
+Spanos, A. (1986), Statistical Foundations of Econometric Modelling. Cambridge: Cambridge
+     University Press.
+——— (1995), “On Theory Testing in Econometrics: Modeling with Nonexperimental
+     Data”, Journal of Econometrics 67: 189–226.
+——— (1999), Probability Theory and Statistical Inference: Econometric Modeling with Ob-
+     servational Data. Cambridge: Cambridge University Press.
+
+
+
+
+         This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                        All use subject to JSTOR Terms and Conditions
+1066                                ARIS SPANOS
+
+
+——— (2000), “Revisiting Data Mining: ‘Hunting’ with or without a License”, Journal of
+    Economic Methodology 7: 231–264.
+——— (2006a), “Econometrics in Retrospect and Prospect”, in T. C. Mills and K. Patterson
+    (eds.), New Palgrave Handbook of Econometrics, vol. 1. London: Macmillan, 3–58.
+——— (2006b), “Revisiting the Omitted Variables Argument: Substantive vs. Statistical
+    Adequacy”, Journal of Economic Methodology 13: 179–218.
+——— (2006c), “Statistical Model Specification vs. Model Selection: Akaike-Type Criteria
+    and the Reliability of Inference”, manuscript.
+Spanos, A., and A. McGuirk (2001), “The Model Specification Problem from a Probabilistic
+    Reduction Perspective”, Journal of the American Agricultural Association 83: 1168–
+    1176.
+
+
+
+
+         This content downloaded from 130.126.32.13 on Tue, 2 Jul 2013 00:54:54 AM
+                        All use subject to JSTOR Terms and Conditions
+

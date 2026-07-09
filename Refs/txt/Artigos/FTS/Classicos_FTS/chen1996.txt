@@ -1,0 +1,459 @@
+                                                                                                       PU||'Y
+                                                                                                       sets and systems
+ELSEVIER                            Fuzzy Sets and Systems 81 (1996) 311-319
+
+
+
+
+              Forecasting enrollments based on fuzzy time series
+                                                   Shyi-Ming Chen
+             Department of Computer and Information Science, National Chiao Tung University, Hsinchu, Taiwan, ROC
+                                           Received March 1994; revisedJune 1995
+
+
+Abstract
+
+  This paper presents a new method to forecast university enrollments based on fuzzy time series. The data of historical
+enrollments of the University of Alabama shown in Song and Chissom (1993a, 1994) are adopted to illustrate the
+forecasting process of the proposed method. The robustness of the proposed method is also tested. The proposed method
+not only can make good forecasts of the university enrollments, but also can make robust forecasts when the historical
+data are not accurate. The proposed method is more efficient than the one presented in Song and Chissom (1993a) due to
+the fact that the proposed method uses simplified arithmetic operations rather than the complicated max-min
+composition operations presented in Song and Chissom (1993a).
+
+Kevwords: Fuzzy time series; Enrollments; Forecasting; Fuzzy set; Linguistic value; Linguistic variable
+
+
+
+
+1. Introduction                                                   presented in [1]. The method presented by Song
+                                                                  and Chissom [3] uses the following model for fore-
+   In [3, 4], Song and Chissom presented the defini-              casting university enrollments:
+tion of fuzzy time series and outlined its modeling
+by means of fuzzy relational equations and approx-                Ai = A i - 1 o R,                                  (1)
+imate reasoning [6, 9]. Fuzzy time series is a new
+concept which can be used to deal with forecasting                where Ai-1 is the enrollment of year i - 1 repre-
+problems in which historical data are linguistic                  sented by a fuzzy set [2, 7, 8], Ai is the forecasted
+values. In [3], Song and Chissom have applied the                 enrollment of year i represented by a fuzzy set, " ° "
+fuzzy time series model to forecast the enrollments               is the max-min composition operator, and R is
+of the University of Alabama, where a first-order                 a fuzzy relation indicating fuzzy relationships be-
+time invariant model is developed and a step-by-                  tween fuzzy time series. However, the forecasted
+step procedure is provided. In [3], they also                     method presented in [3] requires a large amount of
+pointed out that Bintley [1] has successfully ap-                 computations to derive the fuzzy relation R of (1),
+plied fuzzy logic and approximate reasoning to                    and the max-min composition operations of (1)
+a practical case of forecasting, but the concept of               will take a large amount of computation time when
+fuzzy time series was not applied on the method                   the fuzzy relation R of(l) is very big. Thus, we must
+
+0165-0114/96/$15.00 ~ 1996 ElsevierScienceB.V. All rights reserved
+SSDI 0165-01 14(95)00220-0
+312                                    S.-M. (~en   Fuzzy Sets and ,~vstems 8l (1996) 311 319
+
+
+develop a new method to forecast the enrollments                     (i = 1,2 . . . . ) can be viewed as possible linguistic
+of the university in a more efficient manner.                        values of F(t), where J~(t) (i = 1, 2, ... ) are repre-
+   In this paper, we propose a new method to fore-                   sented by fuzzy sets. We also can see that F(t) is
+cast university enrollments based on fuzzy time                      a function of time t, i.e., the values of F(t) can be
+series [3,4]. The data of historical enrollments of                  different at different times due to the fact that the
+the University of Alabama shown in [3, 5] are ad-                    universe of discourse can be different at different
+opted to illustrate the forecasting process. The ro-                 times. According to [3], if F(t) is caused by F(t - 1)
+bustness of the proposed method is also tested. The                  only, then this relationship is represented by
+proposed method is more efficient than the one                       F(t - 1) ~ F(t).
+presented in [3] due to the fact that the proposed
+method uses simplified arithmetic operations                         Definition 2.2. Let F(t) be a fuzzy time series. If for
+rather than the complicated max-min composition                      any time t, F(t) = F(t - 1) and F(t) only has finite
+operations presented in [3].                                         elements, then F(t) is called a time-invariant fuzzy
+   The rest of this paper is organized as follows. In                time series. Otherwise, it is called a time-variant
+Section 2, the concepts of fuzzy time series are                     fuzzy time series.
+reviewed from [3,4]. In Section 3, we propose an
+efficient method to forecast the university enroll-                     In [4], Song and Chissom have used the follow-
+ments based on fuzzy time series. In Section 4, the                  ing two examples to explain the concepts of fuzzy
+robustness of the proposed method is tested. The                     time series:
+conclusions are discussed in Section 5.                                 (1) Observe the weather of a certain place in
+                                                                     North America, begin from the first day and ending
+                                                                     with the last day of a year, where the common daily
+2. Fuzzy time series                                                 words (i.e., "good", "very good", "quite good",
+                                                                     "very very good", "cool", "very cool", "quite cool",
+   In this section, we briefly review some concepts                  "'hot", "very hot", "cold", "very cold", "quite cold",
+of fuzzy time series from [3, 4]. The main difference                '~very very cold", ..., etc.) are used to describe the
+between the fuzzy time series and conventional time                  weather conditions and these words are repre-
+series is that the values of the former are fuzzy sets               sented by fuzzy sets.
+[7] while the values of the latter are real numbers.                    (2) Observe the mood of a person with normal
+Roughly speaking, a fuzzy set is a class with fuzzy                  mental conditions during a period of time, where
+boundaries. Let U be the universe of discourse,                      the mood of a person can be expressed according to
+U = [ul, u2, ..., u,}. A fuzzy set A of U is defined by              his own feeling using fuzzy sets "good", "very
+                                                                     good", "very very good", "really good", "bad", "not
+A = f A ( U l ) / U l +f~I(U2)/U 2 -}- "'" +JA(Un)/Un,     (2)
+                                                                     bad", "not too bad", ..., etc.
+ where JA is the membership function of A,                              In [4], Song and Chissom also pointed out that
+Ja: U--* [0, 1], and Ja(ui) indicates the grade of                   the above two examples are dynamic processes and
+membership of ui in A, where fa(Ui)e [0, 1] and                      their observations are fuzzy sets; the conventional
+ 1 ~< i ~< n. The definitions of fuzzy time series are               time series models are no longer applicable to de-
+reviewed as follows.                                                 scribe these processes. For more details, please refer
+                                                                     to [3, 4].
+Definition 2.1. Let Y(t) (t . . . . . 0, 1, 2 . . . . ), a sub-
+set of ~, be the universe of discourse on which fuzzy
+sets fdt) (i = 1,2 . . . . ) are defined and let F(t) be             3. A new method for forecasting enrollments
+a collection offdt) (i = 1, 2 . . . . ). Then, F(t) is called        with fuzzy time series
+a fuzzy time series on Y(t) (t . . . . . 0, 1,2 . . . . ).
+                                                                        In [3], Song and Chissom applied the fuzzy times
+  From Definition 2.1, we can see that F(t) can be                   series model to propose a step-by-step procedure
+regarded as a linguistic variable [9] and f/(t)                      for forecasting the enrollments of the University of
+                                    S.-M. Chen / F u z z v Sets and Systems 81 (1996) 3 1 1 - 3 1 9                                         313
+
+
+Alabama. The method presented in [3] uses the                          where " U " is the union operator. It is obvious that
+following model for forecasting the enrollments:                       the derivation of the fuzzy relation R is a very
+                                                                       tedious work, and the m a x - r a i n composition op-
+A i = Ai_ 1 ~R,
+                                                                       erations will take a large amount of time when the
+where Ai_ 1 is the enrollment of year i - 1 in terms                   fuzzy relation R is very big. Thus, we must develop
+of a fuzzy set and Ai is the forecasted enrollment of                  a new method to forecast university enrollments in
+year i in terms of a fuzzy set, R is a fuzzy relation                  a more efficient manner.
+indicating fuzzy relationships between fuzzy time                         In the following, we propose a new method to
+series, and '~ is the max min composition operator.                    efficiently forecast university enrollments with
+However, the derivation of the fuzzy relation R is                     fuzzy time series based on [3, 4], where the data of
+a very tedious work, and the max min composition                       historical enrollments of the University of Alabama
+operations will take a large amount of time when                       shown in [3, 5] are used to illustrate the forecasting
+the fuzzy relation R is very big. For example, let                     process of the proposed method. The method is
+A~ ~ ,4~+~ denote the fuzzy logical relationship "If                   essentially a modification of the one presented in
+the enrollment of year i is Ai, then that of year i + 1                [3]. It is more efficient than the one presented in
+is A~+~", where A~ and A~+~ are fuzzy sets, and let                    [3] due to the fact that it uses simplified arithmetic
+us consider the following fuzzy logical relationships                  operations rather than the complicated m a x - m i n
+shown in [3]:                                                          composition operations presented in [3].
+                                                                          Let Omi n and Dmax be the minimum enrollment
+A1 ~ A 1 ,    A1 ---~A2,   Az ~ A 3 ,    A3--*A3,                      and the m a x i m u m enrollment of known historical
+A3 ~    A4,   A4 ~ A 4 ,   A4 ~   A3,    A4 ~     A6,       (3)        data. Based o n Omi n and D . . . . we define the uni-
+                                                                       verse of discourse U a s [Dmi n - - D1,Dmax + D2],
+A6 ~ A6,      A6 ~   AT.                                               where D1 and O 2 a r e two proper positive numbers.
+ The method proposed by Song and Chissom [3]                           According to the data of actual enrollments of the
+ for deriving the fuzzy relation R of (1) is sum-                      University of Alabama shown in [5], we can see
+ marized as follows. Firstly, Song and Chissom de-                     that Omi n = 13055 and Dma x = 19337. Thus, ini-
+fined an operator " x " of two vectors. Let D and                      tially, we let Da = 55 and D 2 ---- 663. Thus, in this
+ B be row vectors of dimension m and let C =                           paper,     the     universe        of   discourse   U =
+(cij) = D v x B, then the element ci~ of matrix C at                   [13000,20000]. The method for forecasting the
+ row i and column j is defined as clj = min(Di, Bj)                    university enrollments is presented as follows.
+(i,j = 1. . . . . m), where D~ and Bj are the ith and the                 Step 1: Partition the universe of discourse
+jth elements of D and B, respectively, and D T is the                  U = [Drnin - D1, Dmax -[- D 2 ] into even lengthy and
+ transpose of D. Then, based on the above fuzzy                        equal length intervals ul, u2, ..., urn. In this paper,
+logical relationships and the " x " operator, the fol-                 we partition U = [13000,20000] into seven inter-
+lowing relations are obtained:                                         vals Ul, u2, u3, u 4 , u s , u6, and uT, where ul =
+                                                                       [13000, 14000], u2 = [14000, 15 000], u3 = 1-15000,
+R 1 = A~ x Aa,        R2 = A~ x A2,                                    16000], u4 = [16000, 17 000], u5 = [17000, 18000],
+R3 =    A~ x A3,      R4 = A~ x A3,                                    u6 = [18000, 19000], and u7 = [19000,20000].
+                                                                          Step 2: Let A 1 , A 2 , ... , A k be fuzzy sets which
+R5 = A~ x A 4 ,       R 6 = A~ x A 4 ,                      (4)        are linguistic values of the linguistic variable "en-
+R7 = A T x A3,        R8 = A T x A 6 ,                                 rollments". Define fuzzy sets A1, A2 . . . . . Ak on the
+                                                                       universe of discourse U as follows:
+R9 = A~ x A 6 ,       Rio = A~ x AT.
+                                                                        A 1 = a l l / / ~ 1 -~- a l 2 / U 2 -q- . . . . . ~ a l m / U m ,
+Finally, the fuzzy relation R is obtained by per-
+forming the following operations:                                       A 2 = a 2 1 / u 1 -[- a 2 2 / u 2 q- ...         h- a2m/blm,        (6)
+        lO
+R = /) Ri,                                                  (5)
+       i--1                                                             A k = a k l / U 1 -[- ak2/U 2 ~- ...            -[- akm/blrn,
+314                                          S.-M. Chen / Fuzz)' Sets" and Systems 81 (1996) 311       319
+
+
+where a i j e [ 0 , 1 ] , l<<.i<<.k, and 1 ~<j~<m. The                      Table I
+value of aij indicates the grade of membership of                           Fuzzified historical enrollments (data source: [5])
+uj in the fuzzy set A/, where ai~ e [0, 1], I <~ i <<, k,
+                                                                             Year         Actual enrollment                 Fuzzified enrollment
+and 1 ~<j ~< m. Find out the degree of each year's
+enrollments belonging to each Ai (i = 1,2 . . . . . m). If                   1971          13055                            A1
+the maximum membership of one year's enrollment                              1972          13563                            At
+is under Ak, then the fuzzified enrollment for this                          1973          13867                            At
+year is treated as Ak. Then, fuzzy logical relation-                         1974          14696                            A2
+                                                                             1975          15460                            A3
+ships are derived based on the fuzzified historical                          1976          15311                            A3
+enrollments. In this study, the following linguistic                         1977          15603                            A3
+values A1 = ( n o t many), A2 = ( n o t too many),                           1978          15861                            A3
+A 3 = (many),         A 4 = (many    many), A5 = [very                       1979          16807                            ,44
+m a n y ) , A 6 = (too many), and A7 = ( t o o many                          1980          16919                            A4
+                                                                             1981          16388                            A4
+many) are adopted from [3], where                                            1982          15433                            A3
+                                                                             1983          15497                            A3
+A1 = 1/ul + 0.5///2 4- O/bt 3
+                                                                             1984          15145                            A3
+                                                                             1985          15 163                           A3
+         + O/u4 + O/u5 + O/u6 + O/uT,
+                                                                             1986          15984                            A3
+                                                                             1987          16859                            A,,
+A 2 = 0 . 5 / u I 4- l / u 2 + 0 . 5 / u 3
+                                                                             1988          18 150                           A6
+         + O/u4 + O/u5 + O/u6 + O/uT,                                        1989          18970                            A~
+                                                                             1990          19328                            A7
+A 3 = O / U l + 0.5///2 + l / U 3                                            1991          19337                            Av
+                                                                             1992          18876                            A~,
+         + 0.5/u4 + O/u5 + O/u6 + O/uT,
+A4 = O/ul + O/u2 + 0.5/u3
+                                                                                    Table 2
+         + 1///4 + 0.5/u5 + O/u6 + O/uv,                          (7)               Fuzzy logical relationships of the enrollments
+
+A5 = O/ul + O/u2 + O/u3                                                             Al -s. A l      A1 --* A 2     A2 ----, A 3   A3 ---~A 3
+                                                                                    A 3 --~ A 4     A ,t --* A 4   A 4 ---~A 3    A., ---~A 6
+         + 0.5/u,, + l/u5 + 0.5/u6 + O/uT,                                          A~, --* A¢,     A6 ~ A7        A7 ~ A7        Av ~ A6
+
+A 6 = O/U 1 + 0 / / 1 2 At- O/U3
+
+         4- O / u 4 + 0.5/U 5 4- l / u 6 4- 0.5/U7,
+                                                                                      Table 3
+A7 = O/u1 + O/u2 + O/u3                                                               Fuzzy logical relationship groups
+
+         + O/u4 + O/u5 + 0.5/u6 + 1/uT.                                               Group 1:      Al ~,Ai        A1 - ~ A 2
+                                                                                      Group 2:      A2 --* A3
+The fuzzified historical enrollments of the enroll-                                   Group 3:      A3 + A3        A3 ~ A4
+ments of the University of Alabama are shown in                                       Group 4:      A,,~A4         A4-,A3         A4 ~ A6
+
+Table 1 which are adopted from [5].                                                   Group 5:      A6 ~ A6        A6 -~ A7
+                                                                                      Group6        AT ~ A 7       Av--*A6
+   Then, the fuzzy logical relationships of the en-
+rollments can be obtained from Table 1 which are
+shown in Table 2, where the fuzzy logical relation-
+ship A i ~ A k means "If the enrollment of year i is                           Step 3: Divide the derived fuzzy logical relation-
+A.i, then that of year i + 1 is Ak", where Aj is called                     ships into groups based on the current states of the
+the current state of the enrollment, and Ak is called                       enrollments of fuzzy logical relationships. Thus,
+the next state of the enrollment (note: the repeated                        based on Table 2, we can obtain six fuzzy logical
+relationships are counted only once).                                       relationship groups shown in Table 3.
+                                 X-M. Chen / Fuzzv Sets and Systems 81 (1996) 311 319                             315
+
+   Step 4: Calculate the forecasted outputs. The                 [1972]: Because the fuzzified enrollment of 1971
+calculations are carried out by the following                 shown in Table 1 is A1, and from Table 3, we can
+principles:                                                   see that there are the following fuzzy logical rela-
+   (1) If the fuzzified enrollment of year i is At, and       tionships in group 1 of Table 3 in which the current
+there is only one fuzzy logical relationship in the           states of the fuzzy logical relationships are A l,
+fuzzy logical relationship groups derived in Step             respectively, which is shown as follows:
+3 in which the current state of the enrollment is A t,
+                                                              A1 ~ A I ,      A1 -*A2,
+which is shown as follows:
+                                                              where the maximum membership values of the
+A j ~ ,4k,
+                                                              fuzzy sets A1 and A2 occur at intervals ul and u2,
+where At and A , are fuzzy sets and the maximum               respectively, where u~ = [13 000, 14000] and u2 =
+membership value of Ak occurs at interval Uk, and             [14 000, 15 000], and the midpoints of the intervals
+the midpoint of Uk is rag, then the forecasted enroll-        ul and u2 are 13 500 and 14 500, respectively. Thus,
+ment of year i + 1 is rag.                                    the forecasted enrollment of 1972 is equal to
+  (2) If the fuzzified enrollment of year i is Aj, and        ½(13 500 + 14500)= 14000.
+there are the following fuzzy logical relationships in           [1975]: Because the fuzzified enrollment of 1974
+the fuzzy logical relationship groups derived in              shown in Table 1 is A2, and from Table 3, we can
+Step 3 in which the current states of the fuzzy               see that there is the following fuzzy logical relation-
+logical relationships are At, respectively, which is          ship in group 2 of Table 3 in which the current state
+shown as follows:                                             of the fuzzy logical relationship is A2, which is
+                                                              shown as follows:
+Aj ---rAkl '
+                                                              A2 --* A3,
+A j --~ Ak2,
+                                                              and the maximum membership value of the fuzzy
+                                                              set A3 occurs at interval u3, where u3 =
+                                                              [15000, 16000], and the midpoint of u3 is 15500.
+A j --.e,Akp.
+                                                              Thus, the forecasted enrollment of 1975 is equal to
+where Aj, Akl,Ak2          Akp are fuzzy sets, and the
+                    . . . . .                                 15 500.
+maximum membership values of Akj, Ak2, . . . , Akp               [1976]: Because the fuzzified enrollment of 1975
+occur at intervals ul, u2, ... ,up, respectively, and         shown in Table 1 is A3, and from Table 3, we can
+the midpoints of Ux,U2 . . . . . up are m~,m2, ... ,mp,       see that there are the following fuzzy logical rela-
+respectively, then the forecasted enrollment of year          tionships shown in group 3 of Table 3 in which the
+i + 1 is (ml + m2 + ... + mp)/p.                              current states of the fuzzy logical relationships are
+   (3) If the fuzzified enrollment of year i is At, and       A3, respectively, which is shown as follows:
+there do not exist any fuzzy logical relationship
+                                                              A3 "* A3,        A3 ~ A4,
+groups whose current state of the enrollment is At,
+where the maximum membership value of Aj                      where the maximum membership values of the
+occurs at interval uj, and the midpoint of ui is              fuzzy sets A 3 and A4 occur at intervals u3 and u4,
+mr, then the forecasted enrollment of year i + 1              respectively, where u3 = [15000,16000] and
+is mr.                                                        u4 = [16000, 17000], and the midpoints of the in-
+   Thus, based on Tables 1 and 3, we can forecast             tervals u3 and u4 are 15500 and 16500, respect-
+the enrollments of the University of Alabama from             ively. Thus, the forecasted enrollment of 1976 is
+1972 to 1992 by the proposed method. In the fol-              equal to ½(15 500 + 16500) = 16000.
+lowing, we only illustrate the forecasting process of            [ 1980]: Because the fuzzified enrollment of 1979
+the years 1972, 1975, 1976, 1980, 1989, and 1991.             shown in Table 1 is A4, and from Table 3, we can
+The same procedure can be applied on the years                see that there are the following fuzzy logical rela-
+1973, 1974, 1977, 1978, 1979, 1981 . . . . ,1988, 1990,       tionships shown in group 4 of Table 3 in which the
+and 1992.                                                     current states of the fuzzy logical relationships are
+316                                    S.-M. Chen /' Fuzzy Sets and Systems 81 (1996) 311 319
+
+
+                   Table 4
+                   A comparison of the forecasted methods
+
+                   Year      Actual enrollment           Forecasted enrollment       Forecasted enrollment
+                             (data sources [5]):         by Song and Chissom [3]     by the proposed method
+
+                   1971      13055
+                   1972      13563                       14000                       14000
+                   1973      13867                       14000                       14000
+                   1974      14 696                      14000                       14000
+                   1975      15460                       15500                       15500
+                   1976      15311                       16000                       16000
+                   1977      15603                       16000                       16000
+                   1978      15861                       16000                       16000
+                   1979      16807                       16000                       16000
+                   1980      16919                       16813                       16833
+                   1981      16388                       16813                       16833
+                   1982      15433                       16709                       16833
+                   1983      15497                       16000                       16000
+                   1984      15145                       16000                       16000
+                   1985      15163                       16000                       16000
+                   1986      15984                       16000                       16000
+                   1987      16859                       16000                       16000
+                   1988      18150                       16813                       16833
+                   1989      18970                       19000                       19000
+                   1990      19328                       19(100                      19000
+                   1991      19337                       19000                       19000
+                   1992      18876                       Not forecasted              19000
+
+
+A4, respectively, which is shown as follows:                         u7 are 18500 and 19500, respectively. Thus, the
+                                                                     forecasted enrollment of 1989 is equal to
+A4 --* A 4 ,   A4 ---' A3,   A4 - * A 6 ,                            1(18 500 + 19 500) = 19000.
+where the maximum membership values of the                              [1991]: Because the fuzzified enrollment of 1990
+fuzzy sets A4, A3, and A 6 o c c u r at intervals Ua, u3,            shown in Table 1 is AT, and from Table 3, we can
+and u6, respectively, where u4 = [16000, 170001,                     see that there are the following fuzzy logical rela-
+u3 = [15000, 16000] and u6 = [18000, 190001,                         tionships shown in group 6 of Table 3 in which the
+and the midpoints of u4, u3, and u6 are 16 500,                      current states of the fuzzy logical relationships are
+15 500, and 18 500, respectively. Thus, the fore-                    AT, respectively, which is shown as follows:
+casted enrollment       of 1980 is equal               to
+                                                                     A7 ---' A 7 ,    A7 --~ A 6 ,
+½(16500 + 15500 + 18500) = 16833.
+   [19891: Because the fuzzified enrollment of 1988                  where the maximum membership values of the
+shown in Table 1 is A 6 , and from Table 3, we can                   fuzzy sets A7 and A6 occur at intervals uv and u6,
+see that there are the following fuzzy logical rela-                 respectively, where u7 = [19000,20000]        and
+tionships shown in group 5 of Table 3 in which the                   u6 = [18000, 190001, and the midpoints of uv and
+current states of the fuzzy logical relationships are                u6 are 19 500 and 18 500, respectively. Thus, the
+A6, respectively, which is shown as follows:                         forecasted enrollment of 1991 is equal to
+                                                                     1(19 500 + 18 500) = 19 000.
+A6 ~ A6,         A6 ~ AT,
+                                                                        In summary, a comparison of the actual enroll-
+where the maximum membership values of the                           ments of the University of Alabama, the forecasted
+fuzzy sets A 6 and Av occur at intervals u6 and uv,                  enrollments by Song-Chissom method [3], and the
+respectively, where u6 = [18000, 19000] and                          forecasted enrollment by the proposed method is
+uv = [19000,200001, and the midpoints of u6 and                      shown in Table 4.
+                                  S.-M. Chen / Fuzzy Sets and Systems 81 (1996) 311-319                                                       317
+
+
+                 Number of StudenCs
+
+                       20000
+
+                        1900O
+
+                       180OO
+
+                       17000
+
+                       16O00
+
+                       15O00                                                                7"
+                       14OOO
+
+                       13OO0
+
+                       12000                 ,    w   i   f   i     u    n     v   i   v    i     i " ' l   I      i    I     i
+
+
+                            197            1975                   1980                     1985                        19qO
+                                                                  Year
+
+                                  Fig. 1. Forecasted enrollments and actual enrollments.
+
+
+
+   From Table 4, we can see that the forecasted                                        Table 5
+results of the.proposed method is very close to that                                   Fuzzy logical relationships derived from the
+of the Song-Chissom method presented in [3]. The                                       changed historical enrollment data
+curves of the actual enrollments and the forecasted                                    A~ ~ A~                  AI ~ A3           A3 --~ A3
+enrollments of the proposed method are shown in                                        A3 --, A 4               A4 -.-, A 4       A4 --, A3
+Fig. 1, where the solid line is the actual enrollment                                  A4 --+ A6                A6 ---~A6         A6 --* A7
+and the dashed line is the forecasted enrollment. It                                   A7 ~ A7                  A7 -'* A6
+is obvious that the proposed method is more effi-
+cient than the one presented in [-3] due to the fact
+that the proposed method uses simplified arith-                              case, the fuzzy logical relationships obtained from
+metic operations rather than the complicated                                 the changed historical enrollment data are shown
+max-min composition operations presented in [3].                             in Table 5.
+                                                                                By applying the proposed method, the forecasted
+                                                                             enrollments from 1972 to 1992 can be evaluated.
+4. Robustness of the proposed method                                         The curves of the actual enrollments and the fore-
+                                                                             casted enrollments are shown in Fig. 2, where the
+  In this section, we test the robustness of the                             solid line is the actual enrollment and the dashed
+proposed method to show the proposed method                                  line is the forecasted enrollment. The forecasting
+can still yield good forecasting results when the                            errors range from 0.10% to 9.07%, and the average
+historical data are not accurate. In order to test the                       error is 3.23%. The average error of the proposed
+robustness of the proposed method, we adopted the                            method is smaller than the one presented in [3].
+example shown in [3,5] to increase a few year's                              From Fig. 2, we can see that as time increases, the
+enrollment data by 5% with the rest of the data                              forecasting error decreases. This shows that even if
+unchanged, i.e., the university enrollments of 1974,                         the historical data are not accurate, the proposed
+1978, 1985, and 1990 are increased by 5%. In this                            method can still make good forecasts.
+318                                    S.-M. Chert / Fuzzy Sets and Systems 81 (1996) 311 319
+
+                   Number of Students
+
+                     2OOOO
+
+                     19000
+
+                     18OO0
+                                         •         Actual    Enrollmenls
+
+                                      --i--ForecasledEnrollmenls
+
+
+
+                                                                                                                                /'/:;"
+                                                                                                                                     .l-        -       -   II
+
+
+
+
+                     17000
+
+                     1600O                             y                                          ~ . - - i
+                     15000
+
+                     14000
+
+                     13000
+
+                     12000        ,            f        i    i     i       i   ,   ,    i     i    ~   i     i    J     v   i    w         i        v
+
+
+                           1970                             1975                       1980                      1985                          1990
+                                                                                       Year
+
+                             Fig. 2. Curves of forecasted enrollments and actual enrollments.
+
+
+
+5. Conclusions                                                                                    work was supported in part by the National
+                                                                                                  Science Council, Republic of China, under Grant
+   In this paper, we present a new method to fore-                                                NSC 85-2213-E-009-123.
+cast university enrollments based on fuzzy time
+series, where the data of historical enrollments of
+the University of Alabama are adopted from [3, 51
+to illustrate the forecasting processes, and the                                                  References
+robustness of the proposed method is tested.
+From the illustrative example, we can see that the                                                 [1] H. Bintley, Time series analysis with REVEAL, Fuzzy Sets
+proposed method not only can make good fore-                                                           and Systems 23 (1987) 97 118.
+casts of the university enrollments, but also can                                                  [2] A. Kaufmann and M.M. Gupta, Fuzzy Mathematical
+make robust forecasts when the historical enroll-                                                      Models in Enoineerin9 and Management Sciences (North-
+                                                                                                       Holland, Amsterdam, 1988).
+ment data are not accurate. The proposed method                                                    [3] Q. Song and B.S. Chissom, Forecasting enrollments with
+is more efficient than the one presented in [3] due                                                    fuzzy time series - part I, Fuzzy Sets and Systems 54 (1993)
+to the fact that the proposed method uses simplified                                                       1 9.
+arithmetic operations rather than the complicated                                                  [4] Q. Song and B.S. Chissom, Fuzzy time series and its
+max-min composition operations presented in [3].                                                       models, Fuzzy Sets and Systems 54 (1993) 269-277.
+                                                                                                   [5] Q. Song and B.S. Chissom, Forecasting enrollments with
+                                                                                                       fuzzy time series - part II, Fuzzy Sets and Systems 62 (1994)
+                                                                                                       1-8.
+Acknowledgements                                                                                   [6] W. Wu, Fuzzy reasoning and fuzzy relational equations,
+                                                                                                       Fuzzy Sets and Systems 20 (1986) 67 78.
+  The author would like to thank the referees for                                                  [7] L.A. Zadeh, Fuzzy sets, Inform. and Control 8 (1965)
+                                                                                                       338-353.
+providing very helpful comments and suggestions.                                                   [8] L.A. Zadeh, Outline of a new approach to the analysis of
+Their insight and comments led to a better pre-                                                        complex systems and decision processes, IEEE Trans.
+sentation of the ideas expressed in this paper. This                                                   Systems Man Cybernet. 3 (1973) 28-44.
+                                    S.-M. Chen / Fuzzy Sets and Systems 81 (1996) 311-319                                    319
+
+[9] L.A. Zadeh, The concept of a linguistic variable and its      [10] Li Zuoyoung, Chen Zhenpei and Li Jitao, A model of
+    application to approximate reasoning, parts I-3, Inform.           weather forecast by fuzzy grade statistics, Fuzzy Sets and
+    Sci. 8 (1975) 199-249; 8 (1975) 301 357; 9 (1975) 43-80.           Systems 26 (1988) 275 281.
+

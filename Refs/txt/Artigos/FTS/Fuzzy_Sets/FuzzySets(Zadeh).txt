@@ -1,0 +1,632 @@
+INFOR~ATIO~ AND CONTROL8, 338--353 (1965)
+
+
+
+
+                               Fuzzy Sets* -
+
+                                L. A. ZADEH
+  Department of Electrical Engineering and Electronics l~esearch Laboratory,
+                University of California, Berkeley, California
+
+       A fuzzy set is a class of objects with a continuum of grades of
+     membership. Such a set is characterized by a membership (charac-
+     teristic) function which assigns to each object a grade of member-
+     ship ranging between zero and one. The notions of inclusion, union,
+     intersection, complement, relation, convexity, etc., are extended
+     to such sets, and various properties of these notions in the context
+     of fuzzy sets are established. In particular, a separation theorem for
+     convex fuzzy sets is proved without requiring that the fuzzy sets be
+     disjoint.
+                            I. INTRODUCTION
+   More often than not, the classes of objects encountered in the real
+physical world do not have precisely defined criteria of membership.
+For example, the class of animals clearly includes dogs, horses, birds,
+etc. as its members, and clearly excludes such objects as rocks, fluids,
+plants, etc. However, such objects as starfish, bacteria, etc. have an
+ambiguous status with respect to the class of animals. The same kind of
+ambiguity arises in the case of a nmnber such as 10 in relation to the
+"class" of all real numbers which are much greater than 1.
+   Clearly, the "class of all real numbers which are much greater than
+1," or "the class of beautiful women," or "the class of tall men," do not
+constitute classes or sets in the usual mathematical sense of these terms.
+Yet, the fact remains that such imprecisely defined "classes" play an
+important role in human thinking, particularly in the domains of pattern
+recognition, communication of information, and abstraction.
+   The purpose of this note is to explore in a preliminary way some of the
+basic properties and implications of a concept which m a y be of use in
+
+ * This work was supported in part by the Joint Services Electronics Program
+(U.S. Army, U.S. Navy and U.S. Air Force) under Grant No. AF-AFOSR-139264
+and by the National Science Foundation under Grant GP-2413.
+                                      338
+                                    F~ZZY SnTS                                    339
+
+dealing with "classes" of the type cited above. The concept in question
+is that of a fuzzy set, ~ tha~ is, a "class" with a continuum of grades of
+membership. As will be seen in the sequel, the notion of a fuzzy set
+provides a convenient point of departure for the construction of a eon-
+eeptuM framework which parallels in m a n y respects the framework
+used in the case of ordinary sets, but is more general than the latter and,
+potentially, m a y prove to have a much wider scope of applicability,
+particularly in the fields of pattern classification and information proc-
+essing. Essentially, such a framework provides a natural way of dealing
+with problems in which the source of imprecision is the absence of sharply
+defined criteria of class membership rather than the presence of random
+variables.
+   We begin the discussion of fuzzy sets with several basic definitions.
+
+                                 II. DEFINITIONS
+   Let X be a space of points (objects), with a generic element of X de-
+noted by x. Thus, X = {z}.
+   A fuzzy set (class) A in X is characterized by a membership (charac-
+teristic) function fA(x) which associates with each point 2 in X a real
+number in the interval [0, 1],~ with the value of fA(x) at x representing
+the "grade of membership" of x in A. Thus, the nearer the value of
+fA(x) to unity, the higher the grade of membership of x in A. When A
+is a set in the ordinary sense of the term, its membership function can
+take oil only two values 0 and 1, with fA(x) = 1 or 0 according as x
+does or does not belong to A. Thus, in this case fA(x) reduces to the
+familiar eharae~-eristic function of a set A. (When there is a need to
+differentiate between such sets and fuzzy sets, the sets with two-valued
+characteristic functions will be referred to as ordinary sets or simply sets. )
+   Example. Let X be the real line R ~ and let A be a fuzzy set of numbers
+     An ~ppiieation of this concept to the formulation of a class of problems in
+pa~tern classification is described in RAND Memorandum RM-4307-PR, "Ab-
+straction and Pattern Classification," by R. Bellman, R. Kalaba and L. A. Zadeh,
+October, 1964.
+   2 More generally, the domain of definition of fA (x) may be restricted to a sub-
+set of X.
+   a In a more general setting, the range of the membership function can be taken
+to be a suitable partially ordered set P. For our purposes, it is convenient and
+sufficient to restrict the range of f to the unit interval. If the values of f~ (x) are
+interpreted as truth values, the latter ease corresponds to a multivaiued Iogic
+with a continuum of truth values in the interval [0, 1].
+340                                ZADEH
+
+which are much greater than 1. Then, one can give a precise, albeit
+subjective, characterization of A by specifying fA(x) as a function on R 1.
+Representative values of such a function might be: f~ (0) = O; fA (1) = O;
+fA(5) = 0.01;f~(10) = 0.2;fx(100) = 0.95;fA(500) = 1.
+   It should be noted that, although the membership function of a fuzzy
+set has some resemblance to a probability function when X is a countable
+set (or a probability density function when X is a continuum), there are
+essential differences between these concepts which will become clearer
+in the sequel once the rules of combination of membership functions and
+their basic properties have been established. In fact, the notion of a
+fuzzy set is completely nonstatistical in nature.
+   We begin with several definitions involving fuzzy sets which are
+obvious extensions of the corresponding definitions for ordinary sets.
+   A fuzzy set is empty if and only if its membership function is identically
+zero on X.
+   Two fuzzy sets A and B are equal, written as A = B, if and only if
+f~(x) = f~(x) for all x in X. (In the sequel, instead of writingfA(x) =
+f~(x) for all x in X, we shall write more simply fa = fB .)
+   The complement of a fuzzy set A is denoted by A' and is defined by
+                             fA, = 1 - f x .                             (1)
+   As in the ease of ordinary sets, the notion of containment plays a
+central role in the ease of fuzzy sets. This notion and the related notions
+of union and intersection are defined as follows.
+   Containment. A is contained in B (or, equivalently, A is a subset of B,
+or A is smaller than or equal to B) if and only if f~ <_- f~. In symbols
+                           A c Bc=~fA 6 f ~ .                            (2)
+   Union. The union of two fuzzy sets A and B with respective member-
+ship functions fA(x) and fB(x) is a fuzzy set C, written as C = A U B,
+whose membership function is related to those of A and B by
+                  fc(x) = Max irA(x), f~(x)],        x ~ X               (3)
+or, in abbreviated form
+                             fc = f~ v f z .                             (4)
+Note that U has the associative property, that is, A O (B U C) -
+(A U B ) UC.
+  Comment. A more intuitively appealing way of defining the union is
+                                 FUZZY SETS                            341
+
+
+the following: The union of A and B is the smMlest fuzzy set containing
+both A and B. More precisely, if D is any fuzzy set which contains both
+A and B, then it also contains the union of A and B.
+  To show that this definition is equivalent to (3), we note, first, that C
+as defined by (3) contains both A and B, since
+                              Max Ira, f.] > f.4
+and
+                             Max [fA, fs] _>--f s .
+  Furthermore, if D is any fuzzy set containing both A and B, then
+
+                                   f.=>A
+                                   /~ >f~
+and hence
+                          fD >_- 5iax [L, f.] = / c
+which implies that C c D. Q.E.D.
+  The notion of an intersection of fuzzy sets can be defined in an analo-
+gous manner. Specifically:
+  Intersection. The intersection of two fuzzy sets A and B with respective
+membership functions f~(x) and fs(x) is a fuzzy set C, written as C =
+A n B, whose membership function is related to those of A and B by
+
+                / c ( x ) = Min [/A(x),/,(x)],        x ff X,          (5)
+or, in abbreviated form
+
+                               .fc ----fA ^ lB.                        (6)
+   As in the case of the union, it is easy to show that the intersection of
+A and B is the largest fuzzy set which is contained in both A and B. As
+in the case of ordinary sets, A and B are disjoint if A f l B is empty.
+Note that N, like U, has the associative property.
+   The intersection and union of two fuzzy sets in R 1 are illustrated in
+Fig. 1. The membership function of the union is comprised of curve seg-
+ments 1 and 2; that of the intersection is comprised of segments 3 and 4
+(heavy lines).
+   Comment. Note that the notion of "belonging," which plays a funda-
+mental role in the case of ordinary sets, does not have the same role in
+342                                               ZADEH
+
+
+
+
+                                                                                                   X
+        FIG. 1. Illustration     of the   union        and        intersection        of fuzzy    sets    in RI
+
+
+ the case of fuzzy sets. Thus, it is not meaningful to speak of a point x:
+ “belonging” to a fuzzy set A except in the trivial sense of jA(x) being
+ positive. Less trivially, one can introduce two levels GJand p (0 < Q < 1,
+ 0 < p < 1, CI > p) and agree to say that (1) “x: belongs to A” if
+fA(x) 2 a; (2) “2 does not belong to R” if fA(2) i /3; and (3) “r has
+ an indeterminate status relative to A” if 0 < jA(x) < CY.This leads to a
+ three-valued    logic (Kleene,      1952) with three truth      values: T
+(fA(z) 2 a>, F (fA(z) 5 P), and u (P <fA(z)                                        < a>.
+      III.   SOME       PROPERTIES         OF     u,         0,     AND          COMPLEMENTATION
+
+    With the operations of union, intersection, and complementation
+defined as in (3), (5), and (l), it is easy to extend many of the basic
+identities which hold for ordinary sets to fuzzy sets. As examples, we have
+                         (A u B)’ = A’ fI B’
+                         (A r\ B), = A, U By De Morgan’s laws                                                      (7)
+                                                                                                                   (8)
+      C I7 (A u B) = (C f-l A) u (C n B)                                           Distributive          laws.     (9)
+      C U (A n B) = (C U A) fI (C U B)                                                                            (10)
+  These and similar equalities can readiIy be established by showing
+that the corresponding relations for the membership functions of A, B,
+and C are identities. For example, in the case of (7), we have
+                       1 - Max [fA , fB] = Min [l - fA , 1 - f~]                                                  (11)
+which can be easily verified to be an identity by testing it for the two
+ possible cases:fa(z) > jB(z) andfa(z)     < fB(z).
+    Similarly, in the case of (lo), the corresponding relation in terms of
+f.4 >fB 3 and fc is:
+                                            FUZZY SETS                                           343
+
+
+          M a x [re, Min ~A, f~] = Min [5,Iax [fc, f~], Max [fe, f~]]                           (12)
+
+which can be verified to be an identity b y considering the six eases:
+
+fA(x) > f . ( x ) > f c ( x ) , f A ( x ) > f c ( x ) > f . ( x ) , f . ( x )   > f~(x) > f c ( x ) ,
+y,(x) >/c(x)          > A(x),fc(x)           > f~(z) > f,(x),fc(x)              > f , ( x ) > fA(x).
+  Essentially, fuzzy sets in X constitute a distributive lattice with a 0
+and 1 (Birkhoff, 1948).
+
+AN INTERPRETATION FOR UNIONS AND INTERSECTIONS
+   In the case of ordinary sets, a set C which is expressed in terms of a
+family of sets A s , • • • , A~, •. • , A~ through the connectives U and N,
+can be represented as a network of switches a l , • - - , ~n, with A~ [3 A j
+and A~ U Aj corresponding, respectively, to series and parallel combina-
+tions of ~ and c~i . In the case of fuzzy sets, one can give an analogous
+interpretation in terms of sieves. Specifically, let f~(x), i = 1, . . . , n,
+denote the value of the membership function of A~ at x. Associate with
+.£(x) a sieve S~(x) whose meshes are of size f~(x). Then, f~(x) v f i ( x )
+and f~(x) ^ f / x )  correspond, respectively, to parallel and series com-
+binations of S~(x) and S j ( x ) , as shown in Fig. 2.
+   More generally, a well-formed expression involving A s , -." , A~, U,
+and n corresponds to a network of sieves Sl(x), . . . , S,~(x) which can
+ be found b y the conventional synthesis techniques for switching cir-
+cuits. As a very simple example,
+                                 C = [(A! U A2) n A31 U A4                                      (13)
+corresponds to the network shown in Fig. 3.
+Note t h a t the mesh sizes of the sieves in the network depend on x and
+t h a t the network as a whole is equivalent to a single sieve whose meshes
+are of size f c ( x ) .
+
+
+
+
+                               Si(x)0            sj(x)             t si(x)
+                                                                   T Sj(x)
+        FIG. 2. Parallel and series connection of sieves simultating U and [~
+344                                   ZADEH
+
+
+
+
+                           s3(')
+                                       s2(,) Is.(*)
+   FIG. 3. A network of sieves simultating {[fl(x) V f=(x)] ^ f3(x)} V f d x )
+
+             IV. ALGEBRAIC OPERATIONS ON FUZZY SETS
+   In addition to the operations of union and intersection, one can define
+a number of other ways of forming combinations of fuzzy sets and re-
+lating them to one another. Among the more important of these are the
+following.
+   Algebraic product. The algebraic product of A and B is denoted by A B
+and is defined in terms of the membership functions of A and B by the
+relation
+
+                                   fa. = fJ..                                (14)
+Clearly,
+                                   AB c A n B.                               (15)
+  Algebraic s u m . 4 The algebraic s u m of A and B is denoted by A +           B
+and is defined by
+
+                                f a + , = fA ~-- fB                          (16)
+provided the sum fa + f~ is less than or equal to unity. Thus, unlike
+the algebraic product, the algebraic sum is meaningful only when the
+eondition/~(x) + f B ( x ) _-_6 1 is satisfied for all x.
+  Absolute difference. The absolute difference of A and B is denoted by
+]A - B I and is defined by
+
+                             fla-,l = [fA -- f ' l "
+Note that in the ease of ordinary sets I A -- B I reduces to the relative
+complement of A O B in A U B.
+   4 The dual of the Mgebr~ic product is the sum A @ B - (A 'B') ' = A + B -- A B .
+(This was pointed out by T. Cover. ) Note that for ordinary sets f'] and the alge-
+braic product are equivalent operations, as are O and @.
+                                      FUZZY SETS                                  345
+
+
+   Convex combination. By a convex combination of two vectors f and g
+is usually meant a linear combination of f and g of the form
+Xf -+- (1 - X)g, in which 0 _-< X < 1. This mode of combining f and g
+can be generalized to fuzzy sets in the following manner.
+   Let A, B, and A be arbitrary fuzzy sets. The convex combination of
+A, B, and A is denoted by (A, B; A) and is defined by the relation
+                            (A, B; A) = AA q- A'B                                 (17)
+where A' is the complement of A. Written out in terms of membership
+functions, (17) reads
+       f~A,B;A)(X) = fA(x)fA(x) -~- [1 - - f a ( x ) ] f B ( x ) ,     X ~ X.     (18)
+  A basic property of the convex combination of A, B, and A is expressed
+by
+               A [7 B c (A, B; A) c A U B                     for all A.          (19)
+  This property is an immediate consequence of the inequalit, ies
+Min [f~(x), f~(x)] =< Xfx(x) -{- (1 - X)f,(x)
+
+                                          < Max [f~(x),fB(x)],             x CX   (20)
+
+which hold for all X in [0, 1]. I t is of interest to observe that, given any
+fuzzy set C satisfying A [3 B c C c A U B, one can always find a fuzzy
+set A such that C = (A, B; A). The membership function of this set is
+given by
+
+                     A(~)     -   f~(x)    -   f.(x)
+                                  A(~)         f~,(x)'    ~ ~ x.                  (2~)
+   Fuzzy relation. The concept of a relation (which is a generalization of
+that of a function) has a natural extension to fuzzy sets and plays an
+important role in the theory of such sets and their applieations~just
+as it does in the case of ordinary sets. In the sequel, we shall merely de-
+fine the notion of a fuzzy relation and touch upon a few related concepts.
+   Ordinarily, a relation is defined as a set of ordered pairs (Halmos,
+1960) ; e.g., the set of all ordered pairs of real numbers x and y such that
+x => y. In the context of fuzzy sets, a fuzzy relation in X is a fuzzy set in
+the product sp~ce X X X. For example, the relation denoted b y x }} y,
+x, y E R ~, may be regarded as a fuzzy set A in R 2, with the membership
+function of A, f_4(x, y), having the following (subjective) representative
+values:f~(10, 5) = 0;fx(100, 10) = 0.7;f~(100, 1) = 1; etc.
+346                               ZADEH
+
+   More generally, one can define an n-ary fuzzy relation in X as a fuzzy
+set A in the product space X X X X --- × X. For such relations, the
+membership function is of the form fA(xl, . . : , x~), where x~ C X,
+i= 1,...,n.
+   In the ease of binary fuzzy relations, the composition of two fuzzy re-
+lations A and B is denoted by B o A and is defined as a fuzzy relation in X
+whose membership function is related to those of A and B by
+               fBoA(X, y) = Sup~ ~:Iin [fx(x, v),fB(v, y)].
+Note that, the operation of composition has the associative property
+                       Ao (BoC)     = ( A o B ) oC.
+  Fuzzy sets induced by mappings. Let T be a mapping from X to a
+space Y. Let B be a fuzzy set in Y with membership function f~(y).
+The inverse mapping T -~ induces a fuzzy set A in X whose membership
+function is defined by
+                       fA(Z) = f~(y),       y ~ Y                     (22)
+for all x in X which are mapped by T into y.
+   Consider now a converse problem in which A is a given fuzzy set in X,
+and T, as before, is a mapping from X to Y. The question is: What. is
+the membership function for the fuzzy set B in Y which is induced by
+this mapping?
+   If T is not one-one, then an ambiguity arises when two or more dis-
+tinct points in X, say xl and z2, with different grades of membership
+in A, are mapped into the same poirtt y in Y. In this case, the question
+is: What grade of membership in B should be assigned to y?
+   To resolve this ambiguity, we agree to assign the larger of the two
+grades of membership to y. More generally, the membership function
+for B will be defined by
+                 .f~(y) = Max~r-~(~)fA(x),        y C Y               (23)
+where T-~(y) is the set of points in X which are mapped into y by T.
+                             V. CONVEXITY
+   As will be seen in the sequel, the notion of convexity can readily be
+extended to fuzzy sets in such a way as to preserve many of the prop-
+erties which it has in the context of ordinary sets. This notion appears
+to be particularly useful in applications involving pattern classification,
+optimization and related problems.
+                                                FUZZY SETS                             347
+
+            ~ fA(x)
+
+                               onvex fuzzy set                    vnon-convex
+                                                                    fuzzy set
+                .,         .   \p...IfA[Xx,+('-X)xa]
+
+
+
+
+                      xI                x2                                        x
+
+                      FIG. 4. Convex          and noneonvex   fuzzy sets in E ~
+
+
+  hi what follows, we assume for concreteness t h a t X is a real Euclidean
+space E ~.
+
+DEFINITIONS
+  Convexity. A fuzzy set A is convex if and only if the sets I~, defined by
+
+                                        r . = {x lyA(x) => ~}                         (24)
+are convex for all a in the interval (0, 1].
+   An alternative and more direct definition of convexity is the fo!tow-
+ingS: A is convex if and only if
+                  f.~[Xxl + (1 - X)x2] > Min ~'.~(xl), fA(x2)]                        (25)
+for all xl and x2 in X and all X in [0, l]. Note t h a t this definition does not
+imply t h a t f ~ ( x ) must be a convex function of x. This is illustrated in
+Fig. 4 for n = 1.
+   To show the equivalence between the above definitions note that if A
+is convex in the sense of the first definition and c~ -- f ~ ( x l ) < f~(x~),
+then x2 ~ r , and Xxl + (1 - X)x2 ~ iP~ b y the convexity of F~. Hence
+       .h[Xx~ + (1 -- h)x2] > a = JS(x~) = Min [fA(x~),j[~(x~)].
+   Conversely, if A is convex in the sense of the second definition and
+   = f~ (x~), then 17~ m a y be regarded as the set of all points x~ for which
+f~(x~) > f~(x~). I n virtue of (25), every point of the form
+Xxl + (1 - X ) x 2 , 0 < X _-< 1, is also in r~ and hence r~ is a convex
+set. Q.E.D.
+   A basic p r o p e r t y of convex fuzzy sets is expressed b y the
+   THEOreM. I f A and B are convex, so is the# intersection.
+    This way of expressing convexity was suggested to the writer by his colleague,
+E. Berlekamp.
+348                                 ZADEtt
+
+
+   Proof: Let C = A fl B. Then
+fc[Xxl -t- (1 - X)x2]
+               = Min [fAiXx~ ~- (1 - X)x2],f,[hxl -~ (1 - k)x~]].         (26)
+   Now, since A and B are convex
+               f~[Xxl + (1 -X)x2] > lVIin [L(x~),L(x2)]
+                                                                          (27)
+               f , Dtxl-~- (1 - X)x~] ~ ~ i n ~B(Xl),f,(x2)]
+and hence
+fc[~.Xl -~- (1 -- X)X2]
+                                                                          (2s)
+                  > :~Vlin[Min [fA(z~), fA(x~)], Min [f.(x~), f.(z~)]]
+or equivalently
+fc[xx~ + (I - x)x~]
+                                                                          (29)
+                  > Min [Min [fA(x~), f,(x~)], Min IrA(x2), f,(x2)]]
+and thus
+      fc[XXl ~- (1 - X)x2] > Min [fc(x~), fc(x:)].     Q.E.D.      (30)
+    Boundedness. A fuzzy set A is bounded if and only if the sets F= --
+ {x I fA(x) > a} are bounded for all a > 0; that is, for every a > 0 there
+exists a finite R ( a ) such that [I x ]] -< R ( a ) for all x in r ~ .
+    If A is a bounded set, then for each e > 0 then exists a hyperplane H
+such that f x ( x ) <-_ e for all x on the side of H which does not contain
+the origin. For, consider the set r~ -- {x IrA(x) > e}. B y hypothesis,
+this set is contained in a sphere S of radius R(e). Let H be any hyper-
+plane supporting S. Then, all points on the side of H which does not
+contain the origin lie outside or on S, and hence for all such points
+fA(x) =< e.
+    LEMMA. Let A be a bounded fuzzy set and let M -= Sup~fA(x).
+ ( M will be referred to as the maximM grade in A . ) Then there is at least
+one point Xo at which M is essentially attained in the sense that, for each
+   > O, every spherical neighborhood of xo contains points in the set Q(e) ~-
+{x [fx(x) __> M - - e}.
+    Proof. 6 Consider a nested sequence of bounded sets F1, F2, . ' . ,
+where F. = {x ]f~(x) >= M - M / ( n -~ 1)}, n = 1, 2, . . . . Note that
+   6 This proof was suggested by A. J. Thomasian.
+                                 FUZZY SETS                                 349
+
+
+P. is n o n e m p t y for all finite n as a consequence of the definition of M
+as M = Sup~fA(x). (We assume t h a t M > 0.)
+     Let x. be an arbitrarily chosen point in r ~ , n = 1, 2, - . . . Then,
+x l , x~, • • - , is a sequence of points in a closed bounded set r l . B y the
+Bolzano-Weierstrass theorem, this sequence m u s t have at least one
+limit point, say x0, in F i . Consequently, every spherical neighborhood
+of x0 will contain infinitely m a n y points from the sequence x l , x2, -. • ,
+and, more particularly, from the subsequenee xN+I, x~+2, . . . , where
+N > M/e. Since the points of this subsequenee fall within the set Q(e) =
+{x I f~(x) > M - e}, the l e m m a is proved.
+     Strict and strong convexity. A fuzzy set A is strictly convex if the sets
+r ~ , 0 < a =< 1 are strictly convex ( t h a t is, if the midpoint of any two
+distinct points in P~ lies in the interior of r~). Note t h a t this definition
+reduces to that of strict convexity for ordinary sets when A is such a set.
+     A fuzzy set A is strongly convex if, for any two distinct points x~ and x2,
+and any X in the open interval (0, 1)
+
+               f~[Xxl + (1 -- ),)x2] > Min [fA(x~),fA(x~)].
+Note that strong convexity does not imply strict convexity or vice-versa.
+Note also t h a t if A and B are bounded, so is their union and intersection.
+Similarly, if A and B are strictly (strongly) convex, their intersection
+is strictly (strongly) convex.
+   Let A be a convex fuzzy set and let M = Supzf~(x). If A is bounded,
+then, as shown above, either M is attained for some x, say x0, or there
+is at least one point, x0 at which M is essentially attained in the sense
+that, for each e > 0, every spherical neighborhood of x0 contains points
+in the set Q(e) = {x 1M - fA(x) < e}. In particular, if A is strongly
+convex and x0 is attained, then x0 is unique. For, if M = f~(xo) and
+M = fa(z~), with x, ~ x~, then fA(x) > M for x = 0.5x0 -~ 0.5x,,
+which contradicts M = M a x ~ f a ( x ) .
+   More generally, let C ( A ) be the set of all points in X at which M is
+essentially attained. This set will be referred to as the core of A. In the
+case of convex fuzzy sets, we can assert the following property of C ( A ) .
+   T u ~ o a E ~ . I f A is a convex fuzzy set, then its core is a convex set.
+   Proof: I t will suffice to show t h a t if M is essentially attained at x0
+and x l , xl ~ x0, then it is also essentially attained at all x of the form
+x = X x 0 + ( 1 - - X ) x l , 0 _ - < X < 1.
+   To the end, let P be a cylinder of radius e with the line passing through
+xo and xl as its axis. Let xo' be a point in a sphere of radius e centering
+350                                     ZADEH
+
+ on x0 and x~I be a point in a sphere of radius e centering on xl such that
+f a ( x o ' ) >= M -- e and fA(zl') ~ M - e. Then, by the convexity of A,
+                                            t  !
+for any point u on the segment x0 x~, we h a v e f ~ ( u ) => M - e. Further-
+more, by the convexity:of P, 'all points on Xo'X~~ will lie in P.
+     Now let x be any point in the segment xox~. The distance of this point
+from the segment xo'x~ r must be less than or equal to e, since xo'xl' lies
+in P. Consequently, a sphere of radius e centering on x will contain at
+least one point of the segment xo'x~' and hence will contain at least one
+point, say w, at which f~(w) >_ M             -   e. This establishes that M is es-
+                                                  -
+
+
+
+
+sentially attained at x and thus proves the theorem.
+     COnOLLARV. I f X = E ~ a n d A is strongly convex, then the point at
+which M is essentially attained is unique.
+     S h a d o w of a f u z z y set. Let A be a fuzzy set in E ~ with membership
+function f A ( x ) = f ~ ( x l , . . . , x~). For notational simplicity, the notion
+of the shadow (projection) of A on a hyperplane H will be defined below
+for the special case where H is a coordinate hyperplane, e.g., H =
+Ixlx   =   0}.
+  Specifically, the shadow of A on H = lx l x l = 0} is defined to be a
+fuzzy set S , ( A ) in E ~-~ with fs,(~)(x) given by
+
+       fsa(A)(x) = f s , ( A ) ( x 2 , ".. , x,~) = Sup ~, f A ( x l , . . " , x~).
+Note that this definition is consistent with (23).
+   When A is a convex fuzzy set, the following property of S H ( A ) is an
+immediate consequence of the above definition: If A is a convex fuzzy
+set, then its shadow on any hyperplane is also a convex fuzzy set.
+   An interesting property of the shadows of two convex fuzzy sets is
+expressed by the following implication
+
+                    Sn(A)     = S,(B)       for all H ~ A = B.
+  To prove this assertion, 7 it is sufficient to show that if there exists a
+point, say x0, such that fA(xo) # f z ( x o ) , then their exists a hyperplane
+H such that fs,(~)(x0*) # f s z ( , ) ( x o * ) , where xo* is the projection of
+x0 on H.
+  Suppose thatf~(x0) = a > f~(xo) = ft. Since B is a convex fuzzy set,
+the set F~ = {x ] f , ( x ) > fl} is convex, and hence there exists a hyper-
+plane F supporting F~ and passing through x0. Let H be a hyperplane
+orthogonal to F, and let x0* be the projection of x0 on H. Then, since
+  7 This proof is based on an idea suggested by G. Dantzig for the case where
+A and B a~e ordinary convex sets.
+                                              FUZZY SETS                    351
+
+
+j'B(x) < 8 for alI x on F, we have fs~(B)(Xo*) < 8. On the other hand,
+fss(A)(x0*) ->_ a. Consequently, fss(B)(x0*) ~ fSH(A)(X0*), and similarly
+for the case where a < 8.
+    A somewhat more general form of the above assertion is the following:
+ Let A, but not necessarily B, be a convex fuzzy set, and let S s ( A ) =
+ Ss(B) for all H. Then A = cony B, where cony B is the convex hull of
+ B, that is, the smallest convex set containing B. More generally, Ss(A) =
+ Ss(B) for all H implies cony A = cony B.
+     Separation of convex fuzzy sets. The classical separation theorem for
+ ordinary convex sets states, in essence, that if A and B are disjoint con-
+ vex sets, then there exists a separating hyperplane H such that A is
+ on one Side of H and B is on the other side.
+     It is natural to inquire if this theorem can be extended to convex fuzzy
+ sets, without requiring that A and B be disjoint, since the condition of
+ disjointness is much too restrictive in the case of fuzzy sets. I t turns
+ out, as will be seen in the sequel, that the answer to this question is in
+ the affirmative.
+    As a preliminary, we shall have to make a few definitions. Specifically,
+ let A and B be two bounded fuzzy sets and let H be a hypersurface in
+ E ~ defined b y an equation h(x) = O, with all points for which h(x) >=0
+ being on one side of H and all points for which h(x) _-< 0 being on the
+o t h e r side. a Let KH be a number dependent on H such that fA(x) _-< K~
+ on one side of H and fB(x) <=KI~ on the other side. Let M g be Inf K ~ .
+ The number D~ = 1 - M~ will be called the degree of separation of A
+and B by H.
+   In general, one is concerned not with a given hypersurface H, but
+with a family of hypersurfaces {Hx}, with X ranging over, say, E ~. The
+problem, then, is to find a member of this family which realizes the
+highest possible degree of separation.
+   A special case of this problem is one where the Hx are hyperplanes in
+E '~, with ), ranging over E ~. In this case, we define the degree of separa-
+bility of A and B by the relation
+                                             D = 1 - M                      (31)
+where
+                                                  = ! n f , M~              (32)
+with the subscript ), omitted for simplicity.
+  s N o t e t h a t t h e s e t s in questio~l h a v e H in c o m m o n .
+352                                    ZADEIt
+
+
+              fA (x),fe(x)
+
+
+
+
+                                           "hyperplone H (point)
+         FIG. 5. Illustration of the separation theorem for fuzzy sets in E ~
+
+    Among the various assertions t h a t can be made concerning D, the
+following s t a t e m e n t 9 is, in effect, an extension of the separation theorem
+to convex fuzzy sets.
+    T~EOnEM. Let A and B be bounded convex fuzzy sets in E ' , with maximal
+grades M~ and M , , respectively [M~ = Sup~f~(x), M , = Supers(x)].
+Let M be the maximal grade for the intersection A N B ( M = Sup~ 5~[in.
+irA(x), f s ( x ) ] ) . Then D = 1 -- M.
+    Comment. I n plain words, the theorem states that the highest degree
+of separation of two convex fuzzy sets A and B t h a t can be achieved
+with a hyperplane in E "~ is one minus the maximal grade in the inter-
+section A f l B. This is illustrated in Fig. 5 for n = 1.
+    Proof: I t is convenient to consider separately the following two cases:
+(1) M = Min (MA, M s ) and (2) M < Min ( M ~ , M s ) . N o t e t h a t the
+latter case rules out A ~ B or B c A.
+    Case 1. For concreteness, assume t h a t M~ < M s , so t h a t M = M ~ .
+Then, b y the property of bounded sets already stated there exists a
+hyperplane H such t h a t f s ( x ) <= M for all x on one side of H. On the
+other side of H, fA(x) < M because f ~ ( x ) =< M~ = M for all x.
+    I t remains to be shown t h a t there do not exist an M ' < M and a
+hyperplane H ' such t h a t fA(x) < M r on one side of H ' and f . ( x ) =< M '
+on the other side.
+    This follows at once from the following observation. Suppose t h a t
+such H ' and M ' exist, and assume for concreteness t h a t the core of A
+( t h a t is, the set of points at which MA = M is essentially attained) is
+on the plus side of H ' . This rules out the possibility t h a t fA(x) <= M '
+      This statement is based on a suggestion of E. Berlekamp.
+                                   ~uzzY SETS                                    353
+
+
+for all x on the plus side of H', and hence necessitates that f~(x) <= M j
+for all x on the minus side of H r, and f~(x) <= M r for all x on the plus
+side of H r. Consequently, over all x on the plus side of H'
+                        Supx 5/~in [L (x),/.(x)] __<M'
+and likewise for all x on the minus side of H'. This implies that, over all
+x in X, Sup~ 5lin [f~ (x), fB(x)] =< M r, which contradicts the assumption
+that Sup~ Min [fA(x), fB(x)] = M > M'.
+   Case 2. Consider the convex sets FA = {X IrA(x) > M} and Y~ =
+{x I fz(x) > M}. These sets are nonempty and disjoint, for if they were
+not there would be a point, say u, such that fA(u) > M andfB(u) > M,
+and hence fAn~(u) > M, which contradicts the assumption that M =
+Sup~ f~ns(x).
+   Since FA and 1~8 are disjoint, by the separation theorem for ordinary
+convex sets there exists a hyperplane H such that FA is on one side of H
+(say, the plus side) and FB is on the other side (the minus side). Fur-
+thermore, by the definitions of FA and r ~ , for all points on the minus
+side of H, f~ (x) =< M, and for all points on the plus side of H, f~ (x) =< M.
+   Thus, we bare shown that there exists a hyperplane H which realizes
+1 - M as the degree of separation of A and B. The conclusion that a
+higher degree of separation of A and B cannot be realized follows from
+the argument given in Case 1. This concludes the proof of the theorem.
+   The separation theorem for convex fuzzy sets appears to be of particu-
+lar relevance to the problem of pattern discrimination. Its application
+to this class of problems as well as to problems of optimization will be
+explored in subsequent notes on fuzzy sets and their properties.
+
+RECEIVED: November 30, 1964
+
+                                   REFERENCES
+BIR~:~IOFF, G. (1948), " L a t t i c e Theory," Am. Math. Soc. Colloq. Publ., Vol. 25,
+     New York.
+I-IALMOS,P. l~. (1960), "Naive Set Theory." Van Nostrand, New York.
+I~LEENE, S. C. (1952), "Introduction to Metamathematics," p. 334. Van Nos-
+     trand, New York.
+

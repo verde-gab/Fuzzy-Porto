@@ -1,0 +1,349 @@
+                                  ARTICLE IN PRESS
+
+
+
+                           Studies in History and Philosophy of
+                            Modern Physics 35 (2004) 713–720
+                                                                  www.elsevier.com/locate/shpsb
+
+
+                                         Book review
+
+
+Patrick Suppes, Representation and invariance of scientiﬁc structures, CSLI
+publications, Stanford, California (distributed by Chicago University Press), ISBN
+1-57586-333-2, 2002 (pp. ix+536, US $50.00).
+
+   About half a century ago, Patrick Suppes and collaborators published an
+axiomatisation of classical particle mechanics Newtonian-style (Scientific Structures,
+p. 316). Until then, in philosophy, an axiomatisation of a scientiﬁc theory was
+generally understood in exactly the same sense as it was understood in logic: ﬁrst
+erect a 1st-order formal language, notably including predicates for the primitive
+concepts of the scientiﬁc theory and a formal-deductive apparatus in order to be able
+to reason rigorously (prove theorems); next select a number of sentences of the
+language as the axioms; the theory is then by deﬁnition the deductive closure of these
+axioms. How to connect a formalised scientiﬁc theory to the world? A distinction
+was introduced in the primitive predicates of the language: theoretical and
+observational ones. Every formalised scientiﬁc theory contains a number of axioms
+that connect the two. Sentences consisting of entirely observational predicates are in
+principle open to veriﬁcation or falsiﬁcation. That is to say, whether an
+observational sentence is true or false can, in principle, be determined just by
+opening your eyes. Thus our sensory experience constitutes the connexion between a
+theory and the world. This nexus codiﬁes the empirical essence of science. Without it,
+there is no science. Let us call this answer to the question what a scientiﬁc theory is
+and how it relates to the world the formal-linguistic view.
+   When he axiomatised classical particle mechanics Newtonian-style, Suppes did,
+however, nothing of the sort: he did not create a formal language, he did not describe
+his deductive apparatus explicitly, he did not erect a formal-deductive system, and he
+did not subdivide predicates into theoretical and observational ones. What he did
+was to deﬁne informally a set-theoretical predicate and to consider its set-extension
+in the domain of discourse of set-theory (V); he declared that this set is the scientiﬁc
+theory. The members of this set turn out to be the same as what in mathematics are
+called structures. Suppes moved on and conceived experimental science to be in the
+business of producing data structures, which also live in V—which of all possible data
+structures in V are found in an experiment can of course only be determined by
+actually performing experiments. The connexion between the theory (some set of
+structures) and the world runs via the data structures: they are embeddable in at least
+one of the structures in the set (embeddings are morphisms of sorts depending on the
+
+doi:10.1016/j.shpsb.2004.07.002
+                                ARTICLE IN PRESS
+714    Book review / Studies in History and Philosophy of Modern Physics 35 (2004) 713–720
+
+
+theory and data structure at hand). So the connexion between a theory and the world
+also lives in V: This is only a 1st-order approximation of the practice of science, as
+Suppes has argued a long time ago; more realistic is to position a hierarchy of
+structures between the bare data structure at one end and the theory-structure at the
+other end. We call this view the informal-structural view.
+   The afore-mentioned, formal-linguistic answer to the question what a scientiﬁc
+theory is and how its relation to the world should be characterised was designed and
+developed by the logical-positivists from 1920 onwards. This programme went down
+as a result of an accumulation of internal problems and external criticism. In his
+seminal review article ‘The Search for Philosophic Understanding of Scientiﬁc
+Theories’ of 1973, Frederick Suppe described its magniﬁcent rise and fall. According
+to some, this programme has ended in complete failure; others ﬁnd morsels of
+philosophical insight in the remains. The last-mentioned, informal-structural answer
+slowly but steadily gained momentum. Initially only Suppes and some collaborators
+worked on it; only around the time when Suppe wrote his obituary of the formal-
+linguistic view, the informal-structural view took off. Today it seems to have
+conquered the world. Theories of physics, mathematics, chemistry, biology,
+economy, politics, psychology, linguistics and more have come under its Alexandrian
+sway. According to some, this programme has met with complete success.
+   During the 1960s, mimeographed lecture notes of Suppes began to circulate, often
+referred to as ‘Structures in Science’. During the second half of the 20th century these
+notes attained the status of The Most Often Cited Unpublished Work,
+notwithstanding the fact that most of Suppes’ results found their way to the
+journals. (What came closest to a manifesto of the informal-structural view was the
+last Chapter of Suppes’ wonderful Introduction to Logic of 1957—not the most
+appropriate place for such philosophical manifestoes.) Now, ﬁnally, after almost half
+a century, Suppes’ lecture notes have been published ofﬁcially, because Scientific
+Structures (the book under review) is largely based on these lecture notes. From one
+perspective, this is much too late, because these notes have done their work already
+and four collections of Suppes’ papers have appeared previously. Yet as soon as we
+realise that the book is ﬁlled with results that Suppes and his many collaborators
+have achieved over the past decades, spread out over a variety of ﬁelds of academic
+inquiry, the appearance of Scientific Structures may be a mile stone along the road of
+philosophy of science after all. The committee that awarded the 2004 Lakatos Prize
+for a recently published outstanding book in philosophy of science has decided in
+favour of the mile-stone judgment.
+   In the light of what we just said, one might have expected Scientific Structures to
+be the deﬁnitive exposition of the informal-structural view (this reviewer certainly
+did): a First Part consisting of a careful treatment of this view on scientiﬁc theories
+and their relations to the world, and the foundations and implications of this view,
+philosophical, mathematical, logical and pragmatical; a point-wise comparison with
+its only competitor, the formal-linguistic view; illustrations from the practice of
+science to see how seamlessly Suppes’ view ﬁts it; and a discussion of how the
+structural view ties in, or does not tie in, with issues debated in contemporary
+philosophy of science; and a Second Part ﬁlled with results of philosophical
+                                ARTICLE IN PRESS
+       Book review / Studies in History and Philosophy of Modern Physics 35 (2004) 713–720   715
+
+
+importance that have been achieved on the basis of the structural view. If anyone
+ought to be able to live up to such high expectations, it is Patrick Suppes. Scientific
+Structures is, to put it bluntly, neither. The First Part is not really there, some
+scattered pedestrian philosophical remarks, and idem dito quotations and comments
+of Great Names from the history of Western philosophy notwithstanding, whereas
+there are no more than allusions to the Second Part.
+   No matter how reasonable this reviewer’s high expectations were, it would be
+unfair to blame Suppes for not having met them, because in all honesty Suppes
+nowhere says that Scientific Structures is anything like the imaginary First and
+Second Part—ignoring the fact that suggestions to the contrary loom large in the
+book. Figments of this reviewer’s imagination. What Suppes says is no more and no
+less than the title suggests: the concepts of representation and invariance show their
+face in many branches of science, they are important for science, and the informal-
+structural view provides the most expedient means to deal with these concepts
+rigorously in a uniﬁed fashion. The aim of the book is to demonstrate this claim by
+proving representation theorems for the structures that constitute a particular
+scientiﬁc theory (characterised by a set-theoretical predicate), and then to pin–point
+the invariants of the theory by proving their existence. So when we measure the
+success of a programme by measuring how close the programme comes to reaching
+its aim, Suppes’ programme in Scientific Structures is a Herculean success. The book
+contains, besides a chapter on Representation (Chapter 3) and Invariance (Chapter
+4) in general, a long one on Probability (Chapter 5), one on Space and Time
+(Chapter 6), one on Mechanics (Chapter 7), a long one on Language (Chapter 8) and
+a Summary Table of the Representation and Invariance Theorems presented in the
+book. Suppes’ sweep is truly intimidating when one realises that he has actually
+contributed to all these subjects during the past decades. One’s knowledge of various
+mathematical results concerning scientiﬁc theories undoubtedly will have grown
+considerably after having read the book. You will never forget the importance of the
+concepts of representation and invariance for science.
+   But when the expectations of this reviewer are those of a garden-variety
+philosopher of science (or physics), then the question of what there is to gain by
+reading Scientific Structures, with its more than ﬁve hundred large pages and 11pt
+letter, becomes urgent. In particular, the question what is philosophically interesting
+about representation and invariance in science becomes urgent. These concepts are
+(sometimes, frequently, often) important for science all right, but are they important
+for philosophy? Having worked his way through almost the entire book, this reviewer
+admits to have been unable to ﬁnd an answer. This is not to say there is nothing of
+philosophical interest in Scientific Structures. On the contrary, numerous issues of
+supreme philosophical interest will pass the ardent reader’s eyes when reading the
+book. It makes the philosopher of science run at the mouth. But all he is left with
+after having read the book is a wet shirt: many philosophical dishes are served but
+they are never eaten, let alone digested.
+   To be speciﬁc, let us consider Suppes’ conception of a model, the beating heart of
+Scientific Structures. Suppes says that his notion of model is Tarski’s (pp. 20–21).
+This is however not quite true, although it is quite true that Suppes was inspired by
+                                ARTICLE IN PRESS
+716    Book review / Studies in History and Philosophy of Modern Physics 35 (2004) 713–720
+
+
+Tarski—with whom he collaborated a few times. Tarski’s concept of a model is,
+properly denoted, a triple hU; f ; i; consisting of a set-structure U living in the
+domain of meta-discourse (V whenever the meta-theory is also some set-theory), a
+reference-map f sending terms in a formal language to objects in U and a recursively
+deﬁned map  from sentences in the formal language to the semantic values ‘true’
+and ‘false’. A Suppesian model exactly is the set-structure U; and Suppes argues
+convincingly that this can be identiﬁed with what is called a ‘model’ by working
+scientists, rather than Tarski’s triple. But the semantics is discarded—which is why
+the name ‘semantic view’ for Suppes’ view is a terminological howler. A Tarskian
+model is a model of a formalised theory, of a set of sentences of a formal language; a
+Tarskian model presupposes, contra Suppes, the formal-linguistic view on theories.
+A model in science is a model of something in the world, of the planetary system, of
+the brain, of the human cell, of a Uranium molecule, of the universe, and so forth
+(call these systems, for want of a name). When Suppes wants to make sense of how
+models are used in science, and these are identiﬁed as Suppesian models, then
+these Suppesian models must also be models of something in the world, of systems as
+we just called them. What we know about the modelled systems we know via our
+scientiﬁc theories. About this putative connexion, between Suppesian models
+(set-theoretical structures in V) and systems in the world, Suppes passes over in
+silence. Suppes favors saying that his structures are models of data-structures.
+But since data structures are themselves set-theoretical, quantitative representations
+of the qualitative results of experiments or observations about some system
+in the world, this relation lives in V: The world has thus been put between
+brackets.
+   This reviewer ventures to assert that science deﬁnitely does not put the world
+between brackets. Every scientiﬁc theory and scientiﬁc model is all about the world;
+it says something about the world. Without the world there is no science. The models
+of the working scientist, that is, Suppes’ set-structures, are supposed to somehow
+provide us with ‘scientiﬁc knowledge’ about what they are models of, that is, of
+systems in the world—surely they do not provide us with ‘scientiﬁc knowledge’ of
+data structures. Whether the set-structures embed the relevant data structures surely
+is the test which the set-structures must pass in order to be considered as providers of
+scientiﬁc knowledge of the systems. But what does a set of set-structures say about
+the world? What a theory says about the world can be true or false, or indeterminate
+if tertium datur. How does truth ﬁt in here? What is the place of truth in science
+according to Suppes? Are the systems truth-makers? What is scientiﬁc knowledge? Is
+it a set of set-theoretical structures in V? Is Suppes a hard-nosed instrumentalist in
+that science is no more than a game of fabricating set-structures wherein we can
+embed data-structures fabricated in the laboratory? Does this game have an
+epistemic aim? Is all the rest disreputable metaphysics? (Science according to Suppes,
+as depicted in Fig. 1, suggests this.) Can measurement theory, which is part and
+parcel of Suppes’ view of science (Chapters 3 and 4), be used by nominalists to justify
+(via representation theorems) the use of numbers without having to believe in their
+Platonic existence? Crowds of philosophical questions are banging on the door.
+Suppes keeps the door locked. We are only permitted a peek through the window.
+                                     ARTICLE IN PRESS
+         Book review / Studies in History and Philosophy of Modern Physics 35 (2004) 713–720             717
+
+
+
+
+Fig. 1. First approximation of scientiﬁc practice according to Suppes. What is in the rectangles and what
+is in SMALL CAPITALS lives in V and can be characterised in the language of axiomatic set-theory. There is no
+direct connexion between theory (T) and reality (the system out there, in the world). Suppes passes over
+this connexion in silence. (More realistic approximations have a hierarchy of structures between the bare
+data structure D and the theoretical structure U:)
+
+
+
+   Furthermore, recent developments in the philosophy of science, led by
+philosophers like Nancy Cartwright, Margaret Morrison and Mary Morgan,
+witness an (almost myopic) attention to models in science at the expense of theories.
+Without exaggeration we may say that Suppes’ work has been instrumental in
+causing this shift of emphasis with his Suppesian models. In Chapter 2, Suppes
+restates his case that the ubiquitous model in science can be identiﬁed with a set-
+theoretical structure (and not, to repeat, a Tarskian model; vide supra), and that a
+theory is no more than a set of Suppesian models: as soon as you have put the ﬁnger
+on what all classical-particle-mechanical models Newtonian-style of physical systems
+occurring in the physics literature have in common, you have characterised the
+theory called ‘Newtonian classical particle mechanics’. If one ﬁnds a model in science
+that has nothing interesting in common with any other model in science, then
+characterising it leads to a meager theory; if one ﬁnds a host of models which share a
+lot, then they lead to an impressive, encompassing theory. Models constitute theories
+and theories consist of models. The shift of attention in contemporary philosophy of
+science boils down to one from a set to its members! Sadly, Suppes make no contact
+to the current philosophical literature on models in science. Consequently the
+question whether Scientific Structures has any bearing on the problems raised in that
+quarter of the philosophy of science remains unanswered.
+   Here is why invariance theorems can be important for the philosophy of science:
+Hermann Weyl, and recently Robert Nozick, held that what is real according to
+some theory should be identiﬁed with its invariants. Enter the issue of realism. The
+dish is served and then Suppes leaves the table.
+   A general philosophical point which is not but could have been made by Suppes is
+that Scientific Structures is a marvellous celebration of the unity of scientiﬁc
+knowledge, and thus surreptitiously militates against the view that what sails under
+the ﬂag of Scientiﬁc Knowledge is an incoherent, gerrymandered patch-work of
+theories, models and hypotheses, as for instance Arthur Fine and Nancy Cartwright
+                                ARTICLE IN PRESS
+718    Book review / Studies in History and Philosophy of Modern Physics 35 (2004) 713–720
+
+
+have attempted to argue. On the contrary, there are deep-seated similarities in prima
+facie unrelated branches of science and the existence of these similarities can be
+demonstrated rigorously. These similarities reside exactly in the fact that all scientiﬁc
+theories can be characterised in the same rigorous manner, in the fact that the results
+of experiments and observations can be characterised in the same rigorous manner,
+in the fact that the relation between these can be characterised in the same rigorous
+manner (see Fig. 1), and in the fact that representation theorems and the existence of
+invariants can be demonstrated. So for anyone who has completely succumbed to the
+patchwork-view and for whom phrases like ‘the unity of scientiﬁc knowledge’ are
+echoes from a distant logical-positivist past, reading Scientific Structures will be a
+salient experience.
+   In Chapter 5, on probability, Suppes can be seen to initiate a novel approach to
+the debates about the interpretation of probability. The standard approach is to let
+Kolmogorov’s axioms take care of the mathematics, or calculus, of probability; how
+to connect a probability-structure hO; BðOÞ; Pi to the world is then called the
+problem of interpretation: the probability measure P : BðOÞ ! ½0; 1 is interpreted as
+a limiting relative frequency, as the strength of belief of a person, as a propensity, as
+a degree of conﬁrmation, or what not. Suppes considers the following approach to
+be the right one, which he ascribes to De Finetti (p. 226). Rather than simply
+asserting that the normed additive measure P measures ‘strength of belief’, one
+characterises the qualitative relation ‘is believed more strongly than’ axiomatically
+and then proves a representation theorem, which essentially says that this relation
+can always be mimicked by ‘is larger than’ (on R) between values of some existing P
+(we gloss over some signiﬁcant details here). Suppes provides mutatis mutandis a
+qualitative characterisation of propensity and proves a representation theorem for it
+in terms of P: This seems an excellent idea, because rather than verbal battles over
+how to interpret P in terms of another concept, we axiomatise this other concept
+directly and then connect it to P via some representation theorem. Verbal arguments
+in favour of one ‘interpretation’ may then assume the status of mathematical proofs,
+because the different interpreting concepts will yield different axiomatisations, thus
+leading to different theorems. Such a gain in rigour is beautiful. There is however a
+problem with this approach.
+   In order to prove a representation theorem, the qualitative concept needs to obey
+sufﬁciently strong axioms. Whenever the axioms are too weak and no representation
+can be proved in terms of P; standard Kolmogorovian probability theory is out of
+reach, which surely is unacceptable. But the axioms also must be natural for the
+concept being axiomatised. In De Finetti’s case the axioms are precisely that,
+although even in the ﬁnite case certain additions have turned out to be necessary, as
+Suppes honestly admits (pp. 229–230). Let us be charitable and grant Suppes the
+success of this approach in the case of subjective probability. Does Suppes succeed
+for the other concepts that are traditionally taken to be interpretations of P ?
+Consider propensity. Suppes criticises Karl Popper, the originator of this
+interpretation of probability, for not having provided a rigorous characterisation
+of propensity so that nothing of genuine interest can be proved about it (p. 202).
+First Suppes deﬁnes a ‘qualitative conditional probability [sic] structure’ (p. 204);
+                                ARTICLE IN PRESS
+       Book review / Studies in History and Philosophy of Modern Physics 35 (2004) 713–720   719
+
+
+then what it means for such a structure to be Archimedean (p. 205); next he proves a
+representation theorem for ﬁnite sequences occurring in this structure (ibid.); he says
+that some axioms are ‘necessary’, namely those which seem necessary in order to
+prove the desired representation theorem; and, ﬁnally, ‘structural’ axioms have to be
+added, depending on the application one has in mind, to make the axioms jointly
+sufﬁcient for actually proving the representation theorem. Suppes gives the example
+of radio-active decay. The structural axiom here is a ‘waiting-time axiom’, thus
+resulting in a ‘waiting-time structure with independence of the past’ (p. 208). Then,
+ﬁnally, he proves the representation theorem: there exists a probability measure of a
+particularly desirable form (ibid.). Now, this waiting-time axiom is very speciﬁc to
+radio-active decay. Most ‘propensity-structures’ will not have it. The tacit claim is
+now that one can always ﬁnd ‘structure axioms’ which one has to add to the
+‘necessary’ ones, so that a representation theorem is provable. But surely what
+propensity is, or is supposed to be according to its defenders, is what all propensity-
+structures have in common. Thus we are left with the ‘necessary axioms’ it seems.
+They are however too weak to prove the relevant representation theorem. Since no
+further, natural axioms seem available which hold for all propensity-structures, and
+which one can add in order to arrive, via a representation theorem, at
+Kolomogorovian probability theory, we seem forced to conclude—contrary to
+Suppes’ intentions—that the propensity interpretation, at least as approached in this
+Suppesian manner, is unacceptable.
+   Suppes emphasises that the waiting-time axiom is distinctive for propensities ‘‘that
+would never be encountered in the theory of subjective probability as a fundamental
+axiom’’ (p. 210). But it will never be encountered in the theory of propensity as a
+fundamental, or ‘necessary’, axiom either because it is too special. Furthermore,
+when a subjectivist contemplates his beliefs about radio-active decay, reading
+experimental reports about it, he is free to use the waiting-time axiom to assign the
+strength of his belief in radio-active decay events.
+   All in all, there is a general philosophical programme in the interpretation
+of probability theory looming large in Chapter 5, but the problem just identiﬁed
+in the case of propensity seems to be there generally. If it is, this programme is
+doomed.
+   Structures in Science. Philosophical issues in abundance. Rigorous deﬁnitions and
+theorems in abundance too. But philosophically they seem to lead nowhere and
+everywhere. There is little that would satisfy any philosopher of science: no
+formulation of a speciﬁc philosophical problem which is then fully addressed or
+solved; no formulation of a philosophical thesis for or against which arguments are
+propounded; no performance of systematic analyses of philosophical problems or
+theses or arguments. The long quotations from works of the Great Names from the
+history of Western philosophy only highlights this absence. Suppes has a great mind
+and this reviewer counts himself among his admirers. But Suppes cannot make up his
+mind philosophically.
+   The time has come to pass judgment on Structures in Science. I can’t. My mind is
+torn and in the tear trickle tears. Suppes calls himself ‘‘an unreconstructed pluralist’’
+(p. 53). He doesn’t want to make his mind up philosophically? Magister, relinquo.
+                               ARTICLE IN PRESS
+720   Book review / Studies in History and Philosophy of Modern Physics 35 (2004) 713–720
+
+
+  It is ﬁtting that Patrick Suppes has won the 2004 Lakatos Prize, provided we
+consider it as a Life-Time Achievement Award.
+
+                                                                         F.A.Muller
+                                Institute for the History and Foundations of Science
+           Utrecht University, P.O. Box 80.000, 3508 TA Utrecht, The Netherlands
+                        and Faculty of Philosophy, Erasmus University, Rotterdam
+                                              E-mail address: f.a.muller@phys.uu.nl.
+

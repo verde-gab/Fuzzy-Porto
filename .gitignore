@@ -1,0 +1,36 @@
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Data (Ignora arquivos brutos para não onerar o repositório)
+/data/raw/exportacao_cargas.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+
+# Docker
+compose.yaml
+
+# Agent context (local-only)
+/agyREADME.md
+
+# LaTeX build artifacts
+/Refs/*.nav
+/Refs/*.snm
+/Refs/*.synctex.gz
+/Refs/*.aux
+/Refs/*.log
+/Refs/*.out
+/Refs/*.toc
+/Refs/*.bbl
+/Refs/*.blg
+/Refs/ingles.pdf
+
+# PDF library (large binaries — keep originals out of git)
+/Refs/pdf_research/
+
+# Conversion script output logs
+/Refs/convert_pdfs.sh

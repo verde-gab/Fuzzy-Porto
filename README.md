@@ -5,7 +5,7 @@
 Pesquisa de Iniciação Científica (PIC) na [FATEC Baixada Santista "Rubens Lara"](https://fatecrl.edu.br/), Curso Superior de Tecnologia em Ciência de Dados.
 
 **Autor:** Gabriel Gomes  
-**Orientadora:** Profa. Dra. Denise Durante
+**Orientador:** Prof. Dr. Mauricio Conceição Mario
 
 ---
 

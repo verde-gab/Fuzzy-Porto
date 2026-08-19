@@ -1,15 +1,12 @@
 # =============================================================
-# .gitignore — Fuzzy-Porto
+# .gitignore — Fuzzy-Porto (Apenas Dados e Notebooks)
 # =============================================================
 
-# ---- Jupyter ----
+# ---- Jupyter (Cache e Checkpoints) ----
 .ipynb_checkpoints/
 **/.ipynb_checkpoints/
 
-# ---- Data (raw > 100 MB — GitHub rejeita) ----
-/data/raw/
-
-# ---- Python ----
+# ---- Python (Ambiente Virtual e Binários) ----
 __pycache__/
 *.py[cod]
 *$py.class
@@ -23,33 +20,12 @@ compose.yaml
 /agyREADME.md
 /.gemini/
 
-# ---- LaTeX build artifacts ----
-# Gerados automaticamente por pdflatex/bibtex/biber — nunca commitar
-*.aux
-*.bbl
-*.blg
-*.bcf
+# ---- Bloquear toda a pasta de Referências/LaTeX ----
+/Refs/
+
+# ---- Ignorar arquivos soltos na raiz (exceto os obrigatórios) ----
+# Garante que arquivos temporários ou PDFs perdidos na raiz não subam
+*.pdf
 *.log
-*.nav
-*.out
-*.snm
-*.toc
-*.lof
-*.lot
-*.brf
-*.fls
-*.fdb_latexmk
-*.synctex.gz
-*.run.xml
+*.aux
 
-# ---- PDFs compilados (recompilam-se a partir do .tex) ----
-/Refs/ingles.pdf
-/Refs/Congresso.pdf
-/Refs/artigo_principia.pdf
-/Refs/relatorio_pic.pdf
-
-# ---- PDF library (livros/artigos — pesados, não redistribuíveis) ----
-/Refs/pdf_research/
-
-# ---- Conversion script ----
-/Refs/convert_pdfs.sh

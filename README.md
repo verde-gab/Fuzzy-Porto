@@ -40,14 +40,6 @@ Fuzzy-Porto/
 ├── data/
 │   ├── processed/            ← Dados limpos/transformados
 │   └── external/             ← Dados de referência (Santos et al., 2023)
-├── Refs/                     ← Material de pesquisa
-│   ├── relatorio_pic.tex     ← Relatório final PIC (LaTeX/abnTeX2)
-│   ├── referencias.bib       ← Bibliografia ABNT
-│   ├── Congresso.tex         ← Apresentação I CBFC (Beamer)
-│   ├── ingles.tex            ← Apresentação em inglês (Beamer)
-│   ├── Images/               ← Figuras
-│   ├── notes/                ← Notas de pesquisa (Markdown)
-│   └── txt/                  ← Textos extraídos de PDFs
 └── requirements.txt          ← Dependências Python
 ```
 

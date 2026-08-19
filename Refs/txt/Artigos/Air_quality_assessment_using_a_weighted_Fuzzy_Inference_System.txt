@@ -1,0 +1,1348 @@
+                                                                           Ecological Informatics 33 (2016) 57–74
+
+
+
+                                                                      Contents lists available at ScienceDirect
+
+
+                                                                       Ecological Informatics
+
+                                                     journal homepage: www.elsevier.com/locate/ecolinf
+
+
+
+
+Air quality assessment using a weighted Fuzzy Inference System
+Miguel Ángel Olvera-García, José J. Carbajal-Hernández ⁎,
+Luis P. Sánchez-Fernández, Ignacio Hernández-Bautista
+Centro de Investigación en Computación, Instituto Politécnico Nacional, Av. Juan de Dios Bátiz s/n, Nueva Industrial Vallejo, Gustavo A. Madero, México D.F., C.P. 07738, Mexico
+
+
+
+a r t i c l e           i n f o                              a b s t r a c t
+
+Article history:                                             Air pollution is a current monitored problem in areas with high population density such as big cities. In this sense,
+Received 15 January 2016                                     environmental modelling should be accurate in order to generate better air quality evaluations; but in conse-
+Received in revised form 20 March 2016                       quence they are complex. Nowadays, the artiﬁcial intelligence based on heuristic methods allows assessing air
+Accepted 12 April 2016
+                                                             quality parametres, providing a partial solution to this problem. Accordingly, this paper proposes a new evalua-
+Available online 19 April 2016
+                                                             tion model using fuzzy inferences combined with an Analytic Hierarchy Process, providing a new air quality
+Keywords:
+                                                             index. Environmental parametres (PM2.5, PM10, O3, CO, NO2 and SO2) are evaluated according to toxicological
+Air quality assessment                                       levels and then, a fuzzy reasoning process assesses different air quality situations. Additionally, individual
+Artiﬁcial intelligence                                       weights are computed and assigned according to the pollutant importance on the air evaluation. Finally, the
+Analytic Hierarchy Process                                   model proposed considers ﬁve score stages: excellent, good, regular, bad and dangerous, based on data from the
+Fuzzy Inference System                                       Mexico City Atmospheric Monitoring System (SIMAT). Experimental results show a good performance of the
+Mexico City area                                             proposed air quality index against those in literature, providing better assessments when weights are assigned
+                                                             according to an importance level in atmosphere pollution.
+                                                                                                                                       © 2016 Elsevier B.V. All rights reserved.
+
+
+
+
+1. Introduction                                                                                    the necessary information for decision making and issuing necessary en-
+                                                                                                   vironmental alerts. Other international organizations have implemented
+    People living in big cities suffer air pollution, which has daily                              similar methodologies for air pollutant assessment and monitoring such
+negative effects on their health, generating several respiratory diseases,                         as the Environmental Protection Agency in United States (USEPA, 2009)
+in which severe cases can be fatal. The main sources of air pollution are                          and the Pan American Health Organization (PAHO, 2015).
+industrial combustion processes and automobile emissions (Bartra et al.,                               Human permissible limits, are in a ranges set and are used to calcu-
+2007). In Mexico City about 5 million cars are used daily, emitting annu-                          late the IMECA index. They are deﬁned by toxicity level tests and mea-
+ally into the atmosphere approximately 1.6 million tons of carbon mon-                             sure the impact of air pollution on the health of people as a whole.
+oxide, around 895,369 tons of total organic compounds (300,000 tons                                Although, the damage that each pollutant causes separately is known
+of hydrocarbons released into the atmosphere through evaporation                                   (NADF-009-AIRE, 2006, WHO, 1987), without inferring if all parametres
+and poor combustion), 239,132 tons of nitrogen oxides (including                                   have the same harmful possibilities as is considered in the IMECA and
+90,000 tons of nitrogen dioxide), 34,677 tons of particles matter smaller                          other similar indexes. Alternatively, other methodologies have been
+than 10 μm, 9451 tons of particles matter smaller than 2.5 μm and                                  proposed for evaluating air quality using computational models such
+4867 tons of dioxide sulphur. Both, particles matter smaller than                                  as fuzzy logic (Liu et al., 2009; Upadhyaya and Dashore, 2010, 2011;
+10 μm and ozone are the most abundant pollutants in the Mexico City                                Alhanafy et al., 2010; Sowlat et al., 2011; Wang and Chen, 2015), artiﬁ-
+Valley area and they are beyond permissible limits (SEDEMA, 2014).                                 cial neural networks (Ordieresa et al., 2005; Salazar, 2007; Coman et al.,
+According to this problem, in Mexico, several government agencies mea-                             2008; Feng et al., 2013; Mishra and Goyal, 2016), associative memories
+sure the amount of air pollutants using an indicator known as the IMECA                            (Ruiz et al., 1995), support vector machines (Wang et al., 2008), factor
+(Metropolitan Index of Air Quality), which allows the Ministry of Envi-                            analysis (Bishoi et al., 2009), Bayesian models (Yong et al., 2008),
+ronment of the Mexico City in coordination with the National Institute                             amongst others. Sen et al. (2015); Yadav et al. (2014) and Carbajal
+of Ecology and Climate Change (SEDEMA, 2014; INECC, 2014), to obtain                               et al. (2012) propose air quality assessment models using Fuzzy Infer-
+                                                                                                   ence Systems in their respective works, classifying potentially harmful
+                                                                                                   situations by handling uncertainty and subjectivity through a Fuzzy In-
+  ⁎ Corresponding author.                                                                          ference System. Nevertheless, these models do not properly handle un-
+     E-mail addresses: ma.olvera58@gmail.com (M.Á. Olvera-García),
+jcarbajalh@cic.ipn.mx (J.J. Carbajal-Hernández), lsanchez@cic.ipn.mx
+                                                                                                   certainty, subjectivity and individual importance that are implicit in
+(L.P. Sánchez-Fernández), ignaciohb@gmail.com (I. Hernández-Bautista).                             environmental parametre behaviours, avoiding the proper integration
+                                                                                                   of individual evaluations, giving to each of them the same importance,
+
+
+http://dx.doi.org/10.1016/j.ecoinf.2016.04.005
+1574-9541/© 2016 Elsevier B.V. All rights reserved.
+58                                                 M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+
+since each air quality parametre has a different affectation on popula-                standard. The SIMAT is composed of four environmental monitoring
+tion health.                                                                           networks such as: a) the Automatic Air Quality Monitoring Network
+     Recent works for air quality assessment using fuzzy logic and com-                (RAMA, 2015), which consists of 30 environmental stations; b) the
+bining an Analytic Hierarchy Process (AHP) have been developed, pro-                   Manual Network for Atmospheric Monitoring (REDMA, 2015), which
+viding different solutions (Valipour and Montazar, 2012c, Upadhyay et                  consists of 12 monitoring stations; c) the Atmospheric Storage Network
+al., 2014, Akkaya et al., 2015). In Abdullah and Khalid (2012), a fuzzy                (REDDA, 2015), with 16 sampling stations where environmental
+analysis is used for generating weights that are multiplied to different               measurements are made every six days and d) the Solar Radiation and
+parametre indexes. Then, the air quality index is obtained by the sum                  Meteorology Network (REDMET, 2015), which operates 16 stations pro-
+of the particular results using an AHP. In this case, there is not an exper-           viding information on meteorological parametres to develop forecast-
+imental analysis phase of this work. Gorai et al. (2015, 2014) and pro-                ing and dispersion models, analysing the pollutants movement in time
+pose air quality models based on a similar work to Abdullah and                        (Fig. 2).
+Khalid (2012), where parametre weights are built using a fuzzy model
+and by analysing environmental patterns. Finally, an AHP is applied for                2.2. Air quality parametres
+computing the output scores. Those works provide a good solution for
+evaluating atmosphere pollution; moreover, the main gap is the lack of                     The air quality assessment is based on the pollutant concentration
+a reasoning process which is able to detect negative situations according              levels, which can damage population health depending of the toxicity
+to the parametre behaviours. Also, only using an AHP model in environ-                 and exposure time (Wang et al., 2011). In this case, six key pollutants
+mental assessments generates a particular issue, in which the global                   have been studied in the urban area: ozone (O3), sulphur dioxide
+score is highly inﬂuenced by the parametre with the highest weight.                    (SO2), nitrogen dioxide (NO2), carbon monoxide (CO), particulate mat-
+     In this work, the authors hypothesised that a parametre priority as-              ter smaller than 10 and 2.5 μm (PM10 and PM2.5). Although NOx and SOx
+signment based on a Fuzzy Inference System will generate better air                    parametres represent a better set of pollutants to be analysed, the
+quality assessments, as there are pollutants with major health affecta-                SIMAT only measures NO2 and SO2 concentrations. The aim of this
+tions since they have more importance in air pollution. In this sense,                 work is to be an alternative of the SIMAT evaluations for validating the
+the combination of a reasoning system with a weighment process, will                   air quality assessment. In this sense, no data information about NOx
+involve the importance of the pollutant with a potential crisis detection              and SOx measurements can be obtained from the monitoring stations.
+modelling, increasing the effectiveness of the assessment to generate                  In air quality assessment, the damage caused by each parametre is per-
+more accurate evaluations that can be reﬂected in an air quality index                 fectly known, generating different problems on the health of people, so
+(AQI).                                                                                 they should be treated separately. In order to understand the negative
+     In the present study, the proposed models are applied for analysing               effects of the pollutants involved in the atmosphere, Table 1 shows
+the air quality of Mexico City and its Metropolitan area, where pollut-                some considerations about their human health interaction.
+ants are assessed for establishing an indicator for good or bad air quality.               Environmental parametres are assessed by their toxicity levels and
+In order to introduce the reader to the methodology structure, the rest                negative effects concerning good air quality. According to this, national
+of this paper has been organized as follows: in Section 2, pollutants                  and international organizations have implemented some classiﬁcation
+and their main characteristics in air quality assessment are explained.                levels, which deﬁne the criteria to be considered in the air quality
+In Section 3, a Fuzzy Inference System for air quality assessment is pro-              assessment. This work is based on the USEPA and IMECA toxicity levels
+posed; additionally a numerical example is given for a better under-                   in order to be compatible with their air quality scores, having a direct
+standing of our proposal. Section 4 explains the priority assignment                   correspondence between the FIS, the IMECA and USEPA outputs and
+process, giving the new air quality index. Section 5 shows some exper-                 toxicity levels. For this reason, classiﬁcation levels were selected from
+iments using real environments, where the proposed index is compared                   the IMECA proposal. Table 2 contains those classiﬁcations that have
+against other similar air quality indexes given in literature and by inter-            been considered by the IMECA and the USEPA indexes (NADF-009-AIRE,
+national organizations; this section shows the performance and efﬁ-                    2006; USEPA, 2009). This will be helpful when a comparison between in-
+ciency of our proposal. Finally, Section 6 provides our conclusion and                 dexes is made, having the same ﬁnal score range and being compatible to
+future research directions.                                                            both indexes in the evaluation of the air quality of the Mexico City Valley.
+                                                                                       More details about the IMECA index can be consulted in Appendix A.
+2. Air quality requirements
+                                                                                       2.3. Air quality classiﬁcation
+2.1. Study area
+                                                                                           According to governmental standards, air quality levels have been
+    The Mexico Valley area encompasses Mexico City and some towns                      deﬁned according to their negative effects on human health. In this
+belonging to the Mexico State (Metropolitan area). Mexico City includes                sense, as the IMECA index was created to evaluate and classify the envi-
+more than eight million inhabitants and more than 20 million for the                   ronmental set of parametres according to their limits, the categories
+Metropolitan area. The Mexico Valley has an area of 9600 km2 and has                   deﬁned by the Mexican Ministry of Environment have been proposed
+a minimum altitude of 2240 m (7349 ft) above sea level. It is surrounded               to be used, which gives some recommendations for making any outdoor
+by mountains and volcanoes that reach elevations of over 5000 m. This                  activity (SEDEMA, 2014). In its website, the latest evaluations of air
+area is located in the Trans-Mexican Volcanic Belt and the high plateaus               quality through the IMECA index are calculated and displayed across
+of south-central Mexico (INEGI, 2010). The Mexico City Valley air pollu-               several monitoring stations and by assigning a speciﬁc colour, corre-
+tion problems depend of different factors such as the wind, weather,                   sponding to a classiﬁcation level. In this sense, ﬁve categories have
+population and industry. Usually a greenhouse effect is present due to                 been deﬁned for assessing the air quality as follows:
+the topography of the area (Fig. 1).
+    Air quality analysis in the Mexico Valley is made through the                      a) Good: it is appropriated to perform outdoor activities;
+Mexican Ministry of Environment (SEDEMA, 2014) according to the                        b) Regular: outdoor activities can be performed; however, children,
+Atmospheric Monitoring System called SIMAT (2014), which monitors                         elderly and sick people can be affected.
+the urban air pollution daily using an air quality index known as the                  c) Bad: outdoor activities should be avoided. Children and older adults
+IMECA. This index was designed using as an information base, the                          with cardiovascular diseases such as asthma can be affected by the
+methodology of the Agency for United States Environmental Protection                      bad air quality condition. Therefore, be attentive to information on
+Agency (USEPA, 2015) and since 1982, it has been used as the ofﬁcial                      air quality and medical recommendations.
+                                                      M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74                                      59
+
+
+
+
+                 Fig. 1. The Mexico City Valley is composed of Mexico City and some towns belonging to the Mexico State (courtesy from the SIMAT, 2014).
+
+
+
+d) Very bad: people may experience illness while a sensitive group of                        closed, and if there are people with respiratory or cardiac symptoms
+   people can have serious discomfort. In this phase, pre-contingency                        they should seek medical advice.
+   and contingency programs for controlling polluting emissions are                       e) Extremely bad: recommendations for protecting the health of people
+   activated. It is not recommended leaving home, keeping windows                            are strict about leaving home, keeping windows closed, not using
+
+
+
+
+                             Fig. 2. Location of the monitoring stations in Mexico City and its Metropolitan area used for air quality measuring.
+60                                                           M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+
+Table 1
+Air quality parametres importance in air pollution.
+
+                                  Air quality importance
+
+  Environmental        PM2.5      This pollutant can penetrate into the lower respiratory tract, causing respiratory diseases and is associated with high mortality rates in exposed
+    parametres                    population with asthma sensitivities and allergies amongst children. The PM2.5 allowable limit is 65 μg/m3, with a moving average of 24 h
+                                  (Domínguez, 2009; NOM-025-SSA1, 1993).
+                       PM10       This pollutant settles in the upper respiratory tract and penetrates the pulmonary alveoli, which aggravates respiratory and cardiovascular
+                                  diseases and may trigger carcinogenic effects. Its allowable limit is 120 μg/m3, with a moving average of 24 h (Arreola and González, 1999;
+                                  NOM-025-SSA1, 1993).
+                       O3         Ozone is a highly oxidizing pollutant that affects living tissues. Thus, it is associated with several diseases in human health, besides being one of
+                                  the most commonly found pollutants in the atmosphere. Its allowable limit is 0.11 ppm, with a moving average of 1 h (Bell et al., 2004; USEPA,
+                                  2000; Borja et al., 1996, NOM-020-SSA1, 1993).
+                       CO         This pollutant is a colorless, tasteless, odorless highly toxic gas, which in prolonged exposures can be fatal. Additionally, an oxidation carbon
+                                  monoxide process becomes carbon dioxide, the main precursor of the greenhouse effect. Its allowable limit is 11 ppm, with a moving average of
+                                  8 h (Henry et al., 2006; NOM-021-SSA1, 1993).
+                       NO2        This pollutant is an ozone and acid rain precursor that causes the generation of suspended particles. In high concentrations, causes health
+                                  damage that corrodes tissues and irritates the respiratory tract. Its allowable limit is 0.21 ppm, with a moving average of 1 h (Dovilé, 2008;
+                                  NOM-023-SSA1, 1993).
+                       SO2        This pollutant is acid rain suspended particles precursor, which affects the respiratory tract. Its allowable limit is 0.13 ppm, with a moving
+                                  average of 24 h (Mustaﬁc et al., 2012, NOM-022-SSA1, 1993).
+
+
+
+     the car, being attentive to information on air quality and seeking                          1978). This mapping is useful in decision-making or pattern discerning.
+     medical attention if respiratory or heart illness symptoms occur.                           The fuzzy inference process can be broken down into four phases such
+                                                                                                 as: membership functions, reasoning system (inference rules), aggrega-
+                                                                                                 tion and defuzziﬁcation processes (Zadeh, 1978; Ocampo et al., 2006;
+                                                                                                 Soler, 2007). The number of inputs or rules of a FIS is determined ac-
+3. Weighted Fuzzy Inference Systems (FIS)                                                        cording to the problem context. In this work, a weight assignment is
+                                                                                                 made in the rule processing in order to give more importance to those
+    Air quality parametre limits are established by local and internation-                       parametres with a bigger negative impact than the rest used in the air
+al organizations, deﬁned by safety or unhealthy concentrations.                                  quality assessment. Fig. 3, shows the architecture of the FIS used for
+Although parametre effects deﬁne their importance in air pollution,                              air quality assessment.
+the IMECA assessment calculation is only determined by obtaining the
+maximum value of a set of parametres, without considering their differ-                          3.2. Membership functions
+ences that cause harmful problems in population. In this sense, a meth-
+odology that considers the worst adverse health effects is needed to                                 Concentration levels of each pollutant and their allowed limits are
+provide an indicator more suited to reality. According to this, a com-                           important to be considered as input of the assessment model. In con-
+bined model based on a Fuzzy Inference System (FIS) and an Analytic                              ventional air quality models, when one concentration in the atmo-
+Hierarchy Process is proposed. The main idea is to provide good assess-                          sphere is close to the border limit, the water quality condition is not
+ment using a reasoning process which will be inﬂuenced by a priority                             clear because the index changes its status abruptly. Also, those indexes
+weighment. In the ﬁrst phase, the FIS processes air quality parametres                           evaluate all parametres establishing the air quality status according to
+according to their permissible limits. Then, different air quality situa-                        one evaluation and ignoring the rest. In order to build an integrated
+tions are modelled using a reasoning process. As an output, an integra-                          air quality evaluation, it is important to evaluate separately each pollut-
+tion of those evaluations provides a global score of the air quality                             ant, calculating its concentration level according to a respective range
+condition. In this case, the FIS analyses all pollutants with the same                           that deﬁnes a negative effect in air pollution and the health of people.
+hierarchy, which represents a difﬁculty when air pollutants generate                             In this sense, it is important to identify how many negative impacts
+different problems on health population. Therefore, as a ﬁnal phase, it                          can be generated by a particular pollutant. An alternative to solve this
+is necessary to introduce weights derived from the parametre impor-                              problem is by using uncertainty to determine how much a concentra-
+tance in air quality, obtaining the Air Quality Index. This process is                           tion belongs to a determined condition; this value is calculated using a
+explained in the following subsections.                                                          membership function.
+                                                                                                     Membership functions (μ) transform input measurements of real-
+3.1. Fuzzy Inference System conceptualization                                                    valued information into [0, 1] scores and they deﬁne the level that a
+                                                                                                 concentration belongs to a speciﬁc range. There are no rules for building
+    A Fuzzy Inference System (FIS) can be deﬁned as an expert system                             membership functions and they are built according to the problem con-
+with an approximate reasoning process that allows mapping a vector                               text (Gaussian, triangular and trapezoidal). In this work, there was not a
+of several inputs to a single output (scalar) using fuzzy logic (Zadeh,                          signiﬁcant difference when various membership functions were used.
+
+
+Table 2
+Classiﬁcation levels for air quality parametres and air quality assessments.
+
+                                        IMECA            Good                   Regular                High                       Very high        Extremely high            Deviation
+
+  Environmental parametres              PM2.5            0–15.5                 15.5–40.4              40.5–65.4                  65.5–150.4       N150.4                    7.7
+                                        PM10             0–60                   61–120                 121–220                    221–320          N320                      30
+                                        O3               0.000–0.055            0.056–0.110            0.111–0.165                0.166–0.220      N0.220                    0.0275
+                                        CO               0.00–5.50              5.51–11.0              11.01–16.50                16.51–22.00      N22.00                    2.75
+                                        NO2              0.000–0.105            0.106–0.210            0.211–0.315                0.316–0.420      N0.420                    0.0525
+                                        SO2              0.000–0.065            0.066–0.130            0.131–0.195                0.196–0.260      N0.260                    0.0325
+
+                                                         Good                   Regular                Bad                        Very Bad         Extremely bad
+                                        Score            0–50                   51–100                 101–150                    151–200          N200                      25
+                                                     M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74                                         61
+
+
+However, trapezoidal and triangular functions were built for representing                dioxide (CO) is regular, then the air quality (AQ) is regular. This state-
+the level of the concentration to be assessed. For extremely high and                    ment can be expressed in fuzzy logic as follows:
+good concentrations, trapezoidal functions were selected, using the
+minimal value when a pollutant is considered to generate damage. In                         Rule 1: If O3 is good and CO is regular then AQ is good.
+the intermedia levels, the centre of the range can be considered as a                       In this case, only one fuzzy operator (AND) was used for processing
+neutral point. The triangular function was selected to represent this                    the rule. In the same way, more rules can be expressed using the com-
+behaviour. Lineal membership functions were used because facilitate                      plete set of parametres, deﬁning more air quality situations as follows:
+the ﬁnal computing. The following expression deﬁnes a rectangular                           Rule 2: If PM2.5 is good and PM10 is good and O3 is good and CO is
+membership function.                                                                     good and NO2 is good and SO2 is good then AQ is excellent.
+                                                                                        Rule 3: If PM2.5 is regular and PM10 is good and O3 is good and CO is
+                              x−a      d−x                                               good and NO2 is good and SO2 is good then AQ is good.
+μ ðx; a; b; c; dÞ ¼ max min       ; 1;      ;0 ;                              ð1Þ
+                             b−a       d−c                                                  Rule 4: If PM2.5 is good and PM10 is good and O3 is regular and CO is
+                                                                                         high and NO2 is good and SO2 is good then AQ is regular.
+where x is the input (pollutant), a, b, c and d are the proper parametres                   Rule 5: If PM2.5 is good and PM10 is high and O3 is good and CO is very
+of the membership function, that varies according to the deﬁned limits                   high and NO2 is good and SO2 is good then AQ is bad.
+of each pollutant (Table 3). Triangular membership functions can be                         Rule 6: If PM2.5 is good and PM10 is very high and O3 is extremely high
+represented when b = c. Each membership function corresponds                             and CO is high and NO2 is good and SO2 is good then AQ is dangerous.
+to one air quality parametre classiﬁcation (Fig. 4). In order to have a
+compatibility with the IMECA index, the same limit ranges have been                          The system robustness depends on the number of deﬁned rules
+used for building the membership functions.                                              incorporated into the FIS. In this case, the rule set size involved in the
+                                                                                         assessment was built trying to cover all possible scenarios, correspond-
+3.3. Reasoning process (inference)                                                       ing to a better response in the ﬁnal score. Different rule set sizes were
+                                                                                         used for designing the FIS. A high number of rules generated a big
+   A reasoning process can be deﬁned as the way to use conventional                      computational burden; on the other hand, a low number of rules did
+expressions used by experts in aquaculture for transforming them into                    not evaluated correctly all air quality situations. According to this, a
+mathematical expressions that can be implemented in a computational                      compounded set of 174 inference rules was enough to have good re-
+system. Nevertheless, before building an inference system, it is impor-                  sults; more rules did not represent signiﬁcantly a better response.
+tant to introduce the reader to the fuzzy logic operations needed to                     Therefore, this size set presented the best evaluation results taking
+process every rule deﬁned in this process. A fuzzy operator is used to                   into consideration time processing and evaluation response. Once the
+process the results of the membership functions within an inference                      rules have been deﬁned, their mathematical computation can be made
+rule (Zadeh, 1978). In this work, three fuzzy operators have been used                   in two phases:
+such as: union (OR), intersection (AND) and negation (NOT):
+                                                                                         a) ﬁrst, all membership functions are evaluated jointly as:
+                                                           
+Union ðORÞ                 μ A∪B ðxÞ ¼ max μ A ðxÞ; μ B ðxÞ                   ð2Þ                 n                                                 o
+                                                                                                                                                p
+                                                                                         μ R ¼ min μ kPM2:5 ; μ lPM10 ; μ m      n      o
+                                                                                                                          O3 ; μ CO ; μ NO2 ; μ SO2            ð5Þ
+                                                          
+Intersection ðANDÞ         μ A∩B ðxÞ ¼ min μ A ðxÞ; μ B ðxÞ                   ð3Þ
+                                                                                         where k, l, m, n, o,and p∈{good,regular,high,very high,extremely
+Negation ðNOTÞ             μ A ðxÞ ¼ 1−μ A ðxÞ                                ð4Þ        high}. This expression is known as the rule of antecedent.
+                                                                                         b) Finally, the rule consequent is obtained as follows:
+
+    In air quality assessment, fuzzy logic based systems are useful due to
+                                                                                                         n                o
+subjectivity handling that allows interpreting any kind of knowledge,                    μR         ¼ min μ R ; μ lAQI                                         ð6Þ
+                                                                                              out
+mapping it into several parallel evaluations. In air pollution, it is impor-
+tant to identify all types of possible scenarios, presenting different con-
+taminant concentrations that can be considered harmful for health. In                    where l = {good, regular, bad, very bad, extremely bad }. In this phase,
+this sense, air quality situations can be expressed as sentences common-                 the antecedent rule is matched with the output membership function
+ly used by the experts, such as: if the ozone (O3) is good and the carbon                deﬁned for the air quality index (AQ, Fig. 4). This procedure can be
+
+
+
+
+                                     Fig. 3. Architecture of the weighted Fuzzy Inference System developed for air quality assessment.
+62                                                                                                                       M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+
+                                                                                                                                                             observed in Fig. 5, where an example of the fuzzy rule operation is made
+
+
+
+
+                                                                                                         c=d
+
+
+
+
+                                                                                                                          250
+                                                                                                                                                             using rules 2 and 3.
+
+
+
+
+                                                                                                         ∞
+                                                                                                         ∞
+                                                                                                         ∞
+                                                                                                         ∞
+                                                                                                         ∞
+                                                                                                         ∞
+                                                                                                                                                             3.4. Weight applying
+
+
+
+
+                                                                                                         Dangerous
+                                                                                                           0.247
+                                                                                                           24.75
+                                                                                                           0.472
+                                                                                                           0.292
+                                                                                                            193
+                                                                                                            350
+
+
+
+
+                                                                                                            125
+                                                                                                             b
+                                                                                                                                                                  The Fuzzy Inference Systems provide a good alternative for assess-
+
+                                                                                        Extremely high
+                                                                                                                                                             ments based on a reasoning process, where inference rules deﬁne in a cer-
+                                                                                                                                                             tain way, the dynamic ecosystem operation. Membership functions have
+                                                                                                                                                             been designed according to those limit concentrations that represent
+
+                                                                                                         0.192
+                                                                                                         19.25
+                                                                                                         0.367
+                                                                                                         0.227
+                                                                                                          108
+                                                                                                          250
+
+
+
+
+                                                                                                                          175
+                                                                                                           a
+                                                                                                                                                             harmful effects on people's health. Some pollutant concentrations are
+                                                                                                                                                             measured continuously due to urban behaviours, automobile emissions,
+                                                                                                                                                             weather patterns or industrial activities. Those issues cannot be captured
+                                                                                                                                                             by the FIS because it assesses the environment giving the same impor-
+                                                                                                         0.247
+
+
+
+                                                                                                         0.292
+                                                                                                         150.5
+
+
+
+                                                                                                         24.75
+                                                                                                         0.472
+                                                                                                          350
+
+
+
+
+                                                                                                                          225
+                                                                                                           d
+
+
+
+
+                                                                                                                                                             tance to each parametre (t-norms and t-conorms compute the maxima
+                                                                                                                                                             or minimum value for all membership functions). In this sense, the AHP
+                                                                                                                                                             provides a complement interface that provides an additional priority to
+                                                                                                                                                             those parametres that generates more problematic situations that others,
+                                                                                                         b=c
+
+
+
+                                                                                                         0.192
+
+
+
+                                                                                                         0.227
+                                                                                                         19.25
+                                                                                                         0.367
+                                                                                                          108
+                                                                                                          250
+
+
+
+
+                                                                                                          175
+                                                                                                          Bad
+
+
+
+
+                                                                                                                                                             assigning weights that deﬁne the relative importance and inﬂuence of the
+                                                                                                                                                             input parametres in the ﬁnal score. Several works has pointed out the
+                                                                                                                                                             beneﬁts of complementing decision based systems with AHP models
+                                                                                        Very High
+
+
+
+
+                                                                                                                                                             (Ocampo et al., 2006; Nilashi et al., 2011; Valipour and Montazar,
+                                                                                                         0.137
+                                                                                                         13.75
+                                                                                                         0.262
+                                                                                                         0.162
+                                                                                                          150
+
+
+
+
+                                                                                                                          125
+                                                                                                          53
+
+
+
+
+                                                                                                                                                             2012a,b). According to this, the FIS assessment can be adjusted according
+                                                                                                           a
+
+
+
+
+                                                                                                                                                             to the parametres importance involved in the ecosystem to be analysed.
+                                                                                                                                                                  The proposed Fuzzy Inference System (FIS) takes the interactions be-
+                                                                                                                                                             tween pollutants based on their different concentration levels. Moreover,
+                                                                                                         0.192
+                                                                                                         19.25
+                                                                                                         0.367
+                                                                                                         0.227
+                                                                                                          108
+                                                                                                          250
+
+
+
+
+                                                                                                                          175
+
+
+
+
+                                                                                                                                                             the FIS provides the same treatment to all parametres involved in the air
+                                                                                                           d
+
+
+
+
+                                                                                                                                                             quality analysis. According to this, it is important to evaluate those pollut-
+                                                                                                                                                             ants that should be monitored carefully because they generate more
+                                                                                                                                                             problems than others. This effect can be captured within the FIS by prior-
+                                                                                                         Regular
+                                                                                                          b=c
+
+
+
+                                                                                                          0.137
+                                                                                                          13.75
+                                                                                                          0.262
+                                                                                                          0.162
+                                                                                                           150
+
+
+
+
+                                                                                                           125
+
+
+
+
+                                                                                                                                                             itizing those parametres with a bigger negative impact. The procedure of
+                                                                                                            53
+
+
+
+
+                                                                                                                                                             the weight computation can be consulted in Section 4. In this case, the
+                                                                                                                                                             weights cannot be inserted into the rule because they unbalance the t-
+                                                                                                                                                             norms. In literature, weights are assigned only when the rule has one
+                                                                                                         0.082
+
+                                                                                                         0.157
+                                                                                                         0.097
+                                                                                                          7.75
+                                                                                        High
+
+
+
+
+                                                                                                                                                             parametre as an antecedent (Ocampo et al., 2006). However, in air quality
+                                                                                                           28
+                                                                                                           90
+
+
+
+
+                                                                                                                          75
+                                                                                                            a
+
+
+
+
+                                                                                                                                                             assessments, situations generated by the combination of the parametres
+                                                                                                                                                             cannot be used with this kind of operation. In this sense, the proposed
+                                                                                                                                                             model provides a solution assigning priorities to the output rule according
+                                                                                                         0.137
+                                                                                                         13.75
+                                                                                                         0.262
+                                                                                                         0.162
+                                                                                                          150
+
+
+
+
+                                                                                                                          125
+
+
+
+
+                                                                                                                                                             to the parametre with the highest value presented. The t-norm never is
+                                                                                                           53
+                                                                                                            d
+
+
+
+
+                                                                                                                                                             altered in this process because the weight is applied in the resulting
+                                                                                                                                                             score. When a membership function that belongs to a speciﬁc pollutant
+                                                                                                                                                             deﬁnes the rule output, then its corresponding weight is multiplied by
+                                                                                                         b=c
+
+
+
+                                                                                                         0.082
+
+                                                                                                         0.157
+                                                                                                         0.097
+                                                                                                         Good
+                                                                                                         7.75
+
+
+
+
+                                                                                                                                                             the output rule according to the following expression:
+                                                                                                          28
+                                                                                                          90
+
+
+
+
+                                                                                                          75
+
+
+
+
+                                                                                                                                                             μ wi ¼ wi  μ R                                                           ð7Þ
+     Parametres used for building membership functions of the Fuzzy Inference System.
+
+
+
+
+                                                                                                                                                                               out
+                                                                                        Regular
+
+
+
+
+                                                                                                         0.027
+
+                                                                                                         0.052
+                                                                                                         0.032
+                                                                                                         7.75
+
+
+
+                                                                                                         2.25
+                                                                                                          30
+
+
+
+
+                                                                                                                          25
+
+
+
+
+                                                                                                                                                             where w is the weight selected of the ith parametre membership that
+                                                                                                           a
+
+
+
+
+                                                                                                                                                             deﬁned μw. When two or more outputs present the same membership
+                                                                                                                                                             value, the weight parametre with higher priority is used as follows:
+                                                                                                                                                                     n                   o
+                                                                                                         0.082
+
+                                                                                                         0.157
+                                                                                                         0.097
+                                                                                                         7.75
+                                                                                                          28
+                                                                                                          90
+
+
+
+
+                                                                                                                          75
+
+
+
+
+                                                                                                                                                             wi ¼ max wi1 ; wi2 ; …; win                                               ð8Þ
+                                                                                                           d
+
+
+
+
+                                                                                                                                                             this guarantees that the output rule is inﬂuenced by the pollutant with
+                                                                                                         Excellent
+                                                                                                           0.027
+
+                                                                                                           0.052
+                                                                                                           0.032
+
+
+
+
+                                                                                                                                                             the highest importance level for each membership.
+                                                                                                            7.75
+
+
+
+                                                                                                            2.25
+                                                                                                             30
+
+
+
+
+                                                                                                             25
+                                                                                                              c
+
+
+
+
+                                                                                                                                                             3.5. Aggregation and defuzziﬁcation
+
+                                                                                                                                                                 Once the output rules (μw) have been computed, then they are com-
+                                                                                                         a=b
+                                                                                        Good
+
+
+
+
+                                                                                                                                                             bined by superimposing the area of all output rules, creating one ﬁnal
+                                                                                                         0
+                                                                                                         0
+                                                                                                         0
+                                                                                                         0
+                                                                                                         0
+                                                                                                         0
+
+                                                                                                                          0
+
+
+
+
+                                                                                                                                                             membership function that integrates all particular evaluations (μout). In
+                                                                                                                                                             Fig. 5, the aggregation process is shown using the generated area of the
+                                                                                                                                                             output rules 3 and 4, creating a new area (function) integrating the two
+                                                                                                         PM2.5 (μg/m3)
+                                                                                                         PM10 (μg/m3)
+
+
+
+                                                                                                         NO2 (ppm)
+
+
+
+
+                                                                                                                                                             particular results. The following step is to transform this output into a
+                                                                                                         SO2 (ppm)
+                                                                                                         CO (ppm)
+                                                                                                         O3 (ppm)
+
+
+
+
+                                                                                                                                                             real [0, 250] score to be compatible according to the IMECA index scale.
+                                                                                        IMECA
+     Table 3
+
+
+
+
+                                                                                                                                                                 Subsequently, the evaluation of the FIS uses a defuzziﬁcation method
+                                                                                                                          AQI
+
+
+
+
+                                                                                                                                                             employing the membership function obtained in the aggregation process.
+                                                            M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74                                                        63
+
+
+
+
+Fig 4. Membership functions for air quality (g) and measured pollutants: a) particulate matter 2.5 μm, b) particulate matter 10 μm, c) ozone, d) carbon monoxide, e) nitrogen dioxide and
+f) sulphur dioxide. These functions were built using the air quality parametre levels and deviations proposed in Table 2.
+
+
+
+
+There are several kinds of defuzziﬁcation methods (Maximum Criterion                                The centroid function returns a value with some restrictions to
+(MC), Centre of Area (COA), Mean Maximum Method (MOM), Smaller                                  the output, ranging from the excellent to dangerous centres [25,
+Maximum Method (SOM) or the Largest Maximum Method (LOM)).                                      225]. Another condition of air quality centres, falls within their
+Moreover, the Centroid Function (CF) is the most prevalent and physically                       respective ranges from good (75), regular (125) and bad (175);
+attractive of all the available methods to perform a defuzziﬁcation process                     thereby, the result should be normalized for scaling score into a
+(Ocampo et al., 2006; Ross, 2004; Mo-Yuen, 1997). This method returns                           [0, 255] range.
+the centre of the area under the curve of the ﬁgure (Fig. 6) formed by
+the output membership function according to the following expression.
+      Z
+          xμ out ðxÞdx
+CF ¼ Z                                                                               ð9Þ                   CF− minðCF Þ
+          μ out ðxÞdx                                                                           AQ I ¼                                                                             ð10Þ
+                                                                                                         maxðCF Þ− minðCF Þ
+64                                                           M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+
+
+
+Fig. 5. An example of the fuzzy rule operation. The weigh assignment (w03 and wCO) is selected according to the membership function that deﬁnes the output rule. In this case wCO was
+used because CO membership function deﬁned the maximum output rule.
+
+
+
+
+4. Weight assignment
+
+    The second phase of the FIS, consists in assigning a weight to each environmental parametre using a priority analysis, based on an Analytic
+Hierarchy Process (AHP). Each city has a different consideration about which pollutant is the most problematic since the topography, pollution
+sources and environmental obstacles are different in each place. In this work, the Mexico City Valley has a characteristic geography (see
+Section 2) that directly inﬂuences the air quality status. Therefore, the proposed Fuzzy Inference System considers the interactions between the
+primary and secondary pollutants based on their different levels of concentration, time to detect and control of secondary pollutant effects. On the
+other hand, as seen in Table 1, each pollutant affects human health as well as the greenhouse effect, acid rain and global warming. According to
+this, it is necessary to establish an importance level to each parametre based on its negative effect in the ecosystem. For this reason, pollutants
+were grouped into three categories according to an importance order:
+
+1. Direct damage to health: this category considered particle matter smaller than 2.5 and 10 μm (PM2.5 and PM10). Although carbon monoxide (CO) is
+   a dangerous element, it was excluded from this group because in the Mexico City Valley it rarely exceeds high concentration levels.
+2. Direct damage to living tissues: only ozone (O3) was considered in this category because it is one of most abundant pollutants in the atmosphere.
+
+
+
+
+Fig. 6. Fuzzy inference architecture for the air quality assessment problem with six variables and two rules. Rules 3 and 4 were used to exemplify the index computation process. The output
+membership value (μ) of each variables and the computed weight are used to truncate the AQ membership function. Then, all truncated functions (μAQ) are combined to create a ﬁnal
+membership function (μout), which is used to determinate the AQI by applying the Centroid Method.
+                                                         M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74                                   65
+
+
+3. Allocation Direct to Global Warming: carbon monoxide was considered in this category because this pollutant is involved in an oxidation process
+   generating carbon dioxide, which is a precursor of the greenhouse effect. Nitrogen dioxide (NO2) is a precursor of ozone and acid rain, as well as
+   causing the production of particulate matter. Finally, sulphur dioxide (SO2) is a precursor of acid rain and particulate matter.
+    Importance parametre levels were consulted and designed by the air quality experts that monitor the pollution atmosphere in the
+Mexico Valley area. According to the SIMAT monitoring, weight assignment was deﬁned relating the parametre interaction in the atmo-
+sphere. Fig. 7 shows the frequency of the parametre concentrations from January to August 2015 (last actualized database provided by
+the SIMAT).
+    In this case, PM10 presented the highest concentrations with more harmful occurrences in the period (Fig. 7). This phenomenon is generated by traf-
+ﬁc problems that actually is the most problematic pollution source in this place. PM2.5 generates more severe problems in people's health than the
+rest of the parametre set; however, it does not represent such a severe problem as PM10 because it rarely overpasses the ﬁrst permissible level.
+For this reason it was decided to assign the same highest level to PM2.5 and PM10 (extreme importance). The second criteria was taken according
+to the parametre toxicity, where O3 and CO are highly toxic pollutants; nevertheless, O3 weight was deﬁned as very important because it presented
+more abundant concentrations than CO in the Mexico Valley area. Although CO is highly toxic, it never overpasses the ﬁrst level, due to this, the cor-
+responding weight assigned was moderate importance. Finally NO2 and SO2 were deﬁned as non-critical parametres and the weights assigned were
+equal importance in both cases. The previously deﬁned weights have been assigned supported by experts and they can be adjusted according to the
+pollution problems necessities.
+    In order to determine the weights to be used in the assessment computation, air pollutants are organized by their importance in air pollution. The
+Analytic Hierarchy Process (AHP) has been developed by Thomas L. Saaty (2004) as a way to interpret and transform importance levels into math-
+ematical weights that amplify or reduce parametre behaviours useful in a decision making system (Chakraborty and Dey, 2006). In this sense, those
+weights used in the FIS affect the result of a rule according to those environmental parametres with higher importance, providing a more sensible
+assessment. Therefore, an AHP is an effective tool that provides a priority order to each pollutant and an importance scale that can be consulted in
+Table 4.
+    The importance of the pollutants depends of the necessities of the area to be monitored. In this work, they were adjusted to the characteristics of
+the Mexico City Valley and the recommendations emitted by the Atmospheric Monitoring System of Mexico City (SIMAT, 2014), the Mexican
+Ministry of Environment (SEDEMA, 2014) and National Institute of Ecology and Climate Change (INECC, 2014). The next step is to transform
+those importance levels in weights (priorities) by making pairwise comparisons. The importance values assigned to each parametre are used to de-
+velop a consistent matrix. It is a positive reciprocal n × n matrix whose elements satisfy the relation aij · ajk = aik, for i, j and k = 1,..., n. This pairwise
+can also be represented in the following form:
+
+
+                                      2w
+                                          1         w1            w1 3
+                                                            ⋯
+                  2 P 1 P 2 ⋯ P n 3 6 w1            w2            wn 7
+         P1         a11 a12 ⋯ a1n     6 w2
+                                      6             w2            w2 7
+                                                                     7
+                  6 a21 a22 ⋯ a2n 7 ¼ 6 w                   ⋯
+     A ¼ P2       6                7 6 1            w2            wn 7
+                                                                     7                                                                                      ð11Þ
+          ⋮       4 ⋮      ⋮ ⋱   ⋮ 5  6 ⋮            ⋮      ⋱      ⋮ 7
+                                      4 wn          wn            wn 5
+         Pn         an1 an2 ⋯ ann                           ⋯
+                                        w1          w2            wn
+
+
+where wi is the importance scale of the ith parametre P. According to the scale values assigned in Table 4 and replacing them in Eq. (11), the pairwise
+comparison matrix can be expressed as follows:
+
+
+
+                      2 PM2:5           PM10      O3              CO          NO2        SO23
+         PM2:5           1               1        9=7            9=3          9          9
+         PM10         6 1
+                      6 7=9              1        9=7            9=3          9          9 77
+     A ¼ O3           6                 7=9        1             7=3          7          7 7                                                                ð12Þ
+                      6 3=9             3=9                                                 7
+         CO           6                           3=7             1           3          3 7
+         NO2          4 1=9             1=9       1=7            1=3          1          1 5
+         SO2            1=9             1=9       1=7            1=3          1          1
+
+
+
+   Then, the square matrix A is calculated using the following expression:
+
+
+                      2                      3 2                            3
+             a11              a12   ⋯    a1n       a11     a12    ⋯     a1n
+           6 a21              a22   ⋯    a2n 7   6                ⋯     a2n 7
+           6
+     B¼AA¼4                                 7  6 a21     a22              7                                                                               ð13Þ
+              ⋮                ⋮    ⋱     ⋮ 5 4 ⋮           ⋮     ⋱      ⋮ 5
+             an1              an2   ⋯    ann       an1     an2    ⋯     ann
+
+
+
+   The sum of the rows is calculated using:
+
+
+
+            X
+            n
+     Ci ¼         Bij ∀i ¼ 1; 2; …; n                                                                                                                       ð14Þ
+            j¼1
+66                                                            M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+
+
+
+                                   Fig. 7. Concentration frequencies of the air quality parametres from the Mexico Valley area (January to August, 2015).
+
+
+
+
+     Subsequently, the priority weights are obtaining normalizing the Ci vector as follows:
+
+
+             C
+       wi ¼ Xn i            ∀i ¼ 1; 2; …; n                                                                                                                 ð15Þ
+                 j¼1
+                       Cj
+
+
+
+where wi is the vector of weights. The result is known as the ﬁrst eigenvector and it was proposed by Perron (1907). This process must be iterated
+until the eigenvector solution does not change from the previous iteration. The computed weights for the pollutants are given as follows:
+
+
+           2     3 2       3
+           PM2:5     0:3
+         6 PM10 7 6 0:3 7
+         6       7 6       7
+         6 O3    7 6 0:233 7
+       w¼6       7¼6       7                                                                                                                                ð16Þ
+         6 CO 7 6 0:1 7
+         6       7 6       7
+         4 NO2 5 4 0:033 5
+           SO2       0:033
+
+
+
+     Finally, the Consistency Ratio (CR) of the matrix ‘A’ must be computed using the following expression:
+
+              λ max −n
+       CR ¼                                                                                                                                                 ð17Þ
+              ðn−1ÞRI
+Table 4
+Important scale interpretation according to Saaty (2004).
+
+  Scale                       1                         2          3                 4                  5               6                7            8              9
+
+  Importance                  Equal                     Weak       Moderate          Moderate+          Strong          Strong+          Very         Very+          Extreme
+  Parametre                   NO2/SO2                   −          CO                −                  −               −                O3           −              PM2.5/PM10
+
+
+
+
+                                                                                                                                                                                  M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+Table 5
+Random consistency index.
+
+ Matrix size (n)                   1                    2      3              4                  5               6                7             8             9            10
+
+ RI                                0                    0      0.52           0.89               1.11            1.25             1.35          1.4           1.45         1.49
+
+
+
+
+                                                                                                                                                                                  67
+68                                                              M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+
+where λmax is the maximum eigenvalue of the pairwise matrix, n is the matrix size and RI is the random consistency index that can be determined
+according to Table 5. In this case, the CR was found to be 0, which means that it is acceptable according to Saaty (2004), where a 0.1 limits has been
+deﬁned as the maximum acceptable inconsistency.
+
+4.1. Numerical example
+
+   An example is presented for a better understanding of the evaluation process in the FIS. According to Rule 2 and Rule 3 (proposed in Section 3) and
+having six air quality parametres {PM2.5, PM10, O3, CO, NO2, SO2}, the AQI can be calculated supposing their respective values as: {20, 15, 0.02, 4.6,
+0.05, 0.02}. Using the membership functions described by each pollutant, the following expressions deﬁne the rule evaluation as:
+
+     Rule 2: If PM2.5 is good and PM10 is good and O3 is good and CO is good and NO2 is good and SO2 is good then AQ is excellent.
+     Rule 3: If PM2.5 is regular and PM10 is good and O3 is good and CO is good and NO2 is good and SO2 is good then AQ is good.
+     Mathematically the rules can be computed as follows:
+
+                            g            g           g         g         g          g
+     R2: μ R2 ¼ maxf minf μ PM2:5 ðxÞ; μ PM10 ðxÞ; μ O3 ðxÞ; μ CO ðxÞ; μ NO2 ðxÞ; μ SO2 ðxÞ; 1g; 0g ¼ maxf minf0:20; 1; 1; 0:57; 1; 1; 1g; 0g ¼ 0:2
+                                          g           g         g         g          g
+     R3: μ R3 ¼ maxf minf μ rPM2:5 ðxÞ; μ PM10 ðxÞ; μ O3 ðxÞ; μ CO ðxÞ; μ NO2 ðxÞ; μ SO2 ðxÞ; 1g; 0g ¼ maxf minf0:79; 1; 1; 0:57; 1; 1; 1g; 0g ¼ 0:57
+
+where g is good and r is regular and μR2, R3 are the membership outputs computed for R2 and R3. Normally, the AQI is computed without using weights
+as follows:
+                                           
+       μ out2 ¼ min μ R2 ðxÞ; μ Excelent ðxÞ ¼ 0:2
+                                       
+       μ out3 ¼ min μ R2 ðxÞ; μ Good ðxÞ ¼ 0:57
+
+
+     Then, the AQI is
+               Z   35                 Z   53:125                                       Z   Z 125
+                                                                                            93:75
+                        ð0:2Þx dx þ                ð0:020419x−0:51468Þx dx þ  ð0:57Þx dx þ         ð−0:01824x þ 2:28Þx dx
+       AQI ¼       0
+                   Z 35
+                                    35
+                                   Z 53:125
+                                                                       53:125
+                                                                     Z 93:75
+                                                                                             93:75
+                                                                                          Z 125                           ¼ 66:9
+                        ð0:2Þ dx þ          ð0:020419x−0:51468Þ dx þ          ð0:57Þ dx þ        ð−0:01824x þ 2:28Þ dx
+                        0                  35                                               53:125                93:75
+
+
+   Now, calculating the FIS using the AHP procedure, the weights selected for each rule are those assigned to PM2.5 in R2 and CO in R3. In this case, the
+weighted rules are calculated as follows:
+                                                 
+       μ out2 ¼ wR2  min μ R2 ðxÞ; μ Excelent ðxÞ ¼ wR  0:2 ¼ ð0:3Þð0:2Þ ¼ 0:06
+                                             
+       μ out3 ¼ wR2  min μ R2 ðxÞ; μ Good ðxÞ ¼ wR2  0:57 ¼ ð0:1Þð0:57Þ ¼ 0:057
+
+     Finally, the gravity centre is calculated for obtaining the air quality index as follows:
+
+
+               Z   72:01                   Z    72:15                           Z   122:15Z 125
+                            ð0:06Þx dx þ                ð−0:02x þ 1:5Þx dx þð0:057Þx dx þ          ð−0:02x þ 1:5 Þx dx
+       AQI ¼       0
+                   Z 72:01
+                                        72:01
+                                       Z 72:15
+                                                                     72:15
+                                                                   Z 122:15
+                                                                                            122:15
+                                                                                         Z 125                         ¼ 60:3
+                           ð0:06Þ dx þ         ð−0:02x þ 1:5Þ dx þ          ð0:057Þ dx þ         ð−0:02x þ 1:5 Þ dx
+                        0                        72:01                              72:15                     122:15
+
+
+
+   It is clearly seen, that weights used in the aggregation process, considerably affect the ﬁnal score according to the environmental parametre with
+higher importance. In Fig. 8, two examples of the AQI computation are shown. In Fig. 8a the FIS has been calculated having the same importance for all
+pollutants (non-hierarchies). In Fig. 8 7b the selected weights have been used for calculating the environmental index, where the aggregated area has
+been inverted due to the higher PM10 generating a bigger μR(x) than CO, adjusting the AQI score.
+
+
+
+
+                                                    Fig. 8. AQI assessment comparison between: a) conventional FIS and b) the weighted FIS.
+                                                    M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74                                       69
+
+
+
+
+                           Fig. 9. Daily variation in PM2.5, PM10 and O3 concentration taken from the SIMAT database (January–August, 2015).
+
+
+
+
+5. Experimental results and discussions                                                 5.2. Environmental parametres analysis
+
+5.1. Data sources                                                                          In this section, some pollutant measurements are studied using the
+                                                                                        previous database and according to the deﬁned levels for each one,
+   Some experiments have been made using data information from                          where the colour in the graphic corresponds to those deﬁned by the
+year 2015, obtained from RAMA and SIMAT databases with 5832                             SEDEMA Mexican Ministry of Environment (2014) in the IMECA
+measurements by the monitoring centre located in the Miguel                             Index. Daily variations in PM2.5, PM10 and O3 concentrations are
+Hidalgo probe. This monitoring atmospheric centre emitted a                             shown in Fig. 9a, b and c respectively. Similarly, daily variations in
+report of air quality index every hour, 24 h each day and all                           SO2, NO2 and CO are shown in Fig. 10a, b and c, respectively. In this
+365 days a year. The IMECA results are given using averages of                          case, 24 h from January to August, 2015 have been taken in order to
+measurements in their respective period according to the stan-                          show the main behaviours of the pollutants. In Fig. 9a, PM2.5 concentra-
+dards. Ozone and nitrogen dioxide averages are reported every                           tions present some peaks that activate the second phase. Those mea-
+hour; sulphur dioxide every 24 h; carbon oxide every 8 h and particulate                surements decrease having an excellent level averaged. In Fig. 9b, PM10
+matter every 24 h.                                                                      presents the most problematic situations, reporting continuously high
+70                                                  M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+
+
+
+                              Fig. 10. Daily variation in NO2 and SO2 concentration taken from the SIMAT database (January–August, 2015).
+
+
+
+
+concentrations and activating different stages of the IMECA index                       5.3. Air quality evaluations
+(excellent, good, regular and bad stages). Most of the concentrations
+are located between excellent and regular air quality, activating                           Air quality assessments have been made using the AQI_AHP, the AQI
+contingency and pre-contingency phases in the Mexico City Valley;                       (without weights) and those mostly used in literatures as the USEPA,
+this means that some type of automobiles should not be operable. In                     IMECA, the model methodology proposed by Mandal et al. (2012);
+Fig. 9c, O3 presents concentrations above the excellent level. Further-                 Carbajal et al. (2012) and a hierarchy based model developed in conven-
+more, those high concentrations are present at the same hour as those                   tional indexes proposed by Giljanovic (1999); Prasad and Bose (2001);
+measured by PM2.5 and PM10. This combination is a harmful situation                     Bardalo et al. (2001) and Ball and Church (1980). In this case, the USEPA
+for populations living in the studied area.                                             and IMECA indexes represent those proposed by governmental organi-
+    In Fig. 10a, NO2 concentrations seldom overpass the excellent phase,                zations and are used as a basis of the daily monitored atmospheric pol-
+having the most part of the measurements in this level. In Fig. 10b and c,              lution. First, a comparison between the AQI_AHP and the IMECA is given
+SO2 and CO concentrations are too low from the next level (regular).                    in Fig. 11. Both indexes have similar behaviour; however, particular in-
+Those variables rarely represent problems for the air quality in the                    tegration of the air quality pollutants in the AQI_AHP index generates a
+Mexico City Valley. According to this, PM10 and PM2.5 pollutants gener-                 more penalized score. Some results seems to have a higher deviation
+ally represent the most problematic parametres, besides, they generate                  from the IMECA score than others because when a critical parametre
+many health problems. For this reason, they were treated as the most                    presents high concentrations, the AQI_AHP provides more weighment
+critical pollutants to be controlled and monitored. In Fig. 7, the histo-               in the processing analysis, giving a higher score that tends to evaluate
+gram shows the frequency behaviours of each parametre.                                  a worse air quality (see Table 6). First measurement at 16:00 p.m.
+                                                    M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74                                        71
+
+
+
+
+                                                     Fig. 11. Comparison between the proposed model the IMECA.
+
+
+
+
+presents a higher deviation with a higher score according to the IMECA.                 the number of pollutants involved in the models. In the ﬁrst model,
+This behaviour is because the nature of the AQI_AHP index is to create                  SO2, NOx, SPM (suspended particulate matter) and RPM (respirable par-
+an [0, 250] index and the gravity centre truncates the index in a                       ticulate matter) are analysed. The second model does not evaluate PM2.5
+[27.18, 216.74] range (gravity centre of the excellent and danger mem-                  pollutants. Another difference of the comparison models is the lack of a
+bership functions).                                                                     priority criteria, where all parametres are evaluated with the same im-
+    In Fig. 12, a comparison between the USEPA and the proposed                         portance and with the possibility to activate the air quality levels with
+AQI_AHP index has been performed. In this case similar behaviours to                    any pollutant. As can be seen in Fig. 9, PM2.5 and PM10 represent the
+Fig. 11 can be observed. This can be explained because the IMECA and                    most part of the air quality problems, generating high score evaluations.
+the USEPA have been created in the same way (the IMECA index has                        Also, O3 and NO2 concentrations increase those scores whenever they
+been created taking as a base the USEPA index). Therefore, the results                  have the same importance in the air quality evaluation. In the AQI_AHP
+are similar in those indexes, where the AQI_AHP index presented higher                  index, the effect of PM2.5 and PM10 is prioritized and those higher
+level evaluations where critical parametres are out from the optimal                    levels match with the FAQI index. Moreover, in those scores where
+range. The USEPA index reported higher scores than the AQI_AHP                          non-critical pollutants represent the higher results, the AQI_AHP does
+index in O3 high concentrations because it is more sensitive to this                    not penalize like the FAQI due to they represent pollutants with lower
+parametre.                                                                              risk.
+    In Fig. 13, the models proposed by Mandal et al. (2012); Carbajal                       Finally, the methodology used by other environmental models
+et al. (2012) and Sowlat et al. (2011) are compared with the AQI_AHP                    (Giljanovic, 1999; Prasad and Bose, 2001; Bardalo et al., 2001; Gorai
+index. Those models propose a Fuzzy Inference System (FAQI) as a                        et al., 2014; Gorai et al., 2015; Abdullah and Khalid, 2012) has been
+basis of their work. The main difference against the AQI_AHP index is                   used for comparing the AQI_AHP (Fig. 14), where an Analytic Hierarchy
+
+
+
+
+Table 6
+Numerical comparison of air quality assessments.
+
+                               Pollutants                                                                       Air quality indexes
+
+            Date               PM2.5         PM10   O3             CO            NO2             SO2            IMECA         USEPA   AHP    AQI       AQI-AHP
+
+   1        05/03/2015         24            188    0.0132         0.231         0.1701          0.0052         134           117     160    125       157
+   2        05/03/2015         19            150    0.0792         0.077         0.0693          0.0026         115           109     160    125       157
+   3        05/03/2015         17            144    0.0517         0.088         0.0777          0.0026         112            95     140    117       149
+   4        05/03/2015         15            110    0.0792         0.099         0.0903          0.0052          92           109     133     96       119
+   5        05/03/2015         15            100    0.0924         0.088         0.0693          0.0052          84           143     132     89       110
+   6        05/03/2015         14            113    0.1034         0.088         0.0693          0.0039          94           170     145     99       124
+   7        05/03/2015         14             98    0.1067         0.088         0.0693          0.0039          97           179     137    100       126
+   8        05/03/2015         13             89    0.1089         0.077         0.0588          0.0039          99           184     131    100       126
+   9        05/03/2015         12             98    0.0066         0.198         0.1197          0.0052          82           105      85    103       130
+  10        05/03/2015         11            103    0.0616         0.132         0.1281          0.0065          86           106     116    103       130
+  11        05/03/2015         11             98    0.0022         0.099         0.105           0.0039          82           102      80    111       142
+  12        05/03/2015         11             94    0.0044         0.132         0.0924          0.0039          78            92      78    109       140
+  13        05/03/2015         10             85    0.0264         0.055         0.0567          0.013           71            66      83    111       133
+  14        05/03/2015         10             85    0.0209         0.066         0.0651          0.0026          71            66      79    111       133
+  15        05/03/2015          9             95    0.0022         0.11          0.1176          0.0052          79           104      76    116       147
+  16        05/03/2015          9             83    0.0165         0.077         0.0861          0.0091          69            85      75    110       121
+  17        05/03/2015          8             76    0.0077         0.077         0.084           0.0039          63            83      65     87        83
+  18        05/03/2015          8             65    0.011          0.066         0.0777          0.0026          54            76      59    100       103
+  19        05/03/2015          8             61    0.0143         0.055         0.0651          0.0026          51            63      58     83        76
+  20        05/03/2015          7             54    0.0143         0.055         0.0609          0.0026          45            58      53     74        66
+  21        05/03/2015          7             61    0.0055         0.088         0.0819          0.0026          51            81      53     82        76
+  22        05/03/2015          6             84    0.0363         0.143         0.1344          0.0052          70           107      84    100        96
+  23        05/03/2015          5             47    0.0264         0.066         0.0609          0.0026          39            58      52     64        56
+  24        05/03/2015          4             65    0.033          0.066         0.0609          0.0026          54            58      66     88        83
+72                                                       M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+
+
+
+                                                           Fig. 12. Comparison between the AQI_AHP and the USEPA.
+
+
+
+
+Process is used for creating an index based on priorities (AHP index). In                    model was created according to the environment dynamic located in
+this case, the AQI_AHP and the AHP indexes present similar scores. The                       the Mexico City Valley, where the greenhouse and the high density pop-
+AHP presents periods with high level evaluations and other periods                           ulation are the most prevalent problems. In order to generate more
+with low air quality evaluations. An important point to remark is that                       complete air quality analyses, six major pollutants were measured, pro-
+PM10 inﬂuences this behaviour whenever the AHP variations matches                            viding a [0, 250] range, which have been normalized with two indexes
+with the PM10 oscillations.                                                                  provided by international organizations (USEPA and IMECA). Zero indi-
+    Table 6 shows an example of numerical comparisons of one day                             cates clean air condition, whereas 250 indicates extreme pollution level.
+between all the AQI scores. Score evaluations correspond with those                          The FIS provided a good integration all of particular evaluations;
+shown in Figs. 11–14. As can be seen, PM10 is the pollutant with the                         however, the priority assessment is focused on the air quality assess-
+highest concentrations presented during the day, which directly inﬂu-                        ment to those parametres that represent the major problem on
+ence the ﬁnal score in all levels, having from excellent to dangerous air                    human health. Although PM10 and PM2.5 represented the most prob-
+quality evaluations. In general, IMECA and USEPA evaluations presented                       lematic pollutants in the Mexico City Valley, the AQI_AHP can be ad-
+the lowest scores. Moreover, the USEPA index is more sensitive to O3                         justed to deﬁne other parametres that represent critical problems in
+concentrations. This can be explained because they only assign the                           other urban areas. A deeper analysis should be made in order to op-
+output according with the maximum value presented by any                                     timize the rule inference for a better assessment (adding or replacing
+parametre. In the same way, the AHP based index presented high                               rules). Also, an analysis about a ﬁtted membership function type for a
+scores only when the PM10 parametre reported high values, due to                             speciﬁc parametre is a question that has been planned. Additionally,
+it is inﬂuenced by the upper weight effect in the output value. The                          a knowledgebase which introduces new rules based on parametre
+AQI and AQI_AHP indexes generate higher AQI scores when PM10,                                behaviours is a good idea for having an improved computational
+PM2.5 or O3 presented values above the 1th or 2th permissible levels.                        model.
+In this case, assigned weights in the AQI_AHP index generated lower
+results than the AQI index when non-critical parametres were eval-
+uated, providing scores closer than those generated by the IMECA                             Acknowledgements
+standard.
+                                                                                                The authors want to thanks to the following institutions for their
+6. Conclusions                                                                               support in the developing of this work: the Mexican Ministry of Envi-
+                                                                                             ronment (SEDEMA), the Instituto Politécnico Nacional (20150690 and
+   In this work, a new model for air quality assessment has been built as                    20160880) and the National Council of Science and Technology
+a way to evaluate and protect the health of humans in urban cities. This                     (CONACyT), (I000/694/2015) México.
+
+
+
+
+ Fig. 13. Air quality evaluations made using the proposed model with priorities (AQI_AHP) and the model methodology proposed by Mandal et al. (2012) and Carbajal et al. (2012).
+                                                     M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74                                                                     73
+
+
+
+
+                                                     Fig. 14. Comparison between the AQI_AHP and the AHP model.
+
+
+Appendix A. Appendix                                                                     f) Sulphur dioxide (SO2) calculated as follows:
+
+A.1. IMECA
+                                                                                                                    100
+   The IMECA index is computed according to a set of particular                          I½SO2  ¼ C ½SO2              ∀any concentration
+                                                                                                                    0:13
+equations that can be described as follows:
+a) Particulate matter smaller than 2.5 μm (PM2.5) are calculated as
+   follows:                                                                              g) Finally, the IMECA index is computed according to the following
+                                                                                            expression:
+           8               
+           >
+           >                 50
+           >
+           > C ½PM 2:5  
+           >
+           >                15:4 
+           >
+           >                                                           μg
+           >
+           >                         49          ∀ 15:5 b PM2:5 b 40:4                   IMECA ¼ maxfI½SO2 ; I½NO2 ; I½CO; I½O3 ; I½PM10 ; I½PM 2:5 g
+           >
+           > 20:50 þ C ½PM2:5                                       m3
+           >
+           >                       24:9                                μg
+           >
+           <                                    ∀ 40:4 b PM2:5 b 65:4 3
+                                     49                               m                  A.2. AHP index
+I½PM2:5  ¼ 21:30 þ C ½PM2:5                                          μg
+           >
+           >                       24:9
+                                                ∀ 65:5 b PM2:5 b 150:4 3
+           >
+           >
+           >
+           >                          49                                m                   The AHP index model is computed according to the following
+           > 113:20 þ C ½PM2:5  
+           >                                                    μg
+           >
+           >                         84:9        ∀PM 2:5 N 150:4 3                       equations:
+           >
+           >                                                   m
+           >
+           >                 201
+           >
+           : C ½PM2:5  
+                            150:5                                                                    X
+                                                                                                     n
+                                                                                         AQI ¼             W i Ii
+where the C[PM2.5] operator denotes the corresponding air quality                                    i¼1
+
+concentration.
+b) Particulate matter smaller than 10 μm (PM 10 ) are calculated                         where AQI is the air quality index, n is the number of evaluated
+   according to:                                                                         pollutants, Wi is the assigned weight which is calculated using an AHP
+                                                                                         and Ii is the particular parametre index that can be obtained as follows:
+           8                                    μg
+           >
+           >             5         ∀ PM 10 b 120 3
+           < C ½PM10   6
+           >                                    m
+                                                     μg                                         Ci
+I½PM10  ¼    40 þ C ½PM10   0:5 ∀ 121 b PM10 b 320 3                                  Ii ¼
+           >                                         m                                          Cs
+           >
+           >             5                      μg
+           : C ½PM 10   5
+                         8         ∀ PM 10 N 320 3
+                                                m
+                                                                                         where Ci is the pollutant concentration and Cs is the allowed limit
+                                                                                         established by the corresponding parametre.
+c) Ozone (O3) is computed using the following equation:
+                                                                                         References
+                   100
+I½O3  ¼ C ½O3        ∀any concentration                                               Abdullah, L., Khalid, N.D., 2012. Classiﬁcation of Air Quality Using Fuzzy Synthetic Multi-
+                   0:11                                                                       plication. Environmental Monitoring and Assessment 184. Springer, pp. 6957–6965.
+                                                                                         Akkaya, G., Turanoğlu, B., Öztaş, S., 2015. An integrated fuzzy AHP and fuzzy MOORA ap-
+                                                                                              proach to the problem of industrial engineering sector choosing. Expert Systems with
+d) Nitrogen dioxide (NO2) is computed as follows:                                             Applications 42 (24). Elsevier, pp. 9565–9573.
+                                                                                         Alhanafy, T., Zaghlool, F., Saad, A., 2010. Neuro fuzzy modeling scheme for the prediction
+                                                                                              of air pollution. J. Am. Sci. 6 (12), 605–616.
+                       100                                                               Arreola, J., González, G., 1999. Análisis espectral del viento y partículas menores de 10
+I½NO2  ¼ C ½NO2          ∀any concentration                                                micrómetros (PM10) en el área metropolitana de Monterrey, México. Rev. Int.
+                       0:21                                                                   Contam. Ambiental 15, 95–102.
+                                                                                         Ball, R., Church, L., 1980. Water quality indexing and scoring. J. Environ. Eng. Div. 106 (4),
+                                                                                              757–771.
+                                                                                         Bardalo, A., Nilsumranchit, W., Chalermwat, K., 2001. Water quality and uses of the
+e) Carbon monoxide (CO) is calculated according to:
+                                                                                              Bangpakong river, Eastern Thailand. Water Res. 35 (15), 3635–3642.
+                                                                                         Bartra, J., Mullol, J., del Cuvillo, A., Dávila, I., Ferrer, M., Jáuregui, I., Montoro, J., Sastre, J.,
+                                                                                              Valero, A., 2007. Air pollution and allergens. J. Investig. Allergol. Clin. Immunol. 17,
+                                                                                              3e8.
+                   100
+I½CO ¼ C ½CO        ∀any concentration                                                Bell, M., McDermott, A., Zeger, A., Samet, J., Dominici, F., 2004. Ozone and short-term mor-
+                   11                                                                         tality in 95 US urban communities, 1987–2000. Am. Med. Assoc. 292, 2372–2378.
+74                                                                M.Á. Olvera-García et al. / Ecological Informatics 33 (2016) 57–74
+
+Bishoi, B., Prakash, A., Jain, V., 2009. A comparative study of air quality index based on            PAHO Pan American Health Organization, 2015. Available at: http://www.paho.org
+     factor analysis and USEPA methods for an urban environment. Aerosol Air Qual.                        (accessed August 2015).
+     Res. 9 (1), 1–17.                                                                                Perron, O., 1907. Zur Theorie der Matrizen. Math. Ann. 64 (248–263), 1907.
+Borja, V., Loomis, D., Bangdiwala, S., Shy, C., Rascon, R., 1996. Ozone, suspended particulates,      Prasad, B., Bose, J., 2001. Evaluation of the heavy metal pollution index for surface and spring
+     and daily mortality in Mexico City. Am. J. Epidemiol. 145, 258–268.                                  water near a lime stone mining area of the lower Himalayas. Environ. Geol. 41, 183–188.
+Carbajal, J., Sánchez, L., Carrasco, J., Martínez, J., 2012. Assessment and prediction of air         RAMA Automatic Atmospheric Monitoring Network. 2015 Available at: http://www.aire.df.
+     quality using fuzzy logic and autoregressive models. Atmos. Environ. 60, 37–50.                      gob.mx [accessed August, 2015].
+Chakraborty, S., Dey, S., 2006. Design of an analytic-hierarchy-process-based expert                  REDDA Network Atmospheric Deposit. 2015 Available at: http://www.calidadaire.df.gob.
+     system for non-traditional machining process selection. Int. J. Adv. Manuf. Technol.                 mx (accessed February 2015).
+     31, 490–500.                                                                                     REDMA Manual Network for Atmospheric Monitoring. 2015 Available at: http://www.
+Coman, A., Ionescu, A., Candau, Y., 2008. Hourly ozone prediction for a 24-h horizon using                calidadaire.df.gob.mx (accessed February 2015).
+     neural networks. Environ. Model. Softw. 23, 1407–1421.                                           REDMET Manual Network for Atmospheric Monitoring. 2015 Available at: http://www.
+Domínguez, R., 2009. Health risk by inhalation of PM2.5 in the metropolitan zone of the                   aire.df.gob.mx [accessed August, 2015].
+     City of Mexico. Ecotoxicol. Environ. Saf. 72 (3), 866–871.                                       Ross, T., 2004. Fuzzy Logic with Engineering Applications. John Wiley & Sons.
+Dovilé, L., 2008. Nitrogen dioxide concentrations and their relation with meteorological              Ruiz, J., Mayora, A., Torres, J., Ruiz, G., 1995. Short-term ozone forecasting by artiﬁcial neu-
+     conditions and some environmental factors in Kaunas. Environ. Res. Eng. Manag. 1,                    ral networks. Adv. Eng. Softw. 23 (3), 143–149.
+     21–27.                                                                                           Saaty, T., 2004. Decision making—the analytic hierarchy and network processes (AHP/
+Feng, Q., Wu, S., Du, Y., Xue, H., Xiao, F., Ban, X., Li, X., 2013. Improving neural network              ANP). J. Syst. Sci. Syst. Eng. 13 (1), 1–35.
+     prediction accuracy for pm10 individual air quality index pollution levels. Environ.             Salazar, E., 2007. Development and comparative analysis of tropospheric ozone prediction
+     Eng. Sci. 30 (12), 725–732.                                                                          models using linear and artiﬁcial intelligence-based models in Mexicali, Baja California
+Giljanovic, N., 1999. Water quality evaluation by index in Dalmatia. Water Res. 33 (16),                  (Mexico) and Calexico, California (US). Environ. Model. Softw. 23 (8), 1056–1069.
+     3423–3440.                                                                                       SEDEMA Mexican Ministry of Environment, 2014. (Secretaría del Medio Ambiente, in
+Gorai, A., Kanchan, B., Upadhyay, A., Tuluri, F., Goyal, P., Tchounwou, P., 2015. An Innova-              Spanish)Available at: http://www.sedema.df.gob.mx (accessed August, 2014) .
+     tive Approach for Determination of Air Quality Health Index. Science of the Total                Sen, A., Lal, B., Tripathy, S.S., 2015. Determination of Air Quality Index Using Fuzzy Logic-
+     Environment 533. Elsevier, pp. 495–505.                                                              Based Model. Proceedings of the International Conference on Electrical, Electronics,
+Gorai, A., Kanchan, Upadhyay, A., Goyal, P., 2014. Design of Fuzzy Synthetic Evaluation                   Signals, Communication and Optimization, IEEE.
+     Model for Air Quality Assessment. Environment Systems and Decisions 34 (3).                      SIMAT Atmospheric Monitoring System, 2014. (Sistema de Monitoreo Ambiental, in
+     Springer, pp. 456–469.                                                                               Spanish)Available at: http://www.aire.df.gob.mx (accessed August 2014) .
+Henry, R., Satran, D., Lindgren, B., Adkinson, C., Nicholson, C., Henry, D., 2006. Myocardial         Soler, V., 2007. Lógica Difusa Aplicada a Conjuntos Imbalanceados: aplicación a la
+     injury and long-term mortality following moderate to severe carbon monoxide poison-                  detección del síndrome de down Ph. D. Thesis Departament de Microelectrònica i
+     ing. J. Am. Med. Assoc. 295 (4), 398–402.                                                            Sistemes Electrònics, Universitat Autònoma de Barcelona.
+INECC National Institute of Ecology and Climate Change. 2014. [www.inecc.gob.mx:                      Sowlat, M., Gharibi, H., Yunesian, M., Mahmoudi, T., Lotﬁ, S., 2011. A novel, fuzzy-based air
+     accessed in November, 2014].                                                                         quality index (FAQI) for air quality assessment. Atmos. Environ. 45, 2050–2059.
+INEGI National Institute for Statistics and Geography 2010 (Instituto Nacional de                     Upadhyay, A., Kanchan, Goyal, P., Yerramilli, Gorai, A., 2014. Development of a fuzzy pat-
+     Estadística y Geografía, in Spanish). Avaliable at: http://www.inegi.org.mx [accessed                tern recognition model for air quality assessment of Howrah City. Aerosol Air Qual.
+     August, 2010]                                                                                        Res. 14, 1639–1652.
+Liu, K., Liang, H., Yeh, K., Chen, C., 2009. A qualitative decision support for environmental         Upadhyaya, G., Dashore, N., 2010. Monitoring of air pollution by using fuzzy logic. Int.
+     impact assessment using fuzzy logic. J. Environ. Inf. 13 (2), 93–103.                                J. Comput. Sci. Eng. 02 (07), 2282–2286.
+Mandal, T., Gorai, A., Pathak, G., 2012. Development of Fuzzy Air Quality Index Using                 Upadhyaya, G., Dashore, N., 2011. Fuzzy logic based model for monitoring air quality
+     Softcomputing Approach. Environmental Monitoring and Assessment 184. Springer,                       index. Indian J. Sci. Technol. 4 (3), 15–218.
+     pp. 6187–6196.                                                                                   USEPA United States Environmental Protection Agency, 2000. Air quality criteria for
+Mishra, D., Goyal, P., 2016. Neuro-fuzzy approach to forecast NO2 pollutants addressed to                 carbon monoxide.
+     air quality dispersion model over Delhi, India. Aerosol Air Qual. Res. 16, 166–174.              USEPA United States Environmental Protection Agency, 2009. Technical Assistance
+Mo-Yuen, C., 1997. Methodologies of Using Neural Network and Fuzzy Logic Technologies                     Document for the Reporting of Daily Air Quality—The Air Quality Index (AQI).
+     for Motor Incipient Fault Detection. World Scientiﬁc, Singapore.                                 USEPA United States Environmental Protection Agency, 2015. Available at: http://www.
+Mustaﬁc, H., Jabre, P., Caussin, C., Murad, M., Scolano, S., Tafﬂet, M., Perrier, C., Marijon, E.,        epa.gov (accessed August 2015) .
+     Vernerey, E., Empana, J., Jouven, X., 2012. Main air pollutatnts and myocardial infarc-          Valipour, M., Montazar, A., 2012a. Sensitive analysis of optimized inﬁltration parametres
+     tion. J. Am. Med. Ass. 307 (7), 713–721.                                                             in SWDC model. Adv. Env. Biol. 6 (9), 2574–2581 (2012).
+NADF-009-AIRE, 2006. Environmental standard for the Federal District (norma ambiental                 Valipour, M., Montazar, A., 2012b. An evaluation of SWDC and WinSRFR models to
+     para el Distrito Federal. Gaceta Oﬁcial del Distrito Federal, in Spanish), XVI epoch.                optimize of inﬁltration parametres in furrow irrigation. Am. J. Sci. Res. 128–142.
+Nilashi, M., Bagherifard, K., Ibrahim, O., Janahmadi, N., Barisami, M., 2011. An application          Valipour, M., Montazar, A., 2012c. Optimize of all effective inﬁltration parametres in
+     expert system for evaluating effective factors on trust in B2C websites. Engineering 3,              furrow irrigation using visual basic and genetic algorithm programming. Aust.
+     1063–1071.                                                                                           J. Basic Appl. Sci. 6 (6), 132–137.
+NOM-020-SSA1, 1993. Ofﬁcial Mexican Standard for the Environmental Health; Criteria                   Wang, B., Chen, Z., 2015. A model-based fuzzy set-OWA approach for integrated air
+     for Ozone Assessment in Air Quality. Ofﬁcial Gazette for the Federal District.                       pollution risk assessment. Stochastic Environmental Research and Risk Assessment
+NOM-021-SSA1, 1993. Ofﬁcial Mexican Standard for the Environmental Health; Criteria                       29 (5). Springer, pp. 1413–1426.
+     for Carbon Monoxide Assessment in air quality. Ofﬁcial gazette for the Federal                   Wang, L., Jang, C., Zhang, Y., et al., 2011. Assessment of air quality beneﬁts from national
+     District.                                                                                            air pollution control policies in China. Part II: evaluation of air quality predictions and
+NOM-022-SSA1, 1993. Ofﬁcial Mexican Standard for the Environmental Health; Criteria                       air quality beneﬁts assessment. Atmos. Environ. 44, 3449–3457.
+     for Sulfur Dioxide Assessment in air quality. Ofﬁcial gazette for the Federal District.          Wang, W., Men, C., Lu, W., 2008. Online prediction model based on support vector machine.
+NOM-023-SSA1, 1993. Ofﬁcial Mexican Standard for the Environmental Health; Criteria                       Neurocomputing 71 (4–6), 550–558.
+     for Nitrogen Dioxide Assessment in air quality. Ofﬁcial gazette for the Federal District.        WHO World Health Organization, 1987. Sulfur Dioxide and Particulate Matter. Air Quality
+NOM-025-SSA1, 1993. Ofﬁcial Mexican Standard for the Environmental Health; Criteria for                   Guidelines for Europe. European Series 23. WHO Regional Publications, pp. 338–360.
+     Particulate Matter Assessment in air quality. Ofﬁcial gazette for the Federal District.          Yadav, J., Kharat, V., Deshpande, A., 2014. Fuzzy description of air quality using fuzzy
+Ocampo, W., Ferré, N., Domingo, J., Schuhmacher, M., 2006. Assessing water quality in                     inference system with degree of match via computing with words: a case study. Air
+     rivers with fuzzy inference systems: a case study. Environment International 32.                     Quality, Atmosphere and Health 7. Springer, pp. 325–334.
+     Elsevier, pp. 733–742.                                                                           Yong, L., Huaicheng, G., Guozhu, M., Pingjian, Y., 2008. A Bayesian hierarchical model for
+Ordieresa, J., Vergara, P., Capuz, R., Salazar, R., 2005. Neural network prediction model for             urban air quality prediction under uncertainty. Atmos. Environ. 42, 8464–8469.
+     ﬁne particulate matter (PM2.5) on the US-Mexico border in El Paso (Texas) and                    Zadeh, L., 1978. Fuzzy sets as a basis for theory of possibility. Fuzzy Sets Syst. 1, 3–28.
+     Ciudad Juarez (Chihuahua). Environ. Model. Softw. 20, 547–559.
+

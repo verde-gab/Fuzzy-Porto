@@ -1,36 +1,55 @@
-# Jupyter
+# =============================================================
+# .gitignore — Fuzzy-Porto
+# =============================================================
+
+# ---- Jupyter ----
 .ipynb_checkpoints/
 **/.ipynb_checkpoints/
 
-# Data (Ignora arquivos brutos para não onerar o repositório)
-/data/raw/exportacao_cargas.csv
+# ---- Data (raw > 100 MB — GitHub rejeita) ----
+/data/raw/
 
-# Python
+# ---- Python ----
 __pycache__/
 *.py[cod]
 *$py.class
 .venv/
+*.egg-info/
 
-# Docker
+# ---- Docker ----
 compose.yaml
 
-# Agent context (local-only)
+# ---- Agent context (local-only) ----
 /agyREADME.md
+/.gemini/
 
-# LaTeX build artifacts
-/Refs/*.nav
-/Refs/*.snm
-/Refs/*.synctex.gz
-/Refs/*.aux
-/Refs/*.log
-/Refs/*.out
-/Refs/*.toc
-/Refs/*.bbl
-/Refs/*.blg
+# ---- LaTeX build artifacts ----
+# Gerados automaticamente por pdflatex/bibtex/biber — nunca commitar
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.lof
+*.lot
+*.brf
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.run.xml
+
+# ---- PDFs compilados (recompilam-se a partir do .tex) ----
 /Refs/ingles.pdf
+/Refs/Congresso.pdf
+/Refs/artigo_principia.pdf
+/Refs/relatorio_pic.pdf
 
-# PDF library (large binaries — keep originals out of git)
+# ---- PDF library (livros/artigos — pesados, não redistribuíveis) ----
 /Refs/pdf_research/
 
-# Conversion script output logs
+# ---- Conversion script ----
 /Refs/convert_pdfs.sh

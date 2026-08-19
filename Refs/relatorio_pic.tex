@@ -4,8 +4,8 @@
 % ============================================================
 \documentclass[
     12pt,
-    openright,
-    twoside,
+    oneside,
+    openany,
     a4paper,
     english,
     brazil
@@ -20,6 +20,7 @@
 \usepackage{indentfirst}
 \usepackage{color}
 \usepackage{graphicx}
+\graphicspath{{Images/}}
 \usepackage{microtype}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -286,7 +287,14 @@ Esta pesquisa adota uma abordagem \textbf{exploratória e comparativa}, combinan
 
 Utilizou-se a série temporal de movimentação de carga mensal do Porto de Santos, período de janeiro de 2005 a dezembro de 2022, totalizando 216 observações. A base é a mesma empregada por \citeonline{santos2023porto}, obtida da Autoridade Portuária de Santos. O período de treinamento compreende janeiro de 2005 a dezembro de 2022 (216 observações para a auditoria \textit{in-sample} da regressão linear) e o período de teste (previsão \textit{out-of-sample}) compreende janeiro de 2023 a março de 2026 (39 observações).
 
-A análise exploratória revelou três componentes na série: (i) \textbf{tendência} crescente ao longo do período; (ii) \textbf{sazonalidade} anual pronunciada, com picos e vales recorrentes; e (iii) \textbf{resíduo} (componente irregular). A decomposição STL (\textit{Seasonal and Trend decomposition using Loess}) confirmou visualmente esses componentes. Os testes de estacionariedade (ADF e KPSS) indicaram não-estacionariedade da série em nível, com estacionariedade atingida após diferenciação.
+A análise exploratória revelou três componentes na série: (i) \textbf{tendência} crescente ao longo do período; (ii) \textbf{sazonalidade} anual pronunciada, com picos e vales recorrentes; e (iii) \textbf{resíduo} (componente irregular). A decomposição STL (\textit{Seasonal and Trend decomposition using Loess}), apresentada na Figura~\ref{fig:stl}, confirmou visualmente esses componentes. Os testes de estacionariedade (ADF e KPSS) indicaram não-estacionariedade da série em nível, com estacionariedade atingida após diferenciação.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.85\textwidth]{STL_porto.png}
+\caption{Decomposição STL da série temporal do Porto de Santos (período = 12 meses).}
+\label{fig:stl}
+\end{figure}
 
 % ============================================================
 \section{Etapa 1: Auditoria do Modelo de Santos et al. (2023)}
@@ -326,7 +334,14 @@ Para contextualização dentro do paradigma clássico, aplicaram-se também: Hol
 \label{sec:resultados-auditoria}
 % ============================================================
 
-A Tabela~\ref{tab:ms-tests} apresenta os resultados da bateria de testes de \textit{misspecification} aplicada aos resíduos da regressão linear.
+A Figura~\ref{fig:real-rl} apresenta a série original e o ajuste das doze regressões lineares. A Tabela~\ref{tab:ms-tests} apresenta os resultados da bateria de testes de \textit{misspecification} aplicada aos resíduos.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.85\textwidth]{real_rl.png}
+\caption{Série temporal do Porto de Santos (2005--2022) e ajuste das 12 regressões lineares de \citeonline{santos2023porto}.}
+\label{fig:real-rl}
+\end{figure}
 
 \begin{table}[htb]
 \centering
@@ -349,6 +364,22 @@ Jarque-Bera           & $JB = 7{,}11$        & $0{,}0285$                 & Reje
 O modelo viola, de forma robusta e estatisticamente decisiva, duas condições de Gauss-Markov: \textbf{independência} (Durbin-Watson e Ljung-Box convergem) e \textbf{homocedasticidade} (Breusch-Pagan, $p = 1{,}30 \times 10^{-5}$). Isso significa que o estimador OLS sequer é BLUE (\textit{Best Linear Unbiased Estimator}) para esses dados, independentemente da questão de normalidade.
 
 Quanto à normalidade, há divergência entre os testes: Shapiro-Wilk não rejeita ($p = 0{,}051$, na fronteira), enquanto Jarque-Bera rejeita ($p = 0{,}0285$). Essa divergência é reportada tal como observada, sem escolher o teste que produz a resposta mais conveniente --- o que seria, em si, um exemplo de desonestidade no sentido definido nesta pesquisa.
+
+A Figura~\ref{fig:diag-rl} apresenta o painel diagnóstico dos resíduos, e a Figura~\ref{fig:resid-rl} exibe o correlograma dos resíduos agregados, evidenciando o padrão de autocorrelação serial.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.85\textwidth]{diag_rl.png}
+\caption{Painel diagnóstico dos resíduos da regressão linear de \citeonline{santos2023porto}.}
+\label{fig:diag-rl}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.7\textwidth]{resid_rl.png}
+\caption{Correlograma (ACF) dos resíduos agregados da regressão linear.}
+\label{fig:resid-rl}
+\end{figure}
 
 % ============================================================
 \section{Modelos de Previsão: Diagnóstico Comparado}
@@ -377,12 +408,33 @@ PWFTS ($\Delta_{12}y$, ordem 3) & 0,61 & 0,75 & 0,28 & 0,33 & Passa \\
 Dois resultados merecem destaque:
 
 \begin{enumerate}
-    \item O \textbf{Holt-Winters multiplicativo}, apesar de produzir ajuste visualmente atraente, falha catastroficamente no Ljung-Box em todas as defasagens. Isso demonstra que a distinção honesto/desonesto não coincide com a distinção clássico/fuzzy: um modelo clássico pode ser tão axiomaticamente desonesto quanto a regressão de Santos et al., e outro modelo clássico (HW aditivo) pode ser honesto.
+    \item O \textbf{Holt-Winters multiplicativo}, apesar de produzir ajuste visualmente atraente, falha catastroficamente no Ljung-Box em todas as defasagens. Isso demonstra que a distinção honesto/desonesto não coincide com a distinção clássico/fuzzy: um modelo clássico pode ser tão axiomaticamente desonesto quanto a regressão de Santos et al., e outro modelo clássico (HW aditivo) pode ser honesto. A Figura~\ref{fig:hw} apresenta as previsões do Holt-Winters Aditivo.
 
-    \item O \textbf{Chen FTS sobre $\Delta y$} (diferença simples) passa no lag 1 ($p = 0{,}36$), mas falha nos lags sazonais (6, 12, 24). Esse resultado é consistente com o fato de que o domínio original de \citeonline{chen1996forecasting} --- matrículas universitárias --- não apresenta sazonalidade; a diferença simples remove tendência, mas não sazonalidade. A falha nos lags sazonais é uma falha de \textit{escopo de aplicação}, não de desonestidade --- o modelo não afirmou capturar sazonalidade.
+    \item O \textbf{Chen FTS sobre $\Delta y$} (diferença simples) passa no lag 1 ($p = 0{,}36$), mas falha nos lags sazonais (6, 12, 24). Esse resultado é consistente com o fato de que o domínio original de \citeonline{chen1996forecasting} --- matrículas universitárias --- não apresenta sazonalidade; a diferença simples remove tendência, mas não sazonalidade. A falha nos lags sazonais é uma falha de \textit{escopo de aplicação}, não de desonestidade --- o modelo não afirmou capturar sazonalidade. A Figura~\ref{fig:chen} apresenta as previsões do modelo de Chen.
 
-    \item O \textbf{PWFTS sobre $\Delta_{12}y$} (diferença sazonal, ordem 3) é o modelo que passa limpo em todas as defasagens testadas, representando o caso mais forte de adequação residual dentre os modelos fuzzy avaliados.
+    \item O \textbf{PWFTS sobre $\Delta_{12}y$} (diferença sazonal, ordem 3) é o modelo que passa limpo em todas as defasagens testadas, representando o caso mais forte de adequação residual dentre os modelos fuzzy avaliados. A Figura~\ref{fig:pwfts} apresenta as previsões do PWFTS comparadas ao Sazonal Naïve.
 \end{enumerate}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.85\textwidth]{HW1.png}
+\caption{Previsão Holt-Winters Aditivo (modelo que passa nos testes diagnósticos).}
+\label{fig:hw}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.85\textwidth]{Chen_SW.png}
+\caption{Previsão do modelo Chen FTS sobre $\Delta y$ (\textit{sliding window}).}
+\label{fig:chen}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.85\textwidth]{PWFTS_SNAD.png}
+\caption{Previsão PWFTS ($\Delta_{12}y$, ordem 3) comparada ao Sazonal Naïve.}
+\label{fig:pwfts}
+\end{figure}
 
 A Tabela~\ref{tab:accuracy} apresenta as métricas de acurácia \textit{out-of-sample} dos modelos de previsão avaliados.
 
@@ -521,5 +573,28 @@ Na apresentação deste trabalho no I Congresso Brasileiro de Filosofia da Ciên
 \postextual
 
 \bibliography{referencias}
+
+\begin{anexosenv}
+    \partanexos
+    \chapter{Certificado de Comunicador --- I CBFC}
+    \label{an:comunicador}
+    Certificado de apresentação de comunicação oral no I Congresso Brasileiro de Filosofia da Ciência (CBFC), 2025.
+
+    \begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../I Congresso Brasileiro de Filosofia da Ciência - Certificado de Gabriel Gomes - COMUNICADOR.pdf}
+    \caption{Certificado de Comunicador --- I CBFC (2025).}
+    \end{figure}
+
+    \chapter{Certificado de Ouvinte --- I CBFC}
+    \label{an:ouvinte}
+    Certificado de participação como ouvinte no I Congresso Brasileiro de Filosofia da Ciência (CBFC), 2025.
+
+    \begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../I Congresso Brasileiro de Filosofia da Ciência - Certificado de Gabriel Gomes - OUVINTE.pdf}
+    \caption{Certificado de Ouvinte --- I CBFC (2025).}
+    \end{figure}
+\end{anexosenv}
 
 \end{document}
